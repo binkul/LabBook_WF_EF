@@ -1,18 +1,22 @@
-﻿using System;
+﻿using LabBook_WF_EF.EntityModels;
+using LabBook_WF_EF.Security;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LabBook_WF_EF.Forms.Login
 {
     public partial class LoginForm : Form
     {
+        private readonly string _loginPath = @"\Data\login.txt";
+        private List<string> _logins;
+        public User User { get; private set; } = new User();
+
+
         public LoginForm()
         {
             InitializeComponent();
@@ -20,15 +24,15 @@ namespace LabBook_WF_EF.Forms.Login
 
         private void PanelBlack_Paint(object sender, PaintEventArgs e)
         {
-            int radius = 20;
+            int radius = 60;
 
             Rectangle corner = new Rectangle(0, 0, radius, radius);
             GraphicsPath path = new GraphicsPath();
-            path.AddArc(corner, 180, 90);
+            path.AddLine(0, 0, 0, 0); // path.AddArc(corner, 180, 90);
             corner.X = PanelBlack.Width - 2 - radius;
             path.AddArc(corner, 270, 90);
             corner.Y = PanelBlack.Height - 5 - radius;
-            path.AddArc(corner, 0, 90);
+            path.AddLine(PanelBlack.Width - 2, PanelBlack.Height - 5, radius, PanelBlack.Height - 5); // path.AddArc(corner, 0, 90);
             corner.X = 0;
             path.AddArc(corner, 90, 90);
             path.CloseFigure();
@@ -48,6 +52,91 @@ namespace LabBook_WF_EF.Forms.Login
 
             y_pos = BtnSubmit.Top + BtnSubmit.Height + 20;
             e.Graphics.DrawLine(linePen, new Point(x_pos, y_pos), new Point(x_pos + TxtPassword.Width, y_pos));
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+            _logins = GetLogins();
+            CmbLogin.DataSource = _logins;
+        }
+
+        private List<string> GetLogins()
+        {
+            List<string> logins = new List<string>();
+            if (File.Exists(Environment.CurrentDirectory + _loginPath))
+            {
+                StreamReader file = new StreamReader(Environment.CurrentDirectory + _loginPath);
+                string line;
+                while ((line = file.ReadLine()) != null)
+                {
+                    logins.Add(line);
+                }
+                file.Close();
+            }
+            return logins;
+        }
+
+        private void SaveLogins()
+        {
+            string login = CmbLogin.Text;
+            string file = Environment.CurrentDirectory + _loginPath;
+
+            _logins.Sort();
+            _logins.Remove(login);
+            if (!_logins.Contains(login))
+            {
+                _logins.Insert(0, login);
+            }
+
+            if (!Directory.Exists(Path.GetDirectoryName(file)))
+                Directory.CreateDirectory(Path.GetDirectoryName(file));
+
+            File.WriteAllLines(Environment.CurrentDirectory + _loginPath, _logins);
+        }
+
+        private void BtnSubmit_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(CmbLogin.Text) || string.IsNullOrEmpty(TxtPassword.Text))
+            {
+                MessageBox.Show("Pole 'Login' i 'Hasło' nie mogą byc puste.", "Błąd logowania", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string password = Encrypt.MD5Encrypt(TxtPassword.Text);
+            LabBookContext contex = new LabBookContext();
+            User user = contex.Users
+                .Where(x => x.Login.Equals(CmbLogin.Text))
+                .Where(x => x.Password.Equals(password))
+                .FirstOrDefault();
+
+
+            if (user == null)
+            {
+                _ = MessageBox.Show("Nieprawidłowy login lub hasło. Spróbuj ponownie",
+                    "Błąd logowania", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if ((bool)user.Active)
+            {
+                user.Password = "";
+                User = user;
+
+//                QualityForm qualityForm = new QualityForm(user);
+//                this.Hide();
+//                qualityForm.Show();
+            }
+            else
+            {
+                _ = MessageBox.Show("Użytkownik: '" + user.Login + "' jest jeszcze nieaktywny. Skontaktuj się z administratorem.",
+                    "Brak uprawnień", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+
+            SaveLogins();
+        }
+
+        private void BtnRegister_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
