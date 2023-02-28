@@ -1,4 +1,6 @@
-﻿using LabBook_WF_EF.EntityModels;
+﻿using LabBook_WF_EF.Dto;
+using LabBook_WF_EF.EntityModels;
+using LabBook_WF_EF.Forms.Register;
 using LabBook_WF_EF.Security;
 using System;
 using System.Collections.Generic;
@@ -13,8 +15,9 @@ namespace LabBook_WF_EF.Forms.Login
     public partial class LoginForm : Form
     {
         private readonly string _loginPath = @"\Data\login.txt";
+        private LabBookContext _contex = new LabBookContext();
         private List<string> _logins;
-        public User User { get; private set; } = new User();
+        public UserDto UserDto;
 
 
         public LoginForm()
@@ -103,12 +106,12 @@ namespace LabBook_WF_EF.Forms.Login
             }
 
             string password = Encrypt.MD5Encrypt(TxtPassword.Text);
-            LabBookContext contex = new LabBookContext();
-            User user = contex.Users
+            User user = _contex.Users
                 .Where(x => x.Login.Equals(CmbLogin.Text))
                 .Where(x => x.Password.Equals(password))
                 .FirstOrDefault();
 
+            _contex.Entry(user).Reload();
 
             if (user == null)
             {
@@ -117,8 +120,7 @@ namespace LabBook_WF_EF.Forms.Login
             }
             else if ((bool)user.Active)
             {
-                user.Password = "";
-                User = user;
+                UserDto = new UserDto(user.Id, user.Login, user.Permission, user.Identifier, (bool)user.Active);
 
 //                QualityForm qualityForm = new QualityForm(user);
 //                this.Hide();
@@ -136,7 +138,11 @@ namespace LabBook_WF_EF.Forms.Login
 
         private void BtnRegister_Click(object sender, EventArgs e)
         {
-
+            using (RegisterForm register = new RegisterForm(this, _contex))
+            {
+                this.Hide();
+                register.ShowDialog();
+            }
         }
     }
 }
