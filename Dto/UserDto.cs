@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LabBook_WF_EF.Dto
 {
@@ -22,6 +18,8 @@ namespace LabBook_WF_EF.Dto
             Identifier = identifier;
             Active = active;
         }
+
+        public UserDto() { }
 
         public override bool Equals(object obj)
         {

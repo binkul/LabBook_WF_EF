@@ -106,21 +106,20 @@ namespace LabBook_WF_EF.Forms.Login
             }
 
             string password = Encrypt.MD5Encrypt(TxtPassword.Text);
-            User user = _contex.Users
-                .Where(x => x.Login.Equals(CmbLogin.Text))
-                .Where(x => x.Password.Equals(password))
-                .FirstOrDefault();
+            List<UserDto> user = _contex.Users
+                       .Where(c => c.Login.Equals(CmbLogin.Text))
+                       .Where(c => c.Password.Equals(password))
+                       .Select(c => new UserDto(c.Id, c.Login, c.Permission, c.Identifier, (bool)c.Active))
+                       .ToList();
 
-            _contex.Entry(user).Reload();
-
-            if (user == null)
+            if (user.Count() == 0)
             {
                 _ = MessageBox.Show("Nieprawidłowy login lub hasło. Spróbuj ponownie",
                     "Błąd logowania", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else if ((bool)user.Active)
+            else if (user[0].Active)
             {
-                UserDto = new UserDto(user.Id, user.Login, user.Permission, user.Identifier, (bool)user.Active);
+                UserDto = user.First();
 
 //                QualityForm qualityForm = new QualityForm(user);
 //                this.Hide();
@@ -128,7 +127,7 @@ namespace LabBook_WF_EF.Forms.Login
             }
             else
             {
-                _ = MessageBox.Show("Użytkownik: '" + user.Login + "' jest jeszcze nieaktywny. Skontaktuj się z administratorem.",
+                _ = MessageBox.Show("Użytkownik: '" + CmbLogin.Text + "' jest jeszcze nieaktywny. Skontaktuj się z administratorem.",
                     "Brak uprawnień", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
