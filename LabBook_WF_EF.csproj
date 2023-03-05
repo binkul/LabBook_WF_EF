@@ -162,6 +162,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commons\CommonFunctions.cs" />
     <Compile Include="ConfigData.cs" />
     <Compile Include="Dto\UserDto.cs" />
     <Compile Include="EntityModels\CmbClpDataSheets.cs" />
@@ -210,6 +211,12 @@
     <Compile Include="EntityModels\QualityControlData.cs" />
     <Compile Include="EntityModels\QualityControlFields.cs" />
     <Compile Include="EntityModels\User.cs" />
+    <Compile Include="Forms\LabBook\LabBookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LabBook\LabBookForm.Designer.cs">
+      <DependentUpon>LabBookForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Login\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -225,6 +232,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Encrypt.cs" />
+    <Compile Include="Service\LabBookService.cs" />
+    <EmbeddedResource Include="Forms\LabBook\LabBookForm.resx">
+      <DependentUpon>LabBookForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

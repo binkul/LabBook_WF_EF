@@ -1,5 +1,6 @@
 ﻿using LabBook_WF_EF.Dto;
 using LabBook_WF_EF.EntityModels;
+using LabBook_WF_EF.Forms.LabBook;
 using LabBook_WF_EF.Forms.Register;
 using LabBook_WF_EF.Security;
 using System;
@@ -17,7 +18,6 @@ namespace LabBook_WF_EF.Forms.Login
         private readonly string _loginPath = @"\Data\login.txt";
         private LabBookContext _contex = new LabBookContext();
         private List<string> _logins;
-        public UserDto UserDto;
 
 
         public LoginForm()
@@ -61,6 +61,14 @@ namespace LabBook_WF_EF.Forms.Login
         {
             _logins = GetLogins();
             CmbLogin.DataSource = _logins;
+
+            BtnSubmit.FlatStyle = FlatStyle.Flat;
+            BtnSubmit.FlatAppearance.BorderSize = 0;
+            BtnSubmit.FlatAppearance.BorderColor = Color.FromArgb(255, 84, 93, 106);
+
+            BtnRegister.FlatStyle = FlatStyle.Flat;
+            BtnRegister.FlatAppearance.BorderSize = 0;
+            BtnRegister.FlatAppearance.BorderColor = Color.FromArgb(255, 68, 106, 211);
         }
 
         private List<string> GetLogins()
@@ -119,11 +127,9 @@ namespace LabBook_WF_EF.Forms.Login
             }
             else if (user[0].Active)
             {
-                UserDto = user.First();
-
-//                QualityForm qualityForm = new QualityForm(user);
-//                this.Hide();
-//                qualityForm.Show();
+                LabBookForm qualityForm = new LabBookForm(user[0]);
+                this.Hide();
+                qualityForm.Show();
             }
             else
             {

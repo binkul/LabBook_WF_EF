@@ -22,6 +22,13 @@ namespace LabBook_WF_EF.Forms.Register
             InitializeComponent();
         }
 
+        private void RegisterForm_Load(object sender, EventArgs e)
+        {
+            BtnRegister.FlatStyle = FlatStyle.Flat;
+            BtnRegister.FlatAppearance.BorderSize = 0;
+            BtnRegister.FlatAppearance.BorderColor = Color.FromArgb(255, 84, 93, 106);
+        }
+
         private void PanelBlack_Paint(object sender, PaintEventArgs e)
         {
             int radius = 60;

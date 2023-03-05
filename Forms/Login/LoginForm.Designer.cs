@@ -72,6 +72,7 @@ namespace LabBook_WF_EF.Forms.Login
             // BtnRegister
             // 
             this.BtnRegister.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(106)))), ((int)(((byte)(211)))));
+            this.BtnRegister.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(106)))), ((int)(((byte)(211)))));
             this.BtnRegister.FlatAppearance.BorderSize = 0;
             this.BtnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnRegister.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -87,6 +88,7 @@ namespace LabBook_WF_EF.Forms.Login
             // BtnSubmit
             // 
             this.BtnSubmit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(93)))), ((int)(((byte)(106)))));
+            this.BtnSubmit.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(93)))), ((int)(((byte)(106)))));
             this.BtnSubmit.FlatAppearance.BorderSize = 0;
             this.BtnSubmit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSubmit.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -143,6 +145,7 @@ namespace LabBook_WF_EF.Forms.Login
             // 
             // LoginForm
             // 
+            this.AcceptButton = this.BtnSubmit;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(197)))), ((int)(((byte)(130)))));
