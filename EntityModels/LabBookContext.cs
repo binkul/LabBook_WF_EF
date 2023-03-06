@@ -824,6 +824,12 @@ namespace LabBook_WF_EF.EntityModels
                     .HasDefaultValueSql("('Pusty')");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity
+                .HasOne(d => d.User)
+                .WithMany(p => p.ExpLabBook)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<ExpSpectro>(entity =>

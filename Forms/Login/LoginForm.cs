@@ -127,7 +127,7 @@ namespace LabBook_WF_EF.Forms.Login
             }
             else if (user[0].Active)
             {
-                LabBookForm qualityForm = new LabBookForm(user[0]);
+                LabBookForm qualityForm = new LabBookForm(user[0], _contex);
                 this.Hide();
                 qualityForm.Show();
             }

@@ -1,4 +1,5 @@
 ﻿using LabBook_WF_EF.Dto;
+using LabBook_WF_EF.EntityModels;
 using LabBook_WF_EF.Service;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,13 @@ namespace LabBook_WF_EF.Forms.LabBook
     {
         private readonly LabBookService _service;
         private readonly UserDto _user;
+        private readonly LabBookContext _context;
 
-        public LabBookForm(UserDto user)
+        public LabBookForm(UserDto user, LabBookContext context)
         {
             InitializeComponent();
             _user = user;
+            _context = context;
             _service = new LabBookService(this);
         }
 
@@ -39,6 +42,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             {
                 _service.SaveFormData(this);
                 FormClosing -= LabBookForm_FormClosing;
+                _context.Dispose();
                 Application.Exit();
             }
         }

@@ -19,5 +19,7 @@ namespace LabBook_WF_EF.EntityModels
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
         public bool? Deleted { get; set; }
+
+        public virtual User User { get; set; }
     }
 }
