@@ -59,16 +59,58 @@ namespace LabBook_WF_EF.Forms.Login
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-            _logins = GetLogins();
-            CmbLogin.DataSource = _logins;
+            if (CheckProgram())
+            {
+                _logins = GetLogins();
+                CmbLogin.DataSource = _logins;
 
-            BtnSubmit.FlatStyle = FlatStyle.Flat;
-            BtnSubmit.FlatAppearance.BorderSize = 0;
-            BtnSubmit.FlatAppearance.BorderColor = Color.FromArgb(255, 84, 93, 106);
+                BtnSubmit.FlatStyle = FlatStyle.Flat;
+                BtnSubmit.FlatAppearance.BorderSize = 0;
+                BtnSubmit.FlatAppearance.BorderColor = Color.FromArgb(255, 84, 93, 106);
 
-            BtnRegister.FlatStyle = FlatStyle.Flat;
-            BtnRegister.FlatAppearance.BorderSize = 0;
-            BtnRegister.FlatAppearance.BorderColor = Color.FromArgb(255, 68, 106, 211);
+                BtnRegister.FlatStyle = FlatStyle.Flat;
+                BtnRegister.FlatAppearance.BorderSize = 0;
+                BtnRegister.FlatAppearance.BorderColor = Color.FromArgb(255, 68, 106, 211);
+            }
+            else
+            {
+                _contex.Dispose();
+                Application.Exit();
+            }
+        }
+
+        private bool CheckProgram()
+        {
+            string password = Encrypt.MD5Encrypt("Jacek Binkul"); //3ef179d05525f4d84835b2703639e6af
+            ProgramData programData = _contex.ProgramData
+                .Where(x => x.ColumnTwo.Equals("dates"))
+                .Where(x => x.ColumnThree.Equals(password))
+                .FirstOrDefault();
+
+            if (programData == null)
+            {
+                MessageBox.Show("Działanie aplikacji wstrzymane. Wykryto wcześniejsze uruchamianie po utracie daty ważności. Należy uzupełnić dane rozruchowe.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
+            DateTime dateNow = DateTime.Today;
+            int dateCompare = DateTime.Compare(dateNow, programData.Date);
+            if (dateCompare < 0)
+            {
+                return true;
+            }
+            else if (dateCompare == 0)
+            {
+                MessageBox.Show("Dziś jest ostatni dzień działania aplikacji. Przedłuż ważność programu.", "Błąd wczytania", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return true;
+            }
+            else
+            {
+                MessageBox.Show("Upłynęła data ważności oprogramowania. Przedłuż ważność programu.", "Błąd wczytania", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                programData.ColumnThree = "";
+                _contex.SaveChanges();
+                return false;
+            }
         }
 
         private List<string> GetLogins()

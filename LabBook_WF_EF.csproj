@@ -208,6 +208,7 @@
     <Compile Include="EntityModels\Product.cs" />
     <Compile Include="EntityModels\ProductBrand.cs" />
     <Compile Include="EntityModels\ProductBuyer.cs" />
+    <Compile Include="EntityModels\ProgramData.cs" />
     <Compile Include="EntityModels\QualityControl.cs" />
     <Compile Include="EntityModels\QualityControlData.cs" />
     <Compile Include="EntityModels\QualityControlFields.cs" />

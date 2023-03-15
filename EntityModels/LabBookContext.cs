@@ -60,6 +60,7 @@ namespace LabBook_WF_EF.EntityModels
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<ProductBrand> ProductBrand { get; set; }
         public virtual DbSet<ProductBuyer> ProductBuyer { get; set; }
+        public virtual DbSet<ProgramData> ProgramData { get; set; }
         public virtual DbSet<QualityControl> QualityControl { get; set; }
         public virtual DbSet<QualityControlData> QualityControlData { get; set; }
         public virtual DbSet<QualityControlFields> QualityControlFields { get; set; }
@@ -1440,6 +1441,32 @@ namespace LabBook_WF_EF.EntityModels
                     .IsRequired()
                     .HasColumnName("name")
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<ProgramData>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Date)
+                    .IsRequired()
+                    .HasColumnName("date")
+                    .HasColumnType("date");
+
+                entity.Property(e => e.ColumnTwo)
+                    .HasColumnName("column_2")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.ColumnThree)
+                    .HasColumnName("column_3")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.ColumnFour)
+                    .HasColumnName("column_4")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.ColumnFive)
+                    .HasColumnName("column_5")
+                    .HasColumnType("float");
             });
 
             modelBuilder.Entity<QualityControl>(entity =>
