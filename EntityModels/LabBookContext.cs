@@ -792,9 +792,17 @@ namespace LabBook_WF_EF.EntityModels
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
 
+                entity.Property(e => e.UserId)
+                    .HasColumnName("user_id")
+                    .HasDefaultValue("((1))");
+
                 entity.Property(e => e.CycleId)
                     .HasColumnName("cycle_id")
                     .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.ProjectId)
+                    .HasColumnName("project_id")
+                    .HasDefaultValue("((1))");
 
                 entity.Property(e => e.Deleted)
                     .IsRequired()
@@ -824,7 +832,6 @@ namespace LabBook_WF_EF.EntityModels
                     .HasMaxLength(200)
                     .HasDefaultValueSql("('Pusty')");
 
-                entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity
                 .HasOne(d => d.User)

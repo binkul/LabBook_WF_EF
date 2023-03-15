@@ -15,7 +15,8 @@ namespace LabBook_WF_EF.EntityModels
         public string Observation { get; set; }
         public string Remarks { get; set; }
         public long UserId { get; set; }
-        public long? CycleId { get; set; }
+        public long CycleId { get; set; }
+        public long ProjectId { get; set; }
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
         public bool? Deleted { get; set; }
