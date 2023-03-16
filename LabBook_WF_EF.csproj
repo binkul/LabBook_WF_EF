@@ -277,6 +277,30 @@
   <ItemGroup>
     <None Include="Resources\Ok-icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_new1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_new2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_new3.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Microsoft.Data.SqlClient.SNI.1.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('packages\Microsoft.Data.SqlClient.SNI.1.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

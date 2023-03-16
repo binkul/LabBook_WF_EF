@@ -1,4 +1,5 @@
-﻿using LabBook_WF_EF.EntityModels;
+﻿using Microsoft.EntityFrameworkCore;
+using LabBook_WF_EF.EntityModels;
 using LabBook_WF_EF.Forms.Login;
 using LabBook_WF_EF.Security;
 using System;
@@ -7,6 +8,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
+using System.Text;
 
 namespace LabBook_WF_EF.Forms.Register
 {
@@ -62,22 +64,23 @@ namespace LabBook_WF_EF.Forms.Register
         {
             if (CheckEmtpyFields() && CheckPasswordAndRepeat() && ExistUser())
             {
-                User user = new User
-                {
-                    Name = TxtName.Text,
-                    Surname = TxtSurname.Text,
-                    EMail = TxtEmail.Text,
-                    Login = TxtLogin.Text,
-                    Password = Encrypt.MD5Encrypt(TxtPassword.Text),
-                    Permission = "user",
-                    Identifier = TxtName.Text.ToUpper().Substring(0, 1) + TxtSurname.Text.ToUpper().Substring(0, 1),
-                    Active = false,
-                    Date = DateTime.Today
-                };
+                string password = Encrypt.MD5Encrypt(TxtPassword.Text);
 
-                _ = _context.Users.Add(user);
-                _ = _context.SaveChanges();
+                StringBuilder query = new StringBuilder("Insert Into LabBook.dbo.Users(name, surname, e_mail, login, password, permission, identifier, active) Values('");
+                query.Append(TxtName.Text);
+                query.Append("', '");
+                query.Append(TxtSurname.Text);
+                query.Append("', '");
+                query.Append(TxtEmail.Text);
+                query.Append("', '");
+                query.Append(TxtLogin.Text);
+                query.Append("', '");
+                query.Append(password);
+                query.Append("', 'user', '");
+                query.Append(TxtName.Text.ToUpper().Substring(0, 1) + TxtSurname.Text.ToUpper().Substring(0, 1));
+                query.Append("', 'false')");
 
+                _context.Database.ExecuteSqlRaw(query.ToString());
                 Close();
             }
 

@@ -1,4 +1,5 @@
-﻿using LabBook_WF_EF.Dto;
+﻿using Microsoft.EntityFrameworkCore;
+using LabBook_WF_EF.Dto;
 using LabBook_WF_EF.EntityModels;
 using LabBook_WF_EF.Forms.LabBook;
 using LabBook_WF_EF.Forms.Register;
@@ -156,9 +157,9 @@ namespace LabBook_WF_EF.Forms.Login
             }
 
             string password = Encrypt.MD5Encrypt(TxtPassword.Text);
+            string query = "Select * From LabBook.dbo.Users Where login='" + CmbLogin.Text + "' and password='" + password + "'";
             List<UserDto> user = _contex.Users
-                       .Where(c => c.Login.Equals(CmbLogin.Text))
-                       .Where(c => c.Password.Equals(password))
+                       .FromSqlRaw(query)
                        .Select(c => new UserDto(c.Id, c.Login, c.Permission, c.Identifier, (bool)c.Active))
                        .ToList();
 

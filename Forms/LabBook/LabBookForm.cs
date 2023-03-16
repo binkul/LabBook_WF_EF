@@ -24,8 +24,10 @@ namespace LabBook_WF_EF.Forms.LabBook
             InitializeComponent();
             _user = user;
             _context = context;
-            _service = new LabBookService(this);
+            _service = new LabBookService(this, context, user);
         }
+
+        public DataGridView GetDgvLabBook => DgvLabBook;
 
 
         #region Form Open/Load/Closing
@@ -34,6 +36,9 @@ namespace LabBook_WF_EF.Forms.LabBook
         {
 
             _service.LoadFormData(this);
+            _service.PrepareData();
+            BindingNavigatorMain.BindingSource = _service.GetLabBookBinding;
+            DgvLabBook.Rows[0].Cells[1].Selected = true;
         }
 
         private void LabBookForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -48,5 +53,10 @@ namespace LabBook_WF_EF.Forms.LabBook
         }
 
         #endregion
+
+        private void ToolStripSave_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

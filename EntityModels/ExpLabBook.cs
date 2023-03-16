@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LabBook_WF_EF.Commons;
+using System;
 using System.Collections.Generic;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
@@ -22,5 +23,6 @@ namespace LabBook_WF_EF.EntityModels
         public bool? Deleted { get; set; }
 
         public virtual User User { get; set; }
+        public virtual ObservableListSource<ExpViscosity> ExpViscosity { get; set; }
     }
 }

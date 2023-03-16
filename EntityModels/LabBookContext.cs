@@ -794,7 +794,7 @@ namespace LabBook_WF_EF.EntityModels
 
                 entity.Property(e => e.UserId)
                     .HasColumnName("user_id")
-                    .HasDefaultValue("((1))");
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.CycleId)
                     .HasColumnName("cycle_id")
@@ -802,7 +802,7 @@ namespace LabBook_WF_EF.EntityModels
 
                 entity.Property(e => e.ProjectId)
                     .HasColumnName("project_id")
-                    .HasDefaultValue("((1))");
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Deleted)
                     .IsRequired()
@@ -1011,7 +1011,8 @@ namespace LabBook_WF_EF.EntityModels
                     .HasColumnName("krebs_comment")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.LabbookId).HasColumnName("labbook_id");
+                entity.Property(e => e.LabbookId)
+                    .HasColumnName("labbook_id");
 
                 entity.Property(e => e.PH)
                     .HasColumnName("pH")
@@ -1026,6 +1027,13 @@ namespace LabBook_WF_EF.EntityModels
                     .HasColumnName("vis_type")
                     .HasMaxLength(50)
                     .HasDefaultValueSql("(N'brookfield')");
+
+                entity
+                    .HasOne(d => d.ExpLabBook)
+                    .WithMany(p => p.ExpViscosity)
+                    .HasForeignKey(d => d.LabbookId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
             });
 
             modelBuilder.Entity<Material>(entity =>
@@ -1763,11 +1771,6 @@ namespace LabBook_WF_EF.EntityModels
                     .HasColumnName("active")
                     .HasDefaultValueSql("('true')");
 
-                entity.Property(e => e.Date)
-                    .HasColumnName("date")
-                    .HasColumnType("date")
-                    .HasDefaultValueSql("(getdate())");
-
                 entity.Property(e => e.EMail)
                     .IsRequired()
                     .HasColumnName("e_mail")
@@ -1787,11 +1790,6 @@ namespace LabBook_WF_EF.EntityModels
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnName("name")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasColumnName("password")
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Permission)

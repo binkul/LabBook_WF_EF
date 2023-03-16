@@ -14,11 +14,9 @@ namespace LabBook_WF_EF.EntityModels
         public string Surname { get; set; }
         public string EMail { get; set; }
         public string Login { get; set; }
-        public string Password { get; set; }
         public string Permission { get; set; }
         public string Identifier { get; set; }
         public bool? Active { get; set; }
-        public DateTime Date { get; set; }
 
         public virtual ObservableListSource<ExpLabBook> ExpLabBook { get; set; }
     }

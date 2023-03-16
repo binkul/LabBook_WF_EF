@@ -38,5 +38,7 @@ namespace LabBook_WF_EF.EntityModels
         public string IciDisc { get; set; }
         public string IciComment { get; set; }
         public string Temp { get; set; }
+
+        public virtual ExpLabBook ExpLabBook { get; set; }
     }
 }
