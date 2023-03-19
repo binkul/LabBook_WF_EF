@@ -63,6 +63,16 @@ namespace LabBook_WF_EF.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _lock {
+            get {
+                object obj = ResourceManager.GetObject("lock", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Add_new3 {
             get {
                 object obj = ResourceManager.GetObject("Add_new3", resourceCulture);
@@ -77,6 +87,16 @@ namespace LabBook_WF_EF.Properties {
             get {
                 object obj = ResourceManager.GetObject("Ok_icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Ok_icon1 {
+            get {
+                object obj = ResourceManager.GetObject("Ok_icon1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

@@ -1,6 +1,7 @@
 ﻿using LabBook_WF_EF.Commons;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
@@ -12,7 +13,7 @@ namespace LabBook_WF_EF.EntityModels
     {
         public long Id { get; set; }
         public string Title { get; set; }
-        public decimal Density { get; set; }
+        public double? Density { get; set; }
         public string Observation { get; set; }
         public string Remarks { get; set; }
         public long UserId { get; set; }

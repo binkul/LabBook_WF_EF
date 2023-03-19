@@ -18,6 +18,8 @@ namespace LabBook_WF_EF.Forms.LabBook
         private readonly LabBookService _service;
         private readonly UserDto _user;
         private readonly LabBookContext _context;
+        public bool isAdmin => _user.Permission.ToLower().Equals("admin");
+
 
         public LabBookForm(UserDto user, LabBookContext context)
         {
@@ -34,6 +36,10 @@ namespace LabBook_WF_EF.Forms.LabBook
 
         private void LabBookForm_Load(object sender, EventArgs e)
         {
+            if (!isAdmin)
+            {
+                DgvLabBook.RowPostPaint += DgvLabBook_RowPostPaint;
+            }
 
             _service.LoadFormData(this);
             _service.PrepareData();
@@ -57,6 +63,11 @@ namespace LabBook_WF_EF.Forms.LabBook
         private void ToolStripSave_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void DgvLabBook_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            _service.IconInCellPainting(e);
         }
     }
 }

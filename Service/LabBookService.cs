@@ -2,6 +2,7 @@
 using LabBook_WF_EF.Dto;
 using LabBook_WF_EF.EntityModels;
 using LabBook_WF_EF.Forms.LabBook;
+using LabBook_WF_EF.Properties;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Data;
@@ -14,6 +15,11 @@ namespace LabBook_WF_EF.Service
     public class LabBookService
     {
         private static readonly string dataFormFileName = "LabBookForm";
+        private static readonly Image noImg = Resources._lock;
+        private static readonly Image img = Resources.Ok_icon1;
+        private static readonly Image noAccess = noImg.GetThumbnailImage(18, 18, null, System.IntPtr.Zero);
+        private static readonly Image access = img.GetThumbnailImage(18, 18, null, System.IntPtr.Zero);
+        private static readonly SolidBrush redBrush = new SolidBrush(Color.Red);
 
         private readonly LabBookForm _form;
         private readonly LabBookContext _context;
@@ -47,28 +53,42 @@ namespace LabBook_WF_EF.Service
             DataGridView view = _form.GetDgvLabBook;
             view.DataSource = _labBookBinding;
             view.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            view.RowsDefaultCellStyle.Font = new Font(view.DefaultCellStyle.Font.Name, 9, FontStyle.Regular);
-            view.ColumnHeadersDefaultCellStyle.Font = new Font(view.DefaultCellStyle.Font.Name, 9, FontStyle.Bold);
+            view.RowsDefaultCellStyle.Font = new Font(view.DefaultCellStyle.Font.Name, 10, FontStyle.Regular);
+            view.ColumnHeadersDefaultCellStyle.Font = new Font(view.DefaultCellStyle.Font.Name, 11, FontStyle.Bold);
             view.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
             view.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            view.RowHeadersWidth = 35;
+            view.RowHeadersWidth = _form.isAdmin ? 35 : 40;
             view.DefaultCellStyle.ForeColor = Color.Black;
             view.MultiSelect = false;
-            view.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            view.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             view.AutoGenerateColumns = false;
 
-            view.Columns["Id"].Visible = false;
             view.Columns["UserId"].Visible = false;
             view.Columns["CycleId"].Visible = false;
             view.Columns["ProjectId"].Visible = false;
             view.Columns["Deleted"].Visible = false;
             view.Columns["User"].Visible = false;
+            view.Columns.Remove("Observation");
+            view.Columns.Remove("Remarks");
+
+            view.Columns["Id"].HeaderText = "Nr D";
+            view.Columns["Id"].ReadOnly = true;
+            view.Columns["Id"].DisplayIndex = 1;
+            view.Columns["Id"].Width = 70;
+            view.Columns["Id"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             view.Columns["Title"].HeaderText = "Tytuł";
             view.Columns["Title"].ReadOnly = true;
-            view.Columns["Title"].DisplayIndex = 0;
+            view.Columns["Title"].DisplayIndex = 2;
             view.Columns["Title"].SortMode = DataGridViewColumnSortMode.NotSortable;
             view.Columns["Title"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            view.Columns["Density"].HeaderText = "Gęstość";
+            view.Columns["Density"].DisplayIndex = 3;
+            view.Columns["Density"].Width = 90;
+            view.Columns["Density"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            view.Columns["Density"].SortMode = DataGridViewColumnSortMode.NotSortable;
+
 
         }
 
@@ -76,10 +96,29 @@ namespace LabBook_WF_EF.Service
         {
             var list = _context.ExpLabBook
                 .Include(x => x.ExpViscosity)
+                .Include(x => x.User)
                 .OrderBy(x => x.Id)
                 .ToList();
 
             return new ObservableListSource<ExpLabBook>(list);
+        }
+
+        #endregion
+
+        #region Painting
+
+        public void IconInCellPainting(DataGridViewRowPostPaintEventArgs e)
+        {
+            int start = e.RowBounds.Left + 25;
+            int width = 4;
+            User user = (User)_form.GetDgvLabBook.Rows[e.RowIndex].Cells["User"].Value;
+            if (_user.Id != user.Id)
+            {
+                Rectangle rectangleTop = new Rectangle(start, e.RowBounds.Top + 4, width, e.RowBounds.Height - 14);
+                Rectangle rectangleBottom = new Rectangle(start, e.RowBounds.Top + e.RowBounds.Height - 8, width, 4);
+                e.Graphics.FillRectangle(redBrush, rectangleTop);
+                e.Graphics.FillRectangle(redBrush, rectangleBottom);
+            }
         }
 
         #endregion

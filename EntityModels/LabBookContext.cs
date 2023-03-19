@@ -811,7 +811,7 @@ namespace LabBook_WF_EF.EntityModels
 
                 entity.Property(e => e.Density)
                     .HasColumnName("density")
-                    .HasColumnType("decimal(6, 4)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Modified)
                     .HasColumnName("modified")
