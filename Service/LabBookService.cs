@@ -55,7 +55,11 @@ namespace LabBook_WF_EF.Service
             #region Prepare others control
 
             _form.GetTxtTitle.DataBindings.Clear();
+            _form.GetTxtObservation.DataBindings.Clear();
+            _form.GetTxtRemarks.DataBindings.Clear();
             _form.GetTxtTitle.DataBindings.Add("Text", GetLabBookBinding, "Title");
+            _form.GetTxtObservation.DataBindings.Add("Text", GetLabBookBinding, "Observation");
+            _form.GetTxtRemarks.DataBindings.Add("Text", GetLabBookBinding, "Remarks");
 
             #endregion
 

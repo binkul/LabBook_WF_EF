@@ -33,6 +33,8 @@ namespace LabBook_WF_EF.Forms.LabBook
         public Label GetLblNrD => LblNrD;
         public Label GetLblDate => LblDate;
         public TextBox GetTxtTitle => TxtTitle;
+        public TextBox GetTxtObservation => TxtObservation;
+        public TextBox GetTxtRemarks => TxtRemarks;
 
 
         #region Form Open/Load/Closing
@@ -71,6 +73,20 @@ namespace LabBook_WF_EF.Forms.LabBook
         private void DgvLabBook_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             _service.IconInCellPainting(e);
+        }
+
+        private void TxtTitle_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                e.Handled = true;
+                SendKeys.Send("{Tab}");
+            }
+
+            else
+            {
+                base.OnKeyPress(e);
+            }
         }
     }
 }

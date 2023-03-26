@@ -34,6 +34,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabControlMain = new System.Windows.Forms.TabControl();
             this.TabPageMain = new System.Windows.Forms.TabPage();
             this.DgvLabBook = new System.Windows.Forms.DataGridView();
+            this.TabPageRemarks = new System.Windows.Forms.TabPage();
             this.TabPageViscosity = new System.Windows.Forms.TabPage();
             this.BindingNavigatorMain = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
@@ -55,14 +56,18 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtTitle = new System.Windows.Forms.TextBox();
             this.LblNrD = new System.Windows.Forms.Label();
             this.LblDate = new System.Windows.Forms.Label();
-            this.TabPageRemarks = new System.Windows.Forms.TabPage();
+            this.TxtRemarks = new System.Windows.Forms.TextBox();
+            this.TabPageObservation = new System.Windows.Forms.TabPage();
+            this.TxtObservation = new System.Windows.Forms.TextBox();
             this.TabControlMain.SuspendLayout();
             this.TabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).BeginInit();
+            this.TabPageRemarks.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BindingNavigatorMain)).BeginInit();
             this.BindingNavigatorMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.TabPageObservation.SuspendLayout();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -72,6 +77,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TabControlMain.Controls.Add(this.TabPageMain);
             this.TabControlMain.Controls.Add(this.TabPageRemarks);
+            this.TabControlMain.Controls.Add(this.TabPageObservation);
             this.TabControlMain.Controls.Add(this.TabPageViscosity);
             this.TabControlMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.TabControlMain.Location = new System.Drawing.Point(0, 131);
@@ -105,6 +111,16 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.DgvLabBook.RowTemplate.Height = 24;
             this.DgvLabBook.Size = new System.Drawing.Size(1146, 380);
             this.DgvLabBook.TabIndex = 0;
+            // 
+            // TabPageRemarks
+            // 
+            this.TabPageRemarks.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageRemarks.Controls.Add(this.TxtRemarks);
+            this.TabPageRemarks.Location = new System.Drawing.Point(4, 29);
+            this.TabPageRemarks.Name = "TabPageRemarks";
+            this.TabPageRemarks.Size = new System.Drawing.Size(1155, 435);
+            this.TabPageRemarks.TabIndex = 2;
+            this.TabPageRemarks.Text = "Uwagi";
             // 
             // TabPageViscosity
             // 
@@ -290,6 +306,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtTitle.Name = "TxtTitle";
             this.TxtTitle.Size = new System.Drawing.Size(790, 27);
             this.TxtTitle.TabIndex = 4;
+            this.TxtTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtTitle_KeyPress);
             // 
             // LblNrD
             // 
@@ -314,14 +331,41 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblDate.TabIndex = 7;
             this.LblDate.Text = " DD-MM-YYYY";
             // 
-            // TabPageRemarks
+            // TxtRemarks
             // 
-            this.TabPageRemarks.Location = new System.Drawing.Point(4, 29);
-            this.TabPageRemarks.Name = "TabPageRemarks";
-            this.TabPageRemarks.Size = new System.Drawing.Size(1155, 435);
-            this.TabPageRemarks.TabIndex = 2;
-            this.TabPageRemarks.Text = "Uwagi";
-            this.TabPageRemarks.UseVisualStyleBackColor = true;
+            this.TxtRemarks.AcceptsReturn = true;
+            this.TxtRemarks.AcceptsTab = true;
+            this.TxtRemarks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtRemarks.Location = new System.Drawing.Point(3, 3);
+            this.TxtRemarks.Multiline = true;
+            this.TxtRemarks.Name = "TxtRemarks";
+            this.TxtRemarks.Size = new System.Drawing.Size(1149, 429);
+            this.TxtRemarks.TabIndex = 1;
+            // 
+            // TabPageObservation
+            // 
+            this.TabPageObservation.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageObservation.Controls.Add(this.TxtObservation);
+            this.TabPageObservation.Location = new System.Drawing.Point(4, 29);
+            this.TabPageObservation.Name = "TabPageObservation";
+            this.TabPageObservation.Size = new System.Drawing.Size(1155, 435);
+            this.TabPageObservation.TabIndex = 3;
+            this.TabPageObservation.Text = "Obserwacje";
+            // 
+            // TxtObservation
+            // 
+            this.TxtObservation.AcceptsReturn = true;
+            this.TxtObservation.AcceptsTab = true;
+            this.TxtObservation.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtObservation.Location = new System.Drawing.Point(3, 3);
+            this.TxtObservation.Multiline = true;
+            this.TxtObservation.Name = "TxtObservation";
+            this.TxtObservation.Size = new System.Drawing.Size(1149, 429);
+            this.TxtObservation.TabIndex = 1;
             // 
             // LabBookForm
             // 
@@ -344,6 +388,8 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabControlMain.ResumeLayout(false);
             this.TabPageMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).EndInit();
+            this.TabPageRemarks.ResumeLayout(false);
+            this.TabPageRemarks.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BindingNavigatorMain)).EndInit();
             this.BindingNavigatorMain.ResumeLayout(false);
             this.BindingNavigatorMain.PerformLayout();
@@ -351,6 +397,8 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.toolStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.TabPageObservation.ResumeLayout(false);
+            this.TabPageObservation.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -383,5 +431,8 @@ namespace LabBook_WF_EF.Forms.LabBook
         private System.Windows.Forms.Label LblNrD;
         private System.Windows.Forms.Label LblDate;
         private System.Windows.Forms.TabPage TabPageRemarks;
+        private System.Windows.Forms.TextBox TxtRemarks;
+        private System.Windows.Forms.TabPage TabPageObservation;
+        private System.Windows.Forms.TextBox TxtObservation;
     }
 }
