@@ -30,6 +30,9 @@ namespace LabBook_WF_EF.Forms.LabBook
         }
 
         public DataGridView GetDgvLabBook => DgvLabBook;
+        public Label GetLblNrD => LblNrD;
+        public Label GetLblDate => LblDate;
+        public TextBox GetTxtTitle => TxtTitle;
 
 
         #region Form Open/Load/Closing

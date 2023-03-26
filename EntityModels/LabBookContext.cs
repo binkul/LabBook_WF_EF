@@ -783,6 +783,8 @@ namespace LabBook_WF_EF.EntityModels
 
             modelBuilder.Entity<ExpLabBook>(entity =>
             {
+                entity.Ignore(e => e.UserInitial);
+
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
                     .HasComment("Numer D doświadczenia");

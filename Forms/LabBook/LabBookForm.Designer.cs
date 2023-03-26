@@ -52,6 +52,10 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.ToolStripSave = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TxtTitle = new System.Windows.Forms.TextBox();
+            this.LblNrD = new System.Windows.Forms.Label();
+            this.LblDate = new System.Windows.Forms.Label();
+            this.TabPageRemarks = new System.Windows.Forms.TabPage();
             this.TabControlMain.SuspendLayout();
             this.TabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).BeginInit();
@@ -67,6 +71,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TabControlMain.Controls.Add(this.TabPageMain);
+            this.TabControlMain.Controls.Add(this.TabPageRemarks);
             this.TabControlMain.Controls.Add(this.TabPageViscosity);
             this.TabControlMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.TabControlMain.Location = new System.Drawing.Point(0, 131);
@@ -276,11 +281,56 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.plikToolStripMenuItem.Size = new System.Drawing.Size(51, 27);
             this.plikToolStripMenuItem.Text = "Plik";
             // 
+            // TxtTitle
+            // 
+            this.TxtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.TxtTitle.Location = new System.Drawing.Point(115, 77);
+            this.TxtTitle.Name = "TxtTitle";
+            this.TxtTitle.Size = new System.Drawing.Size(790, 27);
+            this.TxtTitle.TabIndex = 4;
+            // 
+            // LblNrD
+            // 
+            this.LblNrD.AutoSize = true;
+            this.LblNrD.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.LblNrD.ForeColor = System.Drawing.Color.Blue;
+            this.LblNrD.Location = new System.Drawing.Point(3, 80);
+            this.LblNrD.Name = "LblNrD";
+            this.LblNrD.Size = new System.Drawing.Size(59, 20);
+            this.LblNrD.TabIndex = 6;
+            this.LblNrD.Text = "10000";
+            // 
+            // LblDate
+            // 
+            this.LblDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblDate.AutoSize = true;
+            this.LblDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.LblDate.ForeColor = System.Drawing.Color.Blue;
+            this.LblDate.Location = new System.Drawing.Point(1022, 80);
+            this.LblDate.Name = "LblDate";
+            this.LblDate.Size = new System.Drawing.Size(131, 20);
+            this.LblDate.TabIndex = 7;
+            this.LblDate.Text = " DD-MM-YYYY";
+            // 
+            // TabPageRemarks
+            // 
+            this.TabPageRemarks.Location = new System.Drawing.Point(4, 29);
+            this.TabPageRemarks.Name = "TabPageRemarks";
+            this.TabPageRemarks.Size = new System.Drawing.Size(1155, 435);
+            this.TabPageRemarks.TabIndex = 2;
+            this.TabPageRemarks.Text = "Uwagi";
+            this.TabPageRemarks.UseVisualStyleBackColor = true;
+            // 
             // LabBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1163, 629);
+            this.Controls.Add(this.LblDate);
+            this.Controls.Add(this.LblNrD);
+            this.Controls.Add(this.TxtTitle);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.BindingNavigatorMain);
             this.Controls.Add(this.menuStrip1);
@@ -288,7 +338,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "LabBookForm";
-            this.Text = "Dziennik laboratoryjny";
+            this.Text = " DD-MM-YYYY";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LabBookForm_FormClosing);
             this.Load += new System.EventHandler(this.LabBookForm_Load);
             this.TabControlMain.ResumeLayout(false);
@@ -329,5 +379,9 @@ namespace LabBook_WF_EF.Forms.LabBook
         private System.Windows.Forms.ToolStripButton ToolStripAdd;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem plikToolStripMenuItem;
+        private System.Windows.Forms.TextBox TxtTitle;
+        private System.Windows.Forms.Label LblNrD;
+        private System.Windows.Forms.Label LblDate;
+        private System.Windows.Forms.TabPage TabPageRemarks;
     }
 }

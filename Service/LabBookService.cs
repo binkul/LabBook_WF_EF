@@ -36,6 +36,7 @@ namespace LabBook_WF_EF.Service
         }
 
         public BindingSource GetLabBookBinding => _labBookBinding;
+        public ExpLabBook GetCurrentLabBook => (ExpLabBook)_labBookBinding.Current;
 
         #region Prepare all data
 
@@ -43,9 +44,22 @@ namespace LabBook_WF_EF.Service
         {
             _labBook = GetAllLabBook();
             _labBookBinding = new BindingSource { DataSource = _labBook };
-            _labBookBinding.PositionChanged += _labBookBinding_PositionChanged;
+            _labBookBinding.PositionChanged += LabBookBinding_PositionChanged;
+
+            #region Prepare DataGrids
 
             PrepareDataGridViewLabBook();
+
+            #endregion
+
+            #region Prepare others control
+
+            _form.GetTxtTitle.DataBindings.Clear();
+            _form.GetTxtTitle.DataBindings.Add("Text", GetLabBookBinding, "Title");
+
+            #endregion
+
+            LabBookBinding_PositionChanged(null, null);
         }
 
         private void PrepareDataGridViewLabBook()
@@ -70,26 +84,39 @@ namespace LabBook_WF_EF.Service
             view.Columns["User"].Visible = false;
             view.Columns.Remove("Observation");
             view.Columns.Remove("Remarks");
+            view.Columns.Remove("Created");
 
             view.Columns["Id"].HeaderText = "Nr D";
             view.Columns["Id"].ReadOnly = true;
-            view.Columns["Id"].DisplayIndex = 1;
+            view.Columns["Id"].DisplayIndex = 0;
             view.Columns["Id"].Width = 70;
             view.Columns["Id"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             view.Columns["Title"].HeaderText = "Tytuł";
             view.Columns["Title"].ReadOnly = true;
-            view.Columns["Title"].DisplayIndex = 2;
+            view.Columns["Title"].DisplayIndex = 1;
             view.Columns["Title"].SortMode = DataGridViewColumnSortMode.NotSortable;
             view.Columns["Title"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             view.Columns["Density"].HeaderText = "Gęstość";
-            view.Columns["Density"].DisplayIndex = 3;
+            view.Columns["Density"].DisplayIndex = 2;
             view.Columns["Density"].Width = 90;
             view.Columns["Density"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             view.Columns["Density"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
+            view.Columns["UserInitial"].HeaderText = "User";
+            view.Columns["UserInitial"].DisplayIndex = 3;
+            view.Columns["UserInitial"].ReadOnly = true;
+            view.Columns["UserInitial"].Width = 70;
+            view.Columns["UserInitial"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            view.Columns["UserInitial"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
+            view.Columns["Modified"].HeaderText = "Modyfikacja";
+            view.Columns["Modified"].DisplayIndex = 4;
+            view.Columns["Modified"].ReadOnly = true;
+            view.Columns["Modified"].Width = 110;
+            view.Columns["Modified"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            view.Columns["Modified"].SortMode = DataGridViewColumnSortMode.NotSortable;
         }
 
         private ObservableListSource<ExpLabBook> GetAllLabBook()
@@ -125,9 +152,15 @@ namespace LabBook_WF_EF.Service
 
         #region Current
 
-        private void _labBookBinding_PositionChanged(object sender, System.EventArgs e)
+        private void LabBookBinding_PositionChanged(object sender, System.EventArgs e)
         {
+            ExpLabBook currentLabBook = GetCurrentLabBook;
 
+            if (currentLabBook != null)
+            {
+                _form.GetLblNrD.Text = "D " + currentLabBook.Id.ToString();
+                _form.GetLblDate.Text = currentLabBook.Created.ToString("dd.MM.yyyy");
+            }
         }
 
         #endregion
