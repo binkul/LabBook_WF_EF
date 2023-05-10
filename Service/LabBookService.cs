@@ -72,7 +72,7 @@ namespace LabBook_WF_EF.Service
             view.DataSource = _labBookBinding;
             view.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             view.RowsDefaultCellStyle.Font = new Font(view.DefaultCellStyle.Font.Name, 10, FontStyle.Regular);
-            view.ColumnHeadersDefaultCellStyle.Font = new Font(view.DefaultCellStyle.Font.Name, 11, FontStyle.Bold);
+            view.ColumnHeadersDefaultCellStyle.Font = new Font(view.DefaultCellStyle.Font.Name, 10, FontStyle.Bold);
             view.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
             view.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             view.RowHeadersWidth = _form.isAdmin ? 35 : 40;
@@ -104,21 +104,21 @@ namespace LabBook_WF_EF.Service
 
             view.Columns["Density"].HeaderText = "Gęstość";
             view.Columns["Density"].DisplayIndex = 2;
-            view.Columns["Density"].Width = 90;
+            view.Columns["Density"].Width = 95;
             view.Columns["Density"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             view.Columns["Density"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             view.Columns["UserInitial"].HeaderText = "User";
             view.Columns["UserInitial"].DisplayIndex = 3;
             view.Columns["UserInitial"].ReadOnly = true;
-            view.Columns["UserInitial"].Width = 70;
+            view.Columns["UserInitial"].Width = 75;
             view.Columns["UserInitial"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             view.Columns["UserInitial"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             view.Columns["Modified"].HeaderText = "Modyfikacja";
             view.Columns["Modified"].DisplayIndex = 4;
             view.Columns["Modified"].ReadOnly = true;
-            view.Columns["Modified"].Width = 110;
+            view.Columns["Modified"].Width = 120;
             view.Columns["Modified"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             view.Columns["Modified"].SortMode = DataGridViewColumnSortMode.NotSortable;
         }

@@ -60,11 +60,11 @@ namespace LabBook_WF_EF.Forms.Login
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
+            
             if (CheckProgram())
             {
                 _logins = GetLogins();
                 CmbLogin.DataSource = _logins;
-
                 BtnSubmit.FlatStyle = FlatStyle.Flat;
                 BtnSubmit.FlatAppearance.BorderSize = 0;
                 BtnSubmit.FlatAppearance.BorderColor = Color.FromArgb(255, 84, 93, 106);
