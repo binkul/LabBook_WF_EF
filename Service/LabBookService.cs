@@ -27,6 +27,7 @@ namespace LabBook_WF_EF.Service
 
         private ObservableListSource<ExpLabBook> _labBook;
         private BindingSource _labBookBinding;
+        private ObservableListSource<ExpViscosity> _viscosities;
 
         public LabBookService(LabBookForm form, LabBookContext context, UserDto user)
         {
@@ -134,6 +135,15 @@ namespace LabBook_WF_EF.Service
             return new ObservableListSource<ExpLabBook>(list);
         }
 
+        private ObservableListSource<ExpViscosity> GetViscosities(long labbook_id)
+        {
+            var list = _context.ExpViscosity
+                .Where(i => i.LabbookId == labbook_id)
+                .ToList();
+
+            return new ObservableListSource<ExpViscosity>(list);
+        }
+
         #endregion
 
         #region Painting
@@ -164,7 +174,49 @@ namespace LabBook_WF_EF.Service
             {
                 _form.GetLblNrD.Text = "D " + currentLabBook.Id.ToString();
                 _form.GetLblDate.Text = currentLabBook.Created.ToString("dd.MM.yyyy");
+
+                SaveViscosity();
+                _viscosities = GetViscosities(currentLabBook.Id);
+
+                if (_viscosities.Count > 0)
+                {
+                    _viscosities[0].Brook10 = 101;
+                }
+
             }
+        }
+
+        #endregion
+
+
+        #region Save, Update, Delete
+
+        private void SaveViscosity()
+        {
+
+            
+
+
+            foreach(ExpViscosity vis in _viscosities)
+            {
+                if (_context.Entry(vis).State == EntityState.Modified)
+                {
+                    
+                    _context.SaveChanges();
+                }
+            }
+
+            var changed = _context.Entry(_viscosities).State;
+
+            //var changed = _context.ChangeTracker.Entries()
+            //    .Where(i => i.State == EntityState.Modified || i.State == EntityState.Added || i.State == EntityState.Deleted)
+            //    .Where(i => typeof(ExpViscosity).IsAssignableFrom(i.Entity.GetType()))
+            //    .ToList();
+        }
+
+        private void Save()
+        {
+            _context.SaveChanges();
         }
 
         #endregion
