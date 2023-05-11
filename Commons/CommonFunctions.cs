@@ -57,5 +57,28 @@ namespace LabBook_WF_EF.Commons
 
             return windowsData;
         }
+
+        public static double? DBNullToDoubleConv(object number)
+        {
+            if (number.Equals(DBNull.Value))
+            {
+                return null;
+            }
+            else
+            {
+                return Convert.ToDouble(number);
+            }
+        }
+
+        public static string DBNullToStringConv(object text)
+        {
+            return text.Equals(DBNull.Value) ? null : text.ToString();
+        }
+
+        public static object NullToDBNullConv(double? input)
+        {
+            return input == null ? DBNull.Value : (object)input;
+        }
+
     }
 }

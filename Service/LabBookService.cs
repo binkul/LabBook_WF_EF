@@ -178,11 +178,6 @@ namespace LabBook_WF_EF.Service
                 SaveViscosity();
                 _viscosities = GetViscosities(currentLabBook.Id);
 
-                if (_viscosities.Count > 0)
-                {
-                    _viscosities[0].Brook10 = 101;
-                }
-
             }
         }
 
@@ -195,17 +190,6 @@ namespace LabBook_WF_EF.Service
         {
 
             
-
-
-            foreach(ExpViscosity vis in _viscosities)
-            {
-                if (_context.Entry(vis).State == EntityState.Modified)
-                {
-                    
-                    _context.SaveChanges();
-                }
-            }
-
             var changed = _context.Entry(_viscosities).State;
 
             //var changed = _context.ChangeTracker.Entries()
