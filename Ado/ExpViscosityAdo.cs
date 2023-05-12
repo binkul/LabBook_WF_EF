@@ -36,6 +36,8 @@ namespace LabBook_WF_EF
         private string _iciComment;
         private string _temp;
 
+        public ExpViscosityAdo() { }
+
         public ExpViscosityAdo(long id, long labBookId, DateTime dateCreated, DateTime dateUpdate, double? pH, string visType, 
             double? brook1, double? brook5, double? brook10, double? brook20, double? brook30, double? brook40, 
             double? brook50, double? brook60, double? brook70, double? brook80, double? brook90, double? brook100, 

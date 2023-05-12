@@ -164,6 +164,7 @@
   <ItemGroup>
     <Compile Include="Commons\CommonFunctions.cs" />
     <Compile Include="Commons\ObservableListSource.cs" />
+    <Compile Include="Commons\State.cs" />
     <Compile Include="ConfigData.cs" />
     <Compile Include="Dto\UserDto.cs" />
     <Compile Include="EntityModels\CmbClpDataSheets.cs" />

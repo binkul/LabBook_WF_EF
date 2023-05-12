@@ -913,55 +913,56 @@ namespace LabBook_WF_EF.EntityModels
 
             modelBuilder.Entity<ExpViscosity>(entity =>
             {
+                entity.Ignore(e => e.ActualState);
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Brook1)
                     .HasColumnName("brook_1")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Brook10)
                     .HasColumnName("brook_10")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Brook100)
                     .HasColumnName("brook_100")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Brook20)
                     .HasColumnName("brook_20")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Brook30)
                     .HasColumnName("brook_30")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Brook40)
                     .HasColumnName("brook_40")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Brook5)
                     .HasColumnName("brook_5")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Brook50)
                     .HasColumnName("brook_50")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Brook60)
                     .HasColumnName("brook_60")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Brook70)
                     .HasColumnName("brook_70")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Brook80)
                     .HasColumnName("brook_80")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Brook90)
                     .HasColumnName("brook_90")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.BrookComment)
                     .HasColumnName("brook_comment")
@@ -981,7 +982,7 @@ namespace LabBook_WF_EF.EntityModels
 
                 entity.Property(e => e.BrookXVis)
                     .HasColumnName("brook_x_vis")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.DateCreated)
                     .HasColumnName("date_created")
@@ -995,7 +996,7 @@ namespace LabBook_WF_EF.EntityModels
 
                 entity.Property(e => e.Ici)
                     .HasColumnName("ici")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.IciComment)
                     .HasColumnName("ici_comment")
@@ -1007,18 +1008,18 @@ namespace LabBook_WF_EF.EntityModels
 
                 entity.Property(e => e.Krebs)
                     .HasColumnName("krebs")
-                    .HasColumnType("decimal(12, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.KrebsComment)
                     .HasColumnName("krebs_comment")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.LabbookId)
+                entity.Property(e => e.LabBookId)
                     .HasColumnName("labbook_id");
 
                 entity.Property(e => e.PH)
                     .HasColumnName("pH")
-                    .HasColumnType("decimal(5, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Temp)
                     .HasColumnName("temp")
@@ -1029,13 +1030,6 @@ namespace LabBook_WF_EF.EntityModels
                     .HasColumnName("vis_type")
                     .HasMaxLength(50)
                     .HasDefaultValueSql("(N'brookfield')");
-
-                entity
-                    .HasOne(d => d.ExpLabBook)
-                    .WithMany(p => p.ExpViscosity)
-                    .HasForeignKey(d => d.LabbookId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
             });
 
             modelBuilder.Entity<Material>(entity =>
