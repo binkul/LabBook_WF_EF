@@ -89,5 +89,10 @@ namespace LabBook_WF_EF.Forms.LabBook
                 base.OnKeyPress(e);
             }
         }
+
+        private void DgvViscosity_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
+        {
+            _service.AddNewViscosity(e);
+        }
     }
 }

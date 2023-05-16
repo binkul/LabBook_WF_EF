@@ -48,6 +48,7 @@ namespace LabBook_WF_EF.EntityModels
         public virtual DbSet<ExpLabBook> ExpLabBook { get; set; }
         public virtual DbSet<ExpSpectro> ExpSpectro { get; set; }
         public virtual DbSet<ExpViscosity> ExpViscosity { get; set; }
+        public virtual DbSet<ExpViscosityFields> ExpViscosityFields { get; set; }
         public virtual DbSet<Material> Material { get; set; }
         public virtual DbSet<MaterialCas> MaterialCas { get; set; }
         public virtual DbSet<MaterialClp> MaterialClp { get; set; }
@@ -913,7 +914,8 @@ namespace LabBook_WF_EF.EntityModels
 
             modelBuilder.Entity<ExpViscosity>(entity =>
             {
-                entity.Ignore(e => e.ActualState);
+                entity.Ignore(e => e.Modified);
+                entity.Ignore(e => e.Added);
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Brook1)
@@ -1030,6 +1032,26 @@ namespace LabBook_WF_EF.EntityModels
                     .HasColumnName("vis_type")
                     .HasMaxLength(50)
                     .HasDefaultValueSql("(N'brookfield')");
+            });
+
+            modelBuilder.Entity<ExpViscosityFields>(entity => {
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.LabbookId)
+                    .HasColumnName("labbook_id");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasMaxLength(2000);
+
+                entity.Property(e => e.Width)
+                    .HasColumnName("width")
+                    .HasColumnType("float");
+
+                entity.Property(e => e.UserId)
+                    .HasColumnName("user_id")
+                    .HasDefaultValueSql("((1))");
             });
 
             modelBuilder.Entity<Material>(entity =>

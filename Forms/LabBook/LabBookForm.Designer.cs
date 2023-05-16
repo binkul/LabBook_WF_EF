@@ -39,6 +39,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageObservation = new System.Windows.Forms.TabPage();
             this.TxtObservation = new System.Windows.Forms.TextBox();
             this.TabPageViscosity = new System.Windows.Forms.TabPage();
+            this.DgvViscosity = new System.Windows.Forms.DataGridView();
             this.BindingNavigatorMain = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -59,18 +60,17 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtTitle = new System.Windows.Forms.TextBox();
             this.LblNrD = new System.Windows.Forms.Label();
             this.LblDate = new System.Windows.Forms.Label();
-            this.DgvViscosity = new System.Windows.Forms.DataGridView();
             this.TabControlMain.SuspendLayout();
             this.TabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).BeginInit();
             this.TabPageRemarks.SuspendLayout();
             this.TabPageObservation.SuspendLayout();
             this.TabPageViscosity.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvViscosity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BindingNavigatorMain)).BeginInit();
             this.BindingNavigatorMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DgvViscosity)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -171,6 +171,20 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageViscosity.Size = new System.Drawing.Size(1155, 435);
             this.TabPageViscosity.TabIndex = 1;
             this.TabPageViscosity.Text = "Lepkość";
+            // 
+            // DgvViscosity
+            // 
+            this.DgvViscosity.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DgvViscosity.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvViscosity.Location = new System.Drawing.Point(0, 6);
+            this.DgvViscosity.Name = "DgvViscosity";
+            this.DgvViscosity.RowHeadersWidth = 51;
+            this.DgvViscosity.RowTemplate.Height = 24;
+            this.DgvViscosity.Size = new System.Drawing.Size(1152, 423);
+            this.DgvViscosity.TabIndex = 0;
+            this.DgvViscosity.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.DgvViscosity_DefaultValuesNeeded);
             // 
             // BindingNavigatorMain
             // 
@@ -370,19 +384,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblDate.TabIndex = 7;
             this.LblDate.Text = " DD-MM-YYYY";
             // 
-            // DgvViscosity
-            // 
-            this.DgvViscosity.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DgvViscosity.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvViscosity.Location = new System.Drawing.Point(0, 6);
-            this.DgvViscosity.Name = "DgvViscosity";
-            this.DgvViscosity.RowHeadersWidth = 51;
-            this.DgvViscosity.RowTemplate.Height = 24;
-            this.DgvViscosity.Size = new System.Drawing.Size(1152, 423);
-            this.DgvViscosity.TabIndex = 0;
-            // 
             // LabBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -409,6 +410,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageObservation.ResumeLayout(false);
             this.TabPageObservation.PerformLayout();
             this.TabPageViscosity.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DgvViscosity)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BindingNavigatorMain)).EndInit();
             this.BindingNavigatorMain.ResumeLayout(false);
             this.BindingNavigatorMain.PerformLayout();
@@ -416,7 +418,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.toolStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DgvViscosity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

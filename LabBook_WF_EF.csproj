@@ -196,6 +196,7 @@
     <Compile Include="EntityModels\ExpLabBook.cs" />
     <Compile Include="EntityModels\ExpSpectro.cs" />
     <Compile Include="EntityModels\ExpViscosity.cs" />
+    <Compile Include="EntityModels\ExpViscosityFields.cs" />
     <Compile Include="EntityModels\LabBookContext.cs" />
     <Compile Include="EntityModels\Material.cs" />
     <Compile Include="EntityModels\MaterialCas.cs" />

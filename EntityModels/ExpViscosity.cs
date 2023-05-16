@@ -40,174 +40,175 @@ namespace LabBook_WF_EF.EntityModels
         private string _iciComment;
         private string _temp;
 
-        public State ActualState { get; set; } = State.Unchanged;
+        public bool Modified { get; set; } = false;
+        public bool Added { get; set; } = false;
 
         public long Id
         {
             get => _id;
-            set { _id = value; ActualState = State.Modified; }
+            set { _id = value; Modified = true; }
         }
 
         public long LabBookId
         {
             get => _labbookId;
-            set { _labbookId = value; ActualState = State.Modified; }
+            set { _labbookId = value; Modified = true; }
         }
 
         public DateTime DateUpdate
         {
             get => _dateUpdate;
-            set { _dateUpdate = value; ActualState = State.Modified; }
+            set { _dateUpdate = value; Modified = true; }
         }
 
         public double? PH
         {
             get => _pH;
-            set { _pH = value; ActualState = State.Modified; }
+            set { _pH = value; Modified = true; }
         }
 
         public string VisType
         {
             get => _visType;
-            set { _visType = value; ActualState = State.Modified; }
+            set { _visType = value; Modified = true; }
         }
 
         public double? Brook1
         {
             get => _brook1;
-            set { _brook1 = value; ActualState = State.Modified; }
+            set { _brook1 = value; Modified = true; }
         }
 
         public double? Brook5
         {
             get => _brook5;
-            set { _brook5 = value; ActualState = State.Modified; }
+            set { _brook5 = value; Modified = true; }
         }
 
         public double? Brook10
         {
             get => _brook10;
-            set { _brook10 = value; ActualState = State.Modified; }
+            set { _brook10 = value; Modified = true; }
         }
 
         public double? Brook20
         {
             get => _brook20;
-            set { _brook20 = value; ActualState = State.Modified; }
+            set { _brook20 = value; Modified = true; }
         }
 
         public double? Brook30
         {
             get => _brook30;
-            set { _brook30 = value; ActualState = State.Modified; }
+            set { _brook30 = value; Modified = true; }
         }
 
         public double? Brook40
         {
             get => _brook40;
-            set { _brook40 = value; ActualState = State.Modified; }
+            set { _brook40 = value; Modified = true; }
         }
 
         public double? Brook50
         {
             get => _brook50;
-            set { _brook50 = value; ActualState = State.Modified; }
+            set { _brook50 = value; Modified = true; }
         }
 
         public double? Brook60
         {
             get => _brook60;
-            set { _brook60 = value; ActualState = State.Modified; }
+            set { _brook60 = value; Modified = true; }
         }
 
         public double? Brook70
         {
             get => _brook70;
-            set { _brook70 = value; ActualState = State.Modified; }
+            set { _brook70 = value; Modified = true; }
         }
 
         public double? Brook80
         {
             get => _brook80;
-            set { _brook80 = value; ActualState = State.Modified; }
+            set { _brook80 = value; Modified = true; }
         }
 
         public double? Brook90
         {
             get => _brook90;
-            set { _brook90 = value; ActualState = State.Modified; }
+            set { _brook90 = value; Modified = true; }
         }
 
         public double? Brook100
         {
             get => _brook100;
-            set { _brook100 = value; ActualState = State.Modified; }
+            set { _brook100 = value; Modified = true; }
         }
 
         public string BrookComment
         {
             get => _brookComment;
-            set { _brookComment = value; ActualState = State.Modified; }
+            set { _brookComment = value; Modified = true; }
         }
 
         public string BrookDisc
         {
             get => _brookDisc;
-            set { _brookDisc = value; ActualState = State.Modified; }
+            set { _brookDisc = value; Modified = true; }
         }
 
         public double? BrookXVis
         {
             get => _brookXVis;
-            set { _brookXVis = value; ActualState = State.Modified; }
+            set { _brookXVis = value; Modified = true; }
         }
 
         public string BrookXRpm
         {
             get => _brookXRpm;
-            set { _brookXRpm = value; ActualState = State.Modified; }
+            set { _brookXRpm = value; Modified = true; }
         }
 
         public string BrookXDisc
         {
             get => _brookXDisc;
-            set { _brookXDisc = value; ActualState = State.Modified; }
+            set { _brookXDisc = value; Modified = true; }
         }
 
         public double? Krebs
         {
             get => _krebs;
-            set { _krebs = value; ActualState = State.Modified; }
+            set { _krebs = value; Modified = true; }
         }
 
         public string KrebsComment
         {
             get => _krebsComment;
-            set { _krebsComment = value; ActualState = State.Modified; }
+            set { _krebsComment = value; Modified = true; }
         }
 
         public double? Ici
         {
             get => _ici;
-            set { _ici = value; ActualState = State.Modified; }
+            set { _ici = value; Modified = true; }
         }
 
         public string IciDisc
         {
             get => _iciDisc;
-            set { _iciDisc = value; ActualState = State.Modified; }
+            set { _iciDisc = value; Modified = true; }
         }
 
         public string IciComment
         {
             get => _iciComment;
-            set { _iciComment = value; ActualState = State.Modified; }
+            set { _iciComment = value; Modified = true; }
         }
 
         public string Temp
         {
             get => _temp;
-            set { _temp = value; ActualState = State.Modified; }
+            set { _temp = value; Modified = true; }
         }
     }
 }

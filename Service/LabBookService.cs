@@ -5,8 +5,10 @@ using LabBook_WF_EF.Forms.LabBook;
 using LabBook_WF_EF.Properties;
 using LabBook_WF_EF.Repository;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -24,13 +26,13 @@ namespace LabBook_WF_EF.Service
 
         private readonly LabBookForm _form;
         private readonly LabBookContext _context;
-        private readonly ExpViscosityRepository _visRepository = new ExpViscosityRepository();
+        private readonly SqlConnection _sqlConnection;
+        private readonly ExpViscosityRepository _visRepository;
         private readonly UserDto _user;
 
         private ObservableListSource<ExpLabBook> _labBook;
         private BindingSource _labBookBinding;
         private ObservableListSource<ExpViscosity> _viscosities;
-        //private ObservableListSource<ExpViscosityAdo> _viscosities;
         private BindingSource _viscosityBinding;
 
         public LabBookService(LabBookForm form, LabBookContext context, UserDto user)
@@ -38,6 +40,8 @@ namespace LabBook_WF_EF.Service
             _form = form;
             _context = context;
             _user = user;
+            _sqlConnection = new SqlConnection(ConfigData.ConnectionStringAdo);
+            _visRepository = new ExpViscosityRepository(_sqlConnection);
         }
 
         public BindingSource GetLabBookBinding => _labBookBinding;
@@ -51,7 +55,7 @@ namespace LabBook_WF_EF.Service
             _labBookBinding = new BindingSource { DataSource = _labBook };
             _labBookBinding.PositionChanged += LabBookBinding_PositionChanged;
 
-            _viscosities = GetViscosities(0); // new ObservableListSource<ExpViscosityAdo>(_visRepository.GetViscosityByLabBookId(0));
+            _viscosities = GetViscosities(0);
             _viscosityBinding = new BindingSource { DataSource = _viscosities };
 
             #region Prepare DataGrids
@@ -150,8 +154,8 @@ namespace LabBook_WF_EF.Service
             view.Columns["LabBookId"].Visible = false;
             view.Columns["DateUpdate"].Visible = false;
             view.Columns["VisType"].Visible = false;
-            //view.Columns.Remove("Modified");
-            view.Columns.Remove("ActualState");
+            view.Columns["Added"].Visible = false;
+            view.Columns.Remove("Modified");
 
             view.Columns["DateCreated"].HeaderText = "Pomiar";
             view.Columns["DateCreated"].ReadOnly = true;
@@ -329,6 +333,14 @@ namespace LabBook_WF_EF.Service
             return new ObservableListSource<ExpViscosity>(list);
         }
 
+        private IList<ExpViscosityFields> GetViscosityFields(long labbook_id)
+        {
+            return _context.ExpViscosityFields
+                .Where(i => i.LabbookId == labbook_id)
+                .Where(i => i.UserId == _user.Id)
+                .ToList();
+        }
+
         #endregion
 
         #region Painting
@@ -349,7 +361,7 @@ namespace LabBook_WF_EF.Service
 
         #endregion
 
-        #region Current
+        #region Current, New
 
         private void LabBookBinding_PositionChanged(object sender, System.EventArgs e)
         {
@@ -360,20 +372,32 @@ namespace LabBook_WF_EF.Service
                 _form.GetLblNrD.Text = "D " + currentLabBook.Id.ToString();
                 _form.GetLblDate.Text = currentLabBook.Created.ToString("dd.MM.yyyy");
 
-                SaveViscosity();
-                //IList<ExpViscosityAdo> tmplist = _visRepository.GetViscosityByLabBookId(currentLabBook.Id);
-                IList<ExpViscosity> tmplist = GetViscosities(currentLabBook.Id);
-                _viscosities.Clear();
-                //foreach (ExpViscosityAdo vis in tmplist)
-                //{
-                //    _viscosities.Add(vis);
-                //}
-                foreach (ExpViscosity vis in tmplist)
-                {
-                    _viscosities.Add(vis);
-                }
-
+                QuickSaveViscosity();
+                PrepareViscosity(currentLabBook.Id);
             }
+        }
+
+        private void PrepareViscosity(long labbookId)
+        {
+            IList<ExpViscosity> tmplist = GetViscosities(labbookId);
+            _viscosities.Clear();
+            foreach (ExpViscosity vis in tmplist)
+            {
+                vis.Modified = false;
+                _viscosities.Add(vis);
+            }
+        }
+
+        public void AddNewViscosity(DataGridViewRowEventArgs e)
+        {
+            ExpLabBook currentLabBook = GetCurrentLabBook;
+
+            e.Row.Cells["LabBookId"].Value = currentLabBook.Id;
+            e.Row.Cells["DateCreated"].Value = DateTime.Today;
+            e.Row.Cells["DateUpdate"].Value = DateTime.Today;
+            e.Row.Cells["Added"].Value = true;
+            e.Row.Cells["VisType"].Value = "brookfield";
+            e.Row.Cells["Temp"].Value = "20oC";
         }
 
         #endregion
@@ -381,10 +405,28 @@ namespace LabBook_WF_EF.Service
 
         #region Save, Update, Delete
 
-        private void SaveViscosity()
+        private void QuickSaveViscosity()
         {
             if (_viscosities == null || _viscosities.Count == 0) return;
-            
+
+            var modList = _viscosities
+                .Where(i => i.Id != 0)
+                .Where(i => i.Modified)
+                .ToList();
+
+            foreach (ExpViscosity vis in modList)
+            {
+                if (!_visRepository.Update(vis)) return;
+            }
+
+            var addlist = _viscosities
+                .Where(i => i.Added)
+                .ToList();
+
+            foreach (ExpViscosity vis in addlist)
+            {
+                if (!_visRepository.Save(vis)) return;
+            }
         }
 
         private void Save()
