@@ -97,15 +97,15 @@ namespace LabBook_WF_EF.Forms.LabBook
 
         private void DgvViscosity_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0)
-            {
-                return;
-            }
-            else
-            {
-                _service.CellContentClickForButton(sender, e);
-            }
+            if (e.RowIndex < 0) return;
 
+            var grid = (DataGridView)sender;
+
+            if (grid[e.ColumnIndex, e.RowIndex] is DataGridViewButtonCell)
+            {
+                long id = (long)grid.Rows[e.RowIndex].Cells["Id"].Value;
+                _service.CellContentClickForButton(id, e);
+            }
         }
     }
 }

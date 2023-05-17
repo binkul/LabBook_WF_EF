@@ -409,24 +409,19 @@ namespace LabBook_WF_EF.Service
             }
         }
 
-        public void CellContentClickForButton(object sender, DataGridViewCellEventArgs e)
+        public void CellContentClickForButton(long id, DataGridViewCellEventArgs e)
         {
-            var grid = (DataGridView)sender;
+            if (e.RowIndex >= _viscosities.Count) return;
 
-            if (grid[e.ColumnIndex, e.RowIndex] is DataGridViewButtonCell)
+            if (id > 0)
             {
-                long id = (long)grid.Rows[e.RowIndex].Cells["Id"].Value;
-
-                if (id > 0)
-                {
-                    _context.Database
-                        .ExecuteSqlRaw("Delete From LabBook.dbo.ExpViscosity Where id={0}", id);
-                    _viscosities.RemoveAt(e.RowIndex);
-                }
-                else
-                {
-                    _viscosities.RemoveAt(e.RowIndex);
-                }
+                _context.Database
+                    .ExecuteSqlRaw("Delete From LabBook.dbo.ExpViscosity Where id={0}", id);
+                _viscosities.RemoveAt(e.RowIndex);
+            }
+            else
+            {
+                _viscosities.RemoveAt(e.RowIndex);
             }
         }
 
