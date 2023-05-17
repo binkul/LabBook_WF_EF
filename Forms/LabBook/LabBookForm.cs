@@ -92,7 +92,20 @@ namespace LabBook_WF_EF.Forms.LabBook
 
         private void DgvViscosity_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
         {
-            _service.AddNewViscosity(e);
+            _service.DefaultvaluesNeededForVoscosity(e);
+        }
+
+        private void DgvViscosity_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+            else
+            {
+                _service.CellContentClickForButton(sender, e);
+            }
+
         }
     }
 }

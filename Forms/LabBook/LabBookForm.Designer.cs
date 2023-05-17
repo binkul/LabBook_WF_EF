@@ -184,6 +184,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.DgvViscosity.RowTemplate.Height = 24;
             this.DgvViscosity.Size = new System.Drawing.Size(1152, 423);
             this.DgvViscosity.TabIndex = 0;
+            this.DgvViscosity.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvViscosity_CellContentClick);
             this.DgvViscosity.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.DgvViscosity_DefaultValuesNeeded);
             // 
             // BindingNavigatorMain
