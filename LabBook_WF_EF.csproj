@@ -239,6 +239,7 @@
     <Compile Include="Repository\ExpViscosityRepository.cs" />
     <Compile Include="Security\Encrypt.cs" />
     <Compile Include="Service\LabBookService.cs" />
+    <Compile Include="Service\ViscosityFieldsType.cs" />
     <EmbeddedResource Include="Forms\LabBook\LabBookForm.resx">
       <DependentUpon>LabBookForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -107,5 +107,16 @@ namespace LabBook_WF_EF.Forms.LabBook
                 _service.CellContentClickForButton(id, e);
             }
         }
+
+        private void DgvViscosity_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+
+        }
+
+        private void DgvViscosity_Resize(object sender, EventArgs e)
+        {
+            if (DgvViscosity.Columns.Count > 0)
+                _service.DataGridViscosityColumnSizeChanged();
+        }
     }
 }
