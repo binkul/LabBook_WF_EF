@@ -428,7 +428,10 @@ namespace LabBook_WF_EF.Service
         {
             if (labbookId == 0) return;
 
-            _viscosityFields = GetViscosityFields(labbookId);
+            ViscosityFieldsType tmp = GetViscosityFields(labbookId);
+            if (tmp == _viscosityFields) return;
+
+            _viscosityFields = tmp;
             DataGridViscosityColumnSizeChanged();
         }
 
@@ -492,6 +495,7 @@ namespace LabBook_WF_EF.Service
             DataGridView grid = _form.GetDgvViscosity;
 
             HideAllViscosityColumn(grid);
+            int width = grid.Width - (grid.RowHeadersWidth + grid.Columns["Del"].Width + grid.Columns["DateCreated"].Width);
             switch (_viscosityFields)
             {
                 case ViscosityFieldsType.StdBrook:
@@ -505,7 +509,8 @@ namespace LabBook_WF_EF.Service
                         grid.Columns["BrookXDisc"].Visible = true;
                         grid.Columns["BrookComment"].Visible = true;
 
-                        int width = grid.Width - (grid.RowHeadersWidth + grid.Columns["Del"].Width + grid.Columns["DateCreated"].Width);
+                        grid.Columns["PH"].Width = (int)(width * 0.05);
+                        grid.Columns["Temp"].Width = (int)(width * 0.05);
                         grid.Columns["Brook1"].Width = (int)(width * 0.1);
                         grid.Columns["Brook5"].Width = (int)(width * 0.1);
                         grid.Columns["Brook20"].Width = (int)(width * 0.1);
@@ -513,8 +518,29 @@ namespace LabBook_WF_EF.Service
                         grid.Columns["BrookXVis"].Width = (int)(width * 0.1);
                         grid.Columns["BrookXRpm"].Width = (int)(width * 0.1);
                         grid.Columns["BrookXDisc"].Width = (int)(width * 0.1);
+                        grid.Columns["BrookComment"].Width = (int)(width * 0.22);
+                    }
+                    break;
+                case ViscosityFieldsType.PrbBrook:
+                    {
+                        grid.Columns["Brook1"].Visible = true;
+                        grid.Columns["Brook5"].Visible = true;
+                        grid.Columns["Brook10"].Visible = true;
+                        grid.Columns["Brook20"].Visible = true;
+                        grid.Columns["Brook50"].Visible = true;
+                        grid.Columns["Brook100"].Visible = true;
+                        grid.Columns["BrookDisc"].Visible = true;
+                        grid.Columns["BrookComment"].Visible = true;
+
                         grid.Columns["PH"].Width = (int)(width * 0.05);
                         grid.Columns["Temp"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook1"].Width = (int)(width * 0.1);
+                        grid.Columns["Brook5"].Width = (int)(width * 0.1);
+                        grid.Columns["Brook10"].Width = (int)(width * 0.1);
+                        grid.Columns["Brook20"].Width = (int)(width * 0.1);
+                        grid.Columns["Brook50"].Width = (int)(width * 0.1);
+                        grid.Columns["Brook100"].Width = (int)(width * 0.1);
+                        grid.Columns["BrookDisc"].Width = (int)(width * 0.08);
                         grid.Columns["BrookComment"].Width = (int)(width * 0.22);
                     }
                     break;

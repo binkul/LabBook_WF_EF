@@ -118,5 +118,10 @@ namespace LabBook_WF_EF.Forms.LabBook
             if (DgvViscosity.Columns.Count > 0)
                 _service.DataGridViscosityColumnSizeChanged();
         }
+
+        private void ViscosityViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
