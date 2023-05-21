@@ -368,7 +368,7 @@ namespace LabBook_WF_EF.Service
                 .Where(i => i.UserId == _user.Id)
                 .ToList();
 
-            ViscosityFieldsType type;
+            ViscosityFieldsType type = ViscosityFieldsType.StdBrook;
             if (list.Count > 0)
             {
                 switch (list[0].Name)
