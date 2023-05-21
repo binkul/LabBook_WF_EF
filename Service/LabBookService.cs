@@ -368,7 +368,7 @@ namespace LabBook_WF_EF.Service
                 .Where(i => i.UserId == _user.Id)
                 .ToList();
 
-            ViscosityFieldsType type = ViscosityFieldsType.StdBrook;
+            ViscosityFieldsType type;
             if (list.Count > 0)
             {
                 switch (list[0].Name)
@@ -548,6 +548,40 @@ namespace LabBook_WF_EF.Service
 
         }
 
+        public void ViscosityFieldVisibilityItem(int value)
+        {
+            ViscosityFieldsType type;
+
+            switch(value)
+            {
+                case 1:
+                    type = ViscosityFieldsType.StdBrook;
+                    break;
+                case 2:
+                    type = ViscosityFieldsType.PrbBrook;
+                    break;
+                case 3:
+                    type = ViscosityFieldsType.FullBrok;
+                    break;
+                case 4:
+                    type = ViscosityFieldsType.StdBrookKrebs;
+                    break;
+                case 5:
+                    type = ViscosityFieldsType.StdBrookIci;
+                    break;
+                default:
+                    type = ViscosityFieldsType.StdBrook;
+                    break;
+            }
+
+            if (type != _viscosityFields)
+            {
+                _viscosityFields = type;
+                DataGridViscosityColumnSizeChanged();
+                QuickSaveViscosityFields(type.ToString(), GetCurrentLabBook.Id);
+            }
+        }
+
         #endregion
 
         #region Save, Update, Delete
@@ -572,6 +606,14 @@ namespace LabBook_WF_EF.Service
 
                 if (!result) return;
             }
+        }
+
+        private void QuickSaveViscosityFields(String fieldType, long labbookId)
+        {
+            _context.Database
+                .ExecuteSqlRaw("Delete from LabBook.dbo.ExpViscosityFields Where labbook_id={0}", labbookId);
+            _context.Database
+                .ExecuteSqlRaw("Insert Into LabBook.dbo.ExpViscosityFields(labbook_id, name, user_id) Values({0}, {1}, {2})", labbookId, fieldType, _user.Id);
         }
 
         private void Save()

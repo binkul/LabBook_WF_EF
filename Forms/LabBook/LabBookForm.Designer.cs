@@ -57,9 +57,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.ToolStripSave = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TxtTitle = new System.Windows.Forms.TextBox();
-            this.LblNrD = new System.Windows.Forms.Label();
-            this.LblDate = new System.Windows.Forms.Label();
             this.widokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lepkosciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.standardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,6 +64,9 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.brookPelnyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.brookKrebsStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.brookIciStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TxtTitle = new System.Windows.Forms.TextBox();
+            this.LblNrD = new System.Windows.Forms.Label();
+            this.LblDate = new System.Windows.Forms.Label();
             this.TabControlMain.SuspendLayout();
             this.TabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).BeginInit();
@@ -278,6 +278,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Pozycja";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 27);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -361,6 +362,66 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.plikToolStripMenuItem.Size = new System.Drawing.Size(51, 27);
             this.plikToolStripMenuItem.Text = "Plik";
             // 
+            // widokToolStripMenuItem
+            // 
+            this.widokToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lepkosciToolStripMenuItem});
+            this.widokToolStripMenuItem.Name = "widokToolStripMenuItem";
+            this.widokToolStripMenuItem.Size = new System.Drawing.Size(73, 27);
+            this.widokToolStripMenuItem.Text = "Widok";
+            // 
+            // lepkosciToolStripMenuItem
+            // 
+            this.lepkosciToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.standardToolStripMenuItem,
+            this.prbToolStripMenuItem,
+            this.brookPelnyToolStripMenuItem,
+            this.brookKrebsStripMenuItem,
+            this.brookIciStripMenuItem});
+            this.lepkosciToolStripMenuItem.Name = "lepkosciToolStripMenuItem";
+            this.lepkosciToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.lepkosciToolStripMenuItem.Text = "Lepkości";
+            // 
+            // standardToolStripMenuItem
+            // 
+            this.standardToolStripMenuItem.Name = "standardToolStripMenuItem";
+            this.standardToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.standardToolStripMenuItem.Tag = "1";
+            this.standardToolStripMenuItem.Text = "Standard";
+            this.standardToolStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
+            // 
+            // prbToolStripMenuItem
+            // 
+            this.prbToolStripMenuItem.Name = "prbToolStripMenuItem";
+            this.prbToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.prbToolStripMenuItem.Tag = "2";
+            this.prbToolStripMenuItem.Text = "Brook PRB";
+            this.prbToolStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
+            // 
+            // brookPelnyToolStripMenuItem
+            // 
+            this.brookPelnyToolStripMenuItem.Name = "brookPelnyToolStripMenuItem";
+            this.brookPelnyToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.brookPelnyToolStripMenuItem.Tag = "3";
+            this.brookPelnyToolStripMenuItem.Text = "Brook pełny";
+            this.brookPelnyToolStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
+            // 
+            // brookKrebsStripMenuItem
+            // 
+            this.brookKrebsStripMenuItem.Name = "brookKrebsStripMenuItem";
+            this.brookKrebsStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.brookKrebsStripMenuItem.Tag = "4";
+            this.brookKrebsStripMenuItem.Text = "Brook + Krebs";
+            this.brookKrebsStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
+            // 
+            // brookIciStripMenuItem
+            // 
+            this.brookIciStripMenuItem.Name = "brookIciStripMenuItem";
+            this.brookIciStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.brookIciStripMenuItem.Tag = "5";
+            this.brookIciStripMenuItem.Text = "Brook + ICI";
+            this.brookIciStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
+            // 
             // TxtTitle
             // 
             this.TxtTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -394,61 +455,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblDate.Size = new System.Drawing.Size(131, 20);
             this.LblDate.TabIndex = 7;
             this.LblDate.Text = " DD-MM-YYYY";
-            // 
-            // widokToolStripMenuItem
-            // 
-            this.widokToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lepkosciToolStripMenuItem});
-            this.widokToolStripMenuItem.Name = "widokToolStripMenuItem";
-            this.widokToolStripMenuItem.Size = new System.Drawing.Size(73, 27);
-            this.widokToolStripMenuItem.Text = "Widok";
-            // 
-            // lepkosciToolStripMenuItem
-            // 
-            this.lepkosciToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.standardToolStripMenuItem,
-            this.prbToolStripMenuItem,
-            this.brookPelnyToolStripMenuItem,
-            this.brookKrebsStripMenuItem,
-            this.brookIciStripMenuItem});
-            this.lepkosciToolStripMenuItem.Name = "lepkosciToolStripMenuItem";
-            this.lepkosciToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
-            this.lepkosciToolStripMenuItem.Text = "Lepkości";
-            // 
-            // standardToolStripMenuItem
-            // 
-            this.standardToolStripMenuItem.Name = "standardToolStripMenuItem";
-            this.standardToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
-            this.standardToolStripMenuItem.Text = "Standard";
-            this.standardToolStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
-            // 
-            // prbToolStripMenuItem
-            // 
-            this.prbToolStripMenuItem.Name = "prbToolStripMenuItem";
-            this.prbToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
-            this.prbToolStripMenuItem.Text = "Brook PRB";
-            this.prbToolStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
-            // 
-            // brookPelnyToolStripMenuItem
-            // 
-            this.brookPelnyToolStripMenuItem.Name = "brookPelnyToolStripMenuItem";
-            this.brookPelnyToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
-            this.brookPelnyToolStripMenuItem.Text = "Brook pełny";
-            this.brookPelnyToolStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
-            // 
-            // brookKrebsStripMenuItem
-            // 
-            this.brookKrebsStripMenuItem.Name = "brookKrebsStripMenuItem";
-            this.brookKrebsStripMenuItem.Size = new System.Drawing.Size(248, 28);
-            this.brookKrebsStripMenuItem.Text = "Brook + Krebs";
-            this.brookKrebsStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
-            // 
-            // brookIciStripMenuItem
-            // 
-            this.brookIciStripMenuItem.Name = "brookIciStripMenuItem";
-            this.brookIciStripMenuItem.Size = new System.Drawing.Size(248, 28);
-            this.brookIciStripMenuItem.Text = "Brook + ICI";
-            this.brookIciStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
             // 
             // LabBookForm
             // 

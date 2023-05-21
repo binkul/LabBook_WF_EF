@@ -121,7 +121,10 @@ namespace LabBook_WF_EF.Forms.LabBook
 
         private void ViscosityViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ToolStripMenuItem item = (ToolStripMenuItem)sender;
+            int value = (int)item.Tag;
 
+            _service.ViscosityFieldVisibilityItem(value);
         }
     }
 }
