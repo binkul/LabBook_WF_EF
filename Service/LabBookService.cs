@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -341,6 +341,10 @@ namespace LabBook_WF_EF.Service
             view.Columns["IciComment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
         }
 
+        #endregion
+
+        #region Load Data from Database
+
         private ObservableListSource<ExpLabBook> GetAllLabBook()
         {
             var list = _context.ExpLabBook
@@ -498,29 +502,6 @@ namespace LabBook_WF_EF.Service
             int width = grid.Width - (grid.RowHeadersWidth + grid.Columns["Del"].Width + grid.Columns["DateCreated"].Width);
             switch (_viscosityFields)
             {
-                case ViscosityFieldsType.StdBrook:
-                    {
-                        grid.Columns["Brook1"].Visible = true;
-                        grid.Columns["Brook5"].Visible = true;
-                        grid.Columns["Brook20"].Visible = true;
-                        grid.Columns["BrookDisc"].Visible = true;
-                        grid.Columns["BrookXVis"].Visible = true;
-                        grid.Columns["BrookXRpm"].Visible = true;
-                        grid.Columns["BrookXDisc"].Visible = true;
-                        grid.Columns["BrookComment"].Visible = true;
-
-                        grid.Columns["PH"].Width = (int)(width * 0.05);
-                        grid.Columns["Temp"].Width = (int)(width * 0.05);
-                        grid.Columns["Brook1"].Width = (int)(width * 0.1);
-                        grid.Columns["Brook5"].Width = (int)(width * 0.1);
-                        grid.Columns["Brook20"].Width = (int)(width * 0.1);
-                        grid.Columns["BrookDisc"].Width = (int)(width * 0.08);
-                        grid.Columns["BrookXVis"].Width = (int)(width * 0.1);
-                        grid.Columns["BrookXRpm"].Width = (int)(width * 0.1);
-                        grid.Columns["BrookXDisc"].Width = (int)(width * 0.1);
-                        grid.Columns["BrookComment"].Width = (int)(width * 0.22);
-                    }
-                    break;
                 case ViscosityFieldsType.PrbBrook:
                     {
                         grid.Columns["Brook1"].Visible = true;
@@ -544,8 +525,109 @@ namespace LabBook_WF_EF.Service
                         grid.Columns["BrookComment"].Width = (int)(width * 0.22);
                     }
                     break;
-            }
+                case ViscosityFieldsType.FullBrok:
+                    {
+                        grid.Columns["Brook1"].Visible = true;
+                        grid.Columns["Brook5"].Visible = true;
+                        grid.Columns["Brook10"].Visible = true;
+                        grid.Columns["Brook20"].Visible = true;
+                        grid.Columns["Brook30"].Visible = true;
+                        grid.Columns["Brook40"].Visible = true;
+                        grid.Columns["Brook50"].Visible = true;
+                        grid.Columns["Brook60"].Visible = true;
+                        grid.Columns["Brook70"].Visible = true;
+                        grid.Columns["Brook80"].Visible = true;
+                        grid.Columns["Brook90"].Visible = true;
+                        grid.Columns["Brook100"].Visible = true;
+                        grid.Columns["BrookDisc"].Visible = true;
+                        grid.Columns["BrookComment"].Visible = true;
 
+                        grid.Columns["PH"].Width = (int)(width * 0.05);
+                        grid.Columns["Temp"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook1"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook5"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook10"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook20"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook30"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook40"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook50"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook60"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook70"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook80"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook90"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook100"].Width = (int)(width * 0.05);
+                        grid.Columns["BrookDisc"].Width = (int)(width * 0.08);
+                        grid.Columns["BrookComment"].Width = (int)(width * 0.22);
+                    }
+                    break;
+                case ViscosityFieldsType.StdBrookKrebs:
+                    {
+                        grid.Columns["Brook1"].Visible = true;
+                        grid.Columns["Brook5"].Visible = true;
+                        grid.Columns["Brook20"].Visible = true;
+                        grid.Columns["BrookDisc"].Visible = true;
+                        grid.Columns["Krebs"].Visible = true;
+                        grid.Columns["KrebsComment"].Visible = true;
+                        grid.Columns["BrookComment"].Visible = true;
+
+                        grid.Columns["PH"].Width = (int)(width * 0.05);
+                        grid.Columns["Temp"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook1"].Width = (int)(width * 0.1);
+                        grid.Columns["Brook5"].Width = (int)(width * 0.1);
+                        grid.Columns["Brook20"].Width = (int)(width * 0.1);
+                        grid.Columns["BrookDisc"].Width = (int)(width * 0.08);
+                        grid.Columns["Krebs"].Width = (int)(width * 0.1);
+                        grid.Columns["KrebsComment"].Width = (int)(width * 0.2);
+                        grid.Columns["BrookComment"].Width = (int)(width * 0.22);
+                    }
+                    break;
+                case ViscosityFieldsType.StdBrookIci:
+                    {
+                        grid.Columns["Brook1"].Visible = true;
+                        grid.Columns["Brook5"].Visible = true;
+                        grid.Columns["Brook20"].Visible = true;
+                        grid.Columns["BrookDisc"].Visible = true;
+                        grid.Columns["Ici"].Visible = true;
+                        grid.Columns["IciDisc"].Visible = true;
+                        grid.Columns["IciComment"].Visible = true;
+                        grid.Columns["BrookComment"].Visible = true;
+
+                        grid.Columns["PH"].Width = (int)(width * 0.05);
+                        grid.Columns["Temp"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook1"].Width = (int)(width * 0.1);
+                        grid.Columns["Brook5"].Width = (int)(width * 0.1);
+                        grid.Columns["Brook20"].Width = (int)(width * 0.1);
+                        grid.Columns["BrookDisc"].Width = (int)(width * 0.08);
+                        grid.Columns["Ici"].Width = (int)(width * 0.1);
+                        grid.Columns["IciDisc"].Width = (int)(width * 0.08);
+                        grid.Columns["IciComment"].Width = (int)(width * 0.14);
+                        grid.Columns["BrookComment"].Width = (int)(width * 0.2);
+                    }
+                    break;
+                default:
+                    {
+                        grid.Columns["Brook1"].Visible = true;
+                        grid.Columns["Brook5"].Visible = true;
+                        grid.Columns["Brook20"].Visible = true;
+                        grid.Columns["BrookDisc"].Visible = true;
+                        grid.Columns["BrookXVis"].Visible = true;
+                        grid.Columns["BrookXRpm"].Visible = true;
+                        grid.Columns["BrookXDisc"].Visible = true;
+                        grid.Columns["BrookComment"].Visible = true;
+
+                        grid.Columns["PH"].Width = (int)(width * 0.05);
+                        grid.Columns["Temp"].Width = (int)(width * 0.05);
+                        grid.Columns["Brook1"].Width = (int)(width * 0.1);
+                        grid.Columns["Brook5"].Width = (int)(width * 0.1);
+                        grid.Columns["Brook20"].Width = (int)(width * 0.1);
+                        grid.Columns["BrookDisc"].Width = (int)(width * 0.08);
+                        grid.Columns["BrookXVis"].Width = (int)(width * 0.1);
+                        grid.Columns["BrookXRpm"].Width = (int)(width * 0.1);
+                        grid.Columns["BrookXDisc"].Width = (int)(width * 0.1);
+                        grid.Columns["BrookComment"].Width = (int)(width * 0.22);
+                    }
+                    break;
+            }
         }
 
         public void ViscosityFieldVisibilityItem(int value)
@@ -596,24 +678,80 @@ namespace LabBook_WF_EF.Service
                 .Where(i => i.Added || i.Modified)
                 .ToList();
 
-            bool result;
+            //bool result;
+            //foreach (ExpViscosity vis in modList)
+            //{
+            //    if (vis.Added)
+            //        result = _visRepository.Save(vis);
+            //    else
+            //        result = _visRepository.Update(vis);
+
+            //    if (!result) return;
+            //}
+
             foreach (ExpViscosity vis in modList)
             {
-                if (vis.Added)
-                    result = _visRepository.Save(vis);
-                else
-                    result = _visRepository.Update(vis);
+                object[] parameters = new object[]
+                {
+                    new SqlParameter("@id", vis.Id),
+                    new SqlParameter("@labbook_id", vis.LabBookId),
+                    new SqlParameter("@date_created", vis.DateCreated),
+                    new SqlParameter("@date_update", vis.DateUpdate),
+                    new SqlParameter("@pH", vis.PH ?? (object)DBNull.Value),
+                    new SqlParameter("@vis_type", vis.VisType ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_1", vis.Brook1 ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_5", vis.Brook5 ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_10", vis.Brook10 ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_20", vis.Brook20 ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_30", vis.Brook30 ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_40", vis.Brook40 ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_50", vis.Brook50 ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_60", vis.Brook60 ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_70", vis.Brook70 ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_80", vis.Brook80 ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_90", vis.Brook90 ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_100", vis.Brook100 ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_comment", vis.BrookComment ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_disc", vis.BrookDisc ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_x_vis", vis.BrookXVis ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_x_rpm", vis.BrookXRpm ?? (object)DBNull.Value),
+                    new SqlParameter("@brook_x_disc", vis.BrookXDisc ?? (object)DBNull.Value),
+                    new SqlParameter("@krebs", vis.Krebs ?? (object)DBNull.Value),
+                    new SqlParameter("@krebs_comment", vis.KrebsComment ?? (object)DBNull.Value),
+                    new SqlParameter("@ici", vis.Ici ?? (object)DBNull.Value),
+                    new SqlParameter("@ici_disc", vis.IciDisc ?? (object)DBNull.Value),
+                    new SqlParameter("@ici_comment", vis.IciDisc ?? (object)DBNull.Value),
+                    new SqlParameter("@temp", vis.Temp ?? (object)DBNull.Value)
+                };
 
-                if (!result) return;
+                if (vis.Added)
+                    _context.Database
+                        .ExecuteSqlRaw(ExpViscosityRepository.SaveViscositySql, parameters);
+                else
+                    _context.Database
+                        .ExecuteSqlRaw(ExpViscosityRepository.UpdateViscositySQL, parameters);
             }
         }
 
         private void QuickSaveViscosityFields(String fieldType, long labbookId)
         {
-            _context.Database
-                .ExecuteSqlRaw("Delete from LabBook.dbo.ExpViscosityFields Where labbook_id={0}", labbookId);
-            _context.Database
-                .ExecuteSqlRaw("Insert Into LabBook.dbo.ExpViscosityFields(labbook_id, name, user_id) Values({0}, {1}, {2})", labbookId, fieldType, _user.Id);
+            try
+            {
+                _context.Database
+                    .ExecuteSqlRaw("Delete from LabBook.dbo.ExpViscosityFields Where labbook_id={0}", labbookId);
+                _context.Database
+                    .ExecuteSqlRaw("Insert Into LabBook.dbo.ExpViscosityFields(labbook_id, name, user_id) Values({0}, {1}, {2})", labbookId, fieldType, _user.Id);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Problem z zapisem do tabeli ExpViscosityFields: '" + ex.Message + "'. Błąd z poziomu LabBookService.QuickSaveViscosityFields.",
+                    "Błąd Zapisu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Problem z zapisem do tabeli ExpViscosityFields: '" + ex.Message + "'. Błąd z poziomu LabBookService.QuickSaveViscosityFields.",
+                    "Błąd połączenia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void Save()
