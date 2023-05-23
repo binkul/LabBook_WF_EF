@@ -637,93 +637,58 @@ namespace LabBook_WF_EF.EntityModels
             {
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Comment)
-                    .HasColumnName("comment")
+                entity.Property(e => e.Comments)
+                    .HasColumnName("comments")
                     .HasMaxLength(2000);
 
-                entity.Property(e => e.Contrast100)
-                    .HasColumnName("contrast_100")
-                    .HasColumnType("decimal(6, 2)");
+                entity.Property(e => e.Contrast)
+                    .HasColumnName("contrast")
+                    .HasColumnType("float");
 
-                entity.Property(e => e.Contrast150)
-                    .HasColumnName("contrast_150")
-                    .HasColumnType("decimal(6, 2)");
+                entity.Property(e => e.Tw)
+                    .HasColumnName("tw")
+                    .HasColumnType("float");
 
-                entity.Property(e => e.Contrast240)
-                    .HasColumnName("contrast_240")
-                    .HasColumnType("decimal(6, 2)");
-
-                entity.Property(e => e.Contrast75)
-                    .HasColumnName("contrast_75")
-                    .HasColumnType("decimal(6, 2)");
-
-                entity.Property(e => e.ContrastClass)
-                    .HasColumnName("contrast_class")
-                    .HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.ContrastYield)
-                    .HasColumnName("contrast_yield")
-                    .HasDefaultValueSql("((1))");
+                entity.Property(e => e.Sp)
+                    .HasColumnName("sp")
+                    .HasColumnType("float");
 
                 entity.Property(e => e.DateCreated)
                     .HasColumnName("date_created")
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.DateUpdate)
-                    .HasColumnName("date_update")
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.LabbookId).HasColumnName("labbook_id");
+                entity.Property(e => e.LabBookId)
+                    .HasColumnName("labbook_id");
 
-                entity.Property(e => e.OtherAContrast)
-                    .HasColumnName("other_a_contrast")
-                    .HasColumnType("decimal(6, 2)");
-
-                entity.Property(e => e.OtherAType)
-                    .HasColumnName("other_a_type")
+                entity.Property(e => e.ApplicatiorId)
+                    .HasColumnName("applicator_id")
                     .HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.OtherBContrast)
-                    .HasColumnName("other_b_contrast")
-                    .HasColumnType("decimal(6, 2)");
-
-                entity.Property(e => e.OtherBType)
-                    .HasColumnName("other_b_type")
+                entity.Property(e => e.Position)
+                    .HasColumnName("position")
                     .HasDefaultValueSql("((1))");
+            });
 
-                entity.Property(e => e.Sp100)
-                    .HasColumnName("sp_100")
-                    .HasColumnType("decimal(7, 3)");
+            modelBuilder.Entity<ExpContrastClass>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasColumnName("id");
 
-                entity.Property(e => e.Sp150)
-                    .HasColumnName("sp_150")
-                    .HasColumnType("decimal(7, 3)");
+                entity.Property(e => e.LabBookId)
+                    .HasColumnName("labbook_id");
 
-                entity.Property(e => e.Sp240)
-                    .HasColumnName("sp_240")
-                    .HasColumnType("decimal(7, 3)");
+                entity.Property(e => e.Class)
+                    .HasColumnName("class");
 
-                entity.Property(e => e.Sp75)
-                    .HasColumnName("sp_75")
-                    .HasColumnType("decimal(7, 3)");
-
-                entity.Property(e => e.Tw100)
-                    .HasColumnName("tw_100")
-                    .HasColumnType("decimal(6, 4)");
-
-                entity.Property(e => e.Tw150)
-                    .HasColumnName("tw_150")
-                    .HasColumnType("decimal(6, 4)");
-
-                entity.Property(e => e.Tw240)
-                    .HasColumnName("tw_240")
-                    .HasColumnType("decimal(6, 4)");
-
-                entity.Property(e => e.Tw75)
-                    .HasColumnName("tw_75")
-                    .HasColumnType("decimal(6, 4)");
+                entity.Property(e => e.Yield)
+                    .HasColumnName("yield")
+                    .HasDefaultValueSql("((6))");
             });
 
             modelBuilder.Entity<ExpCycle>(entity =>

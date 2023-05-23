@@ -191,6 +191,7 @@
     <Compile Include="EntityModels\ExpCompositionData.cs" />
     <Compile Include="EntityModels\ExpCompositionHistory.cs" />
     <Compile Include="EntityModels\ExpContrast.cs" />
+    <Compile Include="EntityModels\ExpContrastClass.cs" />
     <Compile Include="EntityModels\ExpCycle.cs" />
     <Compile Include="EntityModels\ExpGloss.cs" />
     <Compile Include="EntityModels\ExpLabBook.cs" />
