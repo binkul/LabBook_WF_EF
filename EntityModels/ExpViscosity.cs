@@ -61,6 +61,11 @@ namespace LabBook_WF_EF.EntityModels
             set { _dateUpdate = value; Modified = true; }
         }
 
+        public int Days
+        {
+            get => (DateTime.Now - DateCreated).Days;
+        }
+
         public double? PH
         {
             get => _pH;

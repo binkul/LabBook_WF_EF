@@ -19,13 +19,13 @@ namespace LabBook_WF_EF.EntityModels
         {
         }
 
+        public virtual DbSet<CmbApplicator> CmbApplicator { get; set; }
         public virtual DbSet<CmbClpDataSheets> CmbClpDataSheets { get; set; }
         public virtual DbSet<CmbClpHp> CmbClpHp { get; set; }
         public virtual DbSet<CmbClpPictogram> CmbClpPictogram { get; set; }
         public virtual DbSet<CmbClpSignalWord> CmbClpSignalWord { get; set; }
         public virtual DbSet<CmbCompOperation> CmbCompOperation { get; set; }
         public virtual DbSet<CmbContrastClass> CmbContrastClass { get; set; }
-        public virtual DbSet<CmbContrastType> CmbContrastType { get; set; }
         public virtual DbSet<CmbContrastYield> CmbContrastYield { get; set; }
         public virtual DbSet<CmbCurrency> CmbCurrency { get; set; }
         public virtual DbSet<CmbGlosClass> CmbGlosClass { get; set; }
@@ -43,6 +43,7 @@ namespace LabBook_WF_EF.EntityModels
         public virtual DbSet<ExpCompositionData> ExpCompositionData { get; set; }
         public virtual DbSet<ExpCompositionHistory> ExpCompositionHistory { get; set; }
         public virtual DbSet<ExpContrast> ExpContrast { get; set; }
+        public virtual DbSet<ExpContrastClass> ExpContrastClass { get; set; }
         public virtual DbSet<ExpCycle> ExpCycle { get; set; }
         public virtual DbSet<ExpGloss> ExpGloss { get; set; }
         public virtual DbSet<ExpLabBook> ExpLabBook { get; set; }
@@ -77,6 +78,19 @@ namespace LabBook_WF_EF.EntityModels
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<CmbApplicator>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Number)
+                    .HasColumnName("number")
+                    .HasDefaultValueSql("(0)");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasMaxLength(100);
+            });
+
             modelBuilder.Entity<CmbClpDataSheets>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -188,20 +202,6 @@ namespace LabBook_WF_EF.EntityModels
                 entity.Property(e => e.Name)
                     .HasColumnName("name")
                     .HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<CmbContrastType>(entity =>
-            {
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.Date)
-                    .HasColumnName("date")
-                    .HasColumnType("date")
-                    .HasDefaultValueSql("(getdate())");
-
-                entity.Property(e => e.Name)
-                    .HasColumnName("name")
-                    .HasMaxLength(100);
             });
 
             modelBuilder.Entity<CmbContrastYield>(entity =>
@@ -635,6 +635,10 @@ namespace LabBook_WF_EF.EntityModels
 
             modelBuilder.Entity<ExpContrast>(entity =>
             {
+                entity.Ignore(e => e.Modified);
+                entity.Ignore(e => e.Added);
+                entity.Ignore(e => e.Added);
+                entity.Ignore(e => e.ApplicatorName);
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Comments)
@@ -673,10 +677,18 @@ namespace LabBook_WF_EF.EntityModels
                 entity.Property(e => e.Position)
                     .HasColumnName("position")
                     .HasDefaultValueSql("((1))");
+
+                entity
+                    .HasOne(d => d.Applicator)
+                    .WithMany(p => p.ExpContrasts)
+                    .HasForeignKey(d => d.ApplicatiorId)
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<ExpContrastClass>(entity =>
             {
+                entity.Ignore(e => e.Modified);
+                entity.Ignore(e => e.Added);
                 entity.Property(e => e.Id)
                     .HasColumnName("id");
 
@@ -800,12 +812,11 @@ namespace LabBook_WF_EF.EntityModels
                     .HasMaxLength(200)
                     .HasDefaultValueSql("('Pusty')");
 
-
                 entity
-                .HasOne(d => d.User)
-                .WithMany(p => p.ExpLabBook)
-                .HasForeignKey(d => d.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
+                    .HasOne(d => d.User)
+                    .WithMany(p => p.ExpLabBook)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<ExpSpectro>(entity =>
@@ -881,6 +892,7 @@ namespace LabBook_WF_EF.EntityModels
             {
                 entity.Ignore(e => e.Modified);
                 entity.Ignore(e => e.Added);
+                entity.Ignore(e => e.Days);
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Brook1)

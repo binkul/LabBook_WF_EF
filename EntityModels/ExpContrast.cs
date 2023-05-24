@@ -19,6 +19,9 @@ namespace LabBook_WF_EF.EntityModels
         public DateTime DateCreated { get; set; }
         private DateTime _dateUpdated;
 
+        public virtual CmbApplicator Applicator { get; set; }
+
+
         public bool Modified { get; set; } = false;
         public bool Added { get; set; } = false;
 
@@ -76,5 +79,14 @@ namespace LabBook_WF_EF.EntityModels
             set { _dateUpdated = value; Modified = true; }
         }
 
+        public int Days
+        {
+            get => (DateTime.Now - DateCreated).Days;
+        }
+
+        public string ApplicatorName
+        {
+            get => Applicator.Name;
+        }
     }
 }

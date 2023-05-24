@@ -167,13 +167,13 @@
     <Compile Include="Commons\State.cs" />
     <Compile Include="ConfigData.cs" />
     <Compile Include="Dto\UserDto.cs" />
+    <Compile Include="EntityModels\CmbApplicator.cs" />
     <Compile Include="EntityModels\CmbClpDataSheets.cs" />
     <Compile Include="EntityModels\CmbClpHp.cs" />
     <Compile Include="EntityModels\CmbClpPictogram.cs" />
     <Compile Include="EntityModels\CmbClpSignalWord.cs" />
     <Compile Include="EntityModels\CmbCompOperation.cs" />
     <Compile Include="EntityModels\CmbContrastClass.cs" />
-    <Compile Include="EntityModels\CmbContrastType.cs" />
     <Compile Include="EntityModels\CmbContrastYield.cs" />
     <Compile Include="EntityModels\CmbCurrency.cs" />
     <Compile Include="EntityModels\CmbGlosClass.cs" />

@@ -67,6 +67,8 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtTitle = new System.Windows.Forms.TextBox();
             this.LblNrD = new System.Windows.Forms.Label();
             this.LblDate = new System.Windows.Forms.Label();
+            this.TabPageContrast = new System.Windows.Forms.TabPage();
+            this.DgvContrast = new System.Windows.Forms.DataGridView();
             this.TabControlMain.SuspendLayout();
             this.TabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).BeginInit();
@@ -78,6 +80,8 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.BindingNavigatorMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.TabPageContrast.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvContrast)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -89,6 +93,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabControlMain.Controls.Add(this.TabPageRemarks);
             this.TabControlMain.Controls.Add(this.TabPageObservation);
             this.TabControlMain.Controls.Add(this.TabPageViscosity);
+            this.TabControlMain.Controls.Add(this.TabPageContrast);
             this.TabControlMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.TabControlMain.Location = new System.Drawing.Point(0, 131);
             this.TabControlMain.Name = "TabControlMain";
@@ -278,7 +283,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Pozycja";
             this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 27);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -379,13 +383,13 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.brookKrebsStripMenuItem,
             this.brookIciStripMenuItem});
             this.lepkosciToolStripMenuItem.Name = "lepkosciToolStripMenuItem";
-            this.lepkosciToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.lepkosciToolStripMenuItem.Size = new System.Drawing.Size(159, 28);
             this.lepkosciToolStripMenuItem.Text = "Lepkości";
             // 
             // standardToolStripMenuItem
             // 
             this.standardToolStripMenuItem.Name = "standardToolStripMenuItem";
-            this.standardToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.standardToolStripMenuItem.Size = new System.Drawing.Size(203, 28);
             this.standardToolStripMenuItem.Tag = "1";
             this.standardToolStripMenuItem.Text = "Standard";
             this.standardToolStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
@@ -393,7 +397,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // prbToolStripMenuItem
             // 
             this.prbToolStripMenuItem.Name = "prbToolStripMenuItem";
-            this.prbToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.prbToolStripMenuItem.Size = new System.Drawing.Size(203, 28);
             this.prbToolStripMenuItem.Tag = "2";
             this.prbToolStripMenuItem.Text = "Brook PRB";
             this.prbToolStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
@@ -401,7 +405,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // brookPelnyToolStripMenuItem
             // 
             this.brookPelnyToolStripMenuItem.Name = "brookPelnyToolStripMenuItem";
-            this.brookPelnyToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.brookPelnyToolStripMenuItem.Size = new System.Drawing.Size(203, 28);
             this.brookPelnyToolStripMenuItem.Tag = "3";
             this.brookPelnyToolStripMenuItem.Text = "Brook pełny";
             this.brookPelnyToolStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
@@ -409,7 +413,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // brookKrebsStripMenuItem
             // 
             this.brookKrebsStripMenuItem.Name = "brookKrebsStripMenuItem";
-            this.brookKrebsStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.brookKrebsStripMenuItem.Size = new System.Drawing.Size(203, 28);
             this.brookKrebsStripMenuItem.Tag = "4";
             this.brookKrebsStripMenuItem.Text = "Brook + Krebs";
             this.brookKrebsStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
@@ -417,7 +421,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // brookIciStripMenuItem
             // 
             this.brookIciStripMenuItem.Name = "brookIciStripMenuItem";
-            this.brookIciStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.brookIciStripMenuItem.Size = new System.Drawing.Size(203, 28);
             this.brookIciStripMenuItem.Tag = "5";
             this.brookIciStripMenuItem.Text = "Brook + ICI";
             this.brookIciStripMenuItem.Click += new System.EventHandler(this.ViscosityViewToolStripMenuItem_Click);
@@ -456,6 +460,31 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblDate.TabIndex = 7;
             this.LblDate.Text = " DD-MM-YYYY";
             // 
+            // TabPageContrast
+            // 
+            this.TabPageContrast.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageContrast.Controls.Add(this.DgvContrast);
+            this.TabPageContrast.Location = new System.Drawing.Point(4, 29);
+            this.TabPageContrast.Name = "TabPageContrast";
+            this.TabPageContrast.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPageContrast.Size = new System.Drawing.Size(1155, 435);
+            this.TabPageContrast.TabIndex = 4;
+            this.TabPageContrast.Text = "Krycie";
+            // 
+            // DgvContrast
+            // 
+            this.DgvContrast.AllowUserToDeleteRows = false;
+            this.DgvContrast.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DgvContrast.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvContrast.Location = new System.Drawing.Point(0, 6);
+            this.DgvContrast.Name = "DgvContrast";
+            this.DgvContrast.RowHeadersWidth = 51;
+            this.DgvContrast.RowTemplate.Height = 24;
+            this.DgvContrast.Size = new System.Drawing.Size(1152, 374);
+            this.DgvContrast.TabIndex = 0;
+            // 
             // LabBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -490,6 +519,8 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.toolStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.TabPageContrast.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DgvContrast)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -533,5 +564,7 @@ namespace LabBook_WF_EF.Forms.LabBook
         private System.Windows.Forms.ToolStripMenuItem brookPelnyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem brookKrebsStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem brookIciStripMenuItem;
+        private System.Windows.Forms.TabPage TabPageContrast;
+        private System.Windows.Forms.DataGridView DgvContrast;
     }
 }

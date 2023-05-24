@@ -31,6 +31,7 @@ namespace LabBook_WF_EF.Forms.LabBook
 
         public DataGridView GetDgvLabBook => DgvLabBook;
         public DataGridView GetDgvViscosity => DgvViscosity;
+        public DataGridView GetDgvContrast => DgvContrast;
         public Label GetLblNrD => LblNrD;
         public Label GetLblDate => LblDate;
         public TextBox GetTxtTitle => TxtTitle;
@@ -68,7 +69,7 @@ namespace LabBook_WF_EF.Forms.LabBook
 
         private void ToolStripSave_Click(object sender, EventArgs e)
         {
-
+            _service.Save();
         }
 
         private void DgvLabBook_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -128,8 +129,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             {
                 _service.ViscosityFieldVisibilityItem(value);
             }
-
-
         }
     }
 }
