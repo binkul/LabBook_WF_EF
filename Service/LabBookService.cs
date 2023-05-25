@@ -29,6 +29,7 @@ namespace LabBook_WF_EF.Service
         private readonly LabBookContext _context;
         private readonly SqlConnection _sqlConnection;
         private readonly ExpViscosityRepository _visRepository;
+        private readonly ExpContrastRepository _conRepository;
         private readonly UserDto _user;
 
         private IList<ExpLabBook> _labBook;
@@ -48,6 +49,7 @@ namespace LabBook_WF_EF.Service
             _user = user;
             _sqlConnection = new SqlConnection(ConfigData.ConnectionStringAdo);
             _visRepository = new ExpViscosityRepository(_sqlConnection);
+            _conRepository = new ExpContrastRepository(_sqlConnection);
         }
 
         public BindingSource GetLabBookBinding => _labBookBinding;
@@ -67,10 +69,17 @@ namespace LabBook_WF_EF.Service
             _contrasts = new ObservableListSource<ExpContrast>();
             _contrastBinding = new BindingSource { DataSource = _contrasts };
 
+            #region Prepare Menus
+
+            PrepareApplicatorMenu();
+
+            #endregion
+
             #region Prepare DataGrids
 
             PrepareDataGridViewLabBook();
             PrepareDataGridViewViscosity();
+            PrepareDataGridViewContrast();
 
             #endregion
 
@@ -358,7 +367,7 @@ namespace LabBook_WF_EF.Service
         private void PrepareDataGridViewContrast()
         {
             DataGridView view = _form.GetDgvContrast;
-            view.DataSource = _viscosityBinding;
+            view.DataSource = _contrastBinding;
             view.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             view.RowsDefaultCellStyle.Font = new Font(view.DefaultCellStyle.Font.Name, 9, FontStyle.Regular);
             view.ColumnHeadersDefaultCellStyle.Font = new Font(view.DefaultCellStyle.Font.Name, 9, FontStyle.Bold);
@@ -373,8 +382,10 @@ namespace LabBook_WF_EF.Service
             view.Columns["LabBookId"].Visible = false;
             view.Columns["DateUpdated"].Visible = false;
             view.Columns["Added"].Visible = false;
-            view.Columns["Applicator"].Visible = false;
+            view.Columns["Position"].Visible = false;
             view.Columns.Remove("Modified");
+            view.Columns.Remove("ApplicatiorId");
+            view.Columns.Remove("Applicator");
 
             int displayIndex = 0;
 
@@ -393,19 +404,67 @@ namespace LabBook_WF_EF.Service
             buttonColumn.DisplayIndex = displayIndex;
             view.Columns.Add(buttonColumn);
 
+            int width = view.Width - (view.RowHeadersWidth + view.Columns["Del"].Width + view.Columns["DateCreated"].Width + view.Columns["Days"].Width);
+            
             view.Columns["DateCreated"].HeaderText = "Data";
             view.Columns["DateCreated"].DisplayIndex = ++displayIndex;
             view.Columns["DateCreated"].SortMode = DataGridViewColumnSortMode.NotSortable;
-            view.Columns["DateCreated"].Width = 100;
+            view.Columns["DateCreated"].Width = (int)(width * 0.1);
             view.Columns["DateCreated"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             view.Columns["Days"].HeaderText = "Doba";
             view.Columns["Days"].ReadOnly = true;
             view.Columns["Days"].DisplayIndex = ++displayIndex;
             view.Columns["Days"].SortMode = DataGridViewColumnSortMode.NotSortable;
-            view.Columns["Days"].Width = 80;
+            view.Columns["Days"].Width = (int)(width * 0.05);
             view.Columns["Days"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
+            view.Columns["ApplicatorName"].HeaderText = "Aplikator";
+            view.Columns["ApplicatorName"].ReadOnly = true;
+            view.Columns["ApplicatorName"].DisplayIndex = ++displayIndex;
+            view.Columns["ApplicatorName"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["ApplicatorName"].Width = (int)(width * 0.15);
+            view.Columns["ApplicatorName"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            view.Columns["Contrast"].HeaderText = "Krycie";
+            view.Columns["Contrast"].DisplayIndex = ++displayIndex;
+            view.Columns["Contrast"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["Contrast"].Width = (int)(width * 0.1);
+            view.Columns["Contrast"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            view.Columns["Tw"].HeaderText = "Tw";
+            view.Columns["Tw"].DisplayIndex = ++displayIndex;
+            view.Columns["Tw"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["Tw"].Width = (int)(width * 0.1);
+            view.Columns["Tw"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            view.Columns["Sp"].HeaderText = "Sp";
+            view.Columns["Sp"].DisplayIndex = ++displayIndex;
+            view.Columns["Sp"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["Sp"].Width = (int)(width * 0.1);
+            view.Columns["Sp"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            view.Columns["Comments"].HeaderText = "Uwagi";
+            view.Columns["Comments"].DisplayIndex = ++displayIndex;
+            view.Columns["Comments"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["Comments"].Width = (int)(width * 0.4);
+            view.Columns["Comments"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+        }
+
+        private void PrepareApplicatorMenu()
+        {
+            ToolStripMenuItem menu = _form.GetApplicatorMenu;
+            var applicators = GetApplicators();
+
+            foreach (CmbApplicator applicator in applicators)
+            {
+                ToolStripMenuItem newApp = new ToolStripMenuItem();
+                newApp.Name = "ApplicatorToolStripMenuItem_" + applicator.Id.ToString();
+                newApp.Text = applicator.Name;
+                newApp.Tag = applicator.Id;
+                newApp.Click += ApplicatorMenu_Click;
+                menu.DropDownItems.Add(newApp);
+            }
         }
 
         #endregion
@@ -427,6 +486,8 @@ namespace LabBook_WF_EF.Service
             var list = _context.ExpViscosity
                 .Where(i => i.LabBookId == labbookId)
                 .ToList();
+
+            list.ForEach(i => i.Modified = false);
 
             return new ObservableListSource<ExpViscosity>(list);
         }
@@ -473,14 +534,27 @@ namespace LabBook_WF_EF.Service
                 .OrderBy(i => i.Position)
                 .ToList();
 
+            list.ForEach(i => i.Modified = false);
+
             return new ObservableListSource<ExpContrast>(list);
+        }
+
+        private IList<CmbApplicator> GetApplicators()
+        {
+            return _context.CmbApplicator
+                .OrderBy(i => i.Number)
+                .ToList();
         }
 
         private ExpContrastClass GetContrastClass(long labbookId)
         {
-            return _context.ExpContrastClass
+            var cClass = _context.ExpContrastClass
                 .Where(i => i.LabBookId == labbookId)
                 .FirstOrDefault();
+
+            if (cClass != null) cClass.Modified = false;
+
+            return cClass;
         }
 
         #endregion
@@ -550,7 +624,7 @@ namespace LabBook_WF_EF.Service
 
         #endregion
 
-        #region DataGridView Events
+        #region DataGridView and Others Events
 
         public void DefaultvaluesNeededForVoscosity(DataGridViewRowEventArgs e)
         {
@@ -578,19 +652,58 @@ namespace LabBook_WF_EF.Service
             }
         }
 
-        public void CellContentClickForButton(long id, DataGridViewCellEventArgs e)
+        public void CellContentClickForViscosityButton(long id, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= _viscosities.Count) return;
 
             if (id > 0)
             {
-                _context.Database
-                    .ExecuteSqlRaw("Delete From LabBook.dbo.ExpViscosity Where id={0}", id);
+                var entity = _viscosities.Where(i => i.Id == id).FirstOrDefault();
+                if (entity != null)
+                {
+                    _context.Entry(entity).State = EntityState.Detached;
+                }
+
+                QuickDelete("Delete From LabBook.dbo.ExpViscosity Where id={0}", id);
+
+                // Optional:
+                //var entity = _viscosities.Where(i => i.Id == id).FirstOrDefault();
+                //_context.ExpViscosity.Remove(entity);
+                //_context.SaveChanges();
+                // End optional
+
                 _viscosities.RemoveAt(e.RowIndex);
             }
             else
             {
                 _viscosities.RemoveAt(e.RowIndex);
+            }
+        }
+
+        public void CellContentClickForContrastButton(long id, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= _contrasts.Count) return;
+            if (id > 0)
+            {
+                var entity = _contrasts.Where(i => i.Id == id).FirstOrDefault();
+                if (entity != null)
+                {
+                    _context.Entry(entity).State = EntityState.Detached;
+                }
+
+                QuickDelete("Delete From LabBook.dbo.ExpContrast Where id={0}", id);
+
+                // Optional:
+                //var entity = _contrasts.Where(i => i.Id == id).FirstOrDefault();
+                //_context.ExpContrast.Remove(entity);
+                //_context.SaveChanges();
+                // End optional
+
+                _contrasts.RemoveAt(e.RowIndex);
+            }
+            else
+            {
+                _contrasts.RemoveAt(e.RowIndex);
             }
         }
 
@@ -730,6 +843,20 @@ namespace LabBook_WF_EF.Service
             }
         }
 
+        public void DataGridContrastColumnSizeChanged()
+        {
+            DataGridView view = _form.GetDgvContrast;
+            int width = view.Width - (view.RowHeadersWidth + view.Columns["Del"].Width);
+
+            view.Columns["DateCreated"].Width = (int)(width * 0.1);
+            view.Columns["Days"].Width = (int)(width * 0.08);
+            view.Columns["ApplicatorName"].Width = (int)(width * 0.25);
+            view.Columns["Contrast"].Width = (int)(width * 0.1);
+            view.Columns["Tw"].Width = (int)(width * 0.1);
+            view.Columns["Sp"].Width = (int)(width * 0.1);
+            view.Columns["Comments"].Width = (int)(width * 0.27);
+        }
+
         public void ViscosityFieldVisibilityItem(int value)
         {
             ViscosityFieldsType type;
@@ -764,6 +891,27 @@ namespace LabBook_WF_EF.Service
             }
         }
 
+        private void ApplicatorMenu_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem applicator = (ToolStripMenuItem)sender;
+            long id = long.Parse(applicator.Tag.ToString());
+            string name = applicator.Text;
+            CmbApplicator cmbApplicator = _context.CmbApplicator
+                .Where(i => i.Id == id)
+                .FirstOrDefault();
+
+            ExpContrast contrast = new ExpContrast();
+            contrast.LabBookId = GetCurrentLabBook.Id;
+            contrast.ApplicatiorId = id;
+            contrast.Applicator = cmbApplicator;
+            contrast.DateCreated = DateTime.Today;
+            contrast.DateUpdated = DateTime.Today;
+            contrast.Position = _contrasts.Count > 0 ? _contrasts.Max(i => i.Position) + 1 : 1;
+            contrast.Modified = false;
+
+            _contrasts.Add(contrast);
+        }
+       
         #endregion
 
         #region Save, Update, Delete
@@ -780,6 +928,7 @@ namespace LabBook_WF_EF.Service
 
             foreach (ExpViscosity vis in modList)
             {
+                vis.DateUpdate = DateTime.Now;
                 object[] parameters = new object[]
                 {
                     new SqlParameter("@id", vis.Id),
@@ -826,6 +975,36 @@ namespace LabBook_WF_EF.Service
         {
             if (_contrasts == null || _contrasts.Count == 0) return;
 
+            _form.GetDgvViscosity.EndEdit();
+
+            var modList = _contrasts
+                .Where(i => i.Added || i.Modified)
+                .ToList();
+
+            foreach (ExpContrast contrast in modList)
+            {
+                contrast.DateUpdated = DateTime.Now;
+                object[] parameters = new object[]
+                {
+                    new SqlParameter("@id", contrast.Id),
+                    new SqlParameter("@labbook_id", contrast.LabBookId),
+                    new SqlParameter("@date_created", contrast.DateCreated),
+                    new SqlParameter("@date_update", contrast.DateUpdated),
+                    new SqlParameter("@applicator_id", contrast.ApplicatiorId),
+                    new SqlParameter("@position", contrast.Position),
+                    new SqlParameter("@contrast", contrast.Contrast ?? (object)DBNull.Value),
+                    new SqlParameter("@tw", contrast.Tw ?? (object)DBNull.Value),
+                    new SqlParameter("@sp", contrast.Sp ?? (object)DBNull.Value),
+                    new SqlParameter("@comments", contrast.Comments ?? (object)DBNull.Value),
+                };
+
+                if (contrast.Added)
+                    _context.Database
+                        .ExecuteSqlRaw(ExpContrastRepository.SaveContrastSql, parameters);
+                else
+                    _context.Database
+                        .ExecuteSqlRaw(ExpContrastRepository.UpdateContrastSql, parameters);
+            }
         }
 
         private void QuickSaveViscosityFields(String fieldType, long labbookId)
@@ -849,12 +1028,33 @@ namespace LabBook_WF_EF.Service
             }
         }
 
+        private void QuickDelete(string query, long id)
+        {
+            try
+            {
+                _context.Database
+                    .ExecuteSqlRaw(query, id);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Problem z zapisem do tabeli ExpViscosityFields: '" + ex.Message + "'. Błąd z poziomu LabBookService.QuickDelete.",
+                    "Błąd Zapisu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Problem z zapisem do tabeli ExpViscosityFields: '" + ex.Message + "'. Błąd z poziomu LabBookService.QuickDelete.",
+                    "Błąd połączenia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public void Save()
         {
             _form.GetDgvLabBook.EndEdit();
             _form.GetDgvViscosity.EndEdit();
+            _form.GetDgvContrast.EndEdit();
             _labBookBinding.EndEdit();
             _viscosityBinding.EndEdit();
+            _contrastBinding.EndEdit();
 
             foreach (ExpViscosity viscosity in _viscosities)
             {
@@ -864,6 +1064,16 @@ namespace LabBook_WF_EF.Service
                     _context.ExpViscosity.Add(viscosity);
                 }
                 viscosity.Modified = false;
+            }
+
+            foreach (ExpContrast contrast in _contrasts)
+            {
+                if (contrast.Added)
+                {
+                    contrast.Added = false;
+                    _context.ExpContrast.Add(contrast);
+                }
+                contrast.Modified = false;
             }
 
             _context.SaveChanges();

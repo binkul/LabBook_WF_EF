@@ -16,8 +16,8 @@ namespace LabBook_WF_EF.EntityModels
         private double? _tw;
         private double? _sp;
         private string _comments;
-        public DateTime DateCreated { get; set; }
-        private DateTime _dateUpdated;
+        public DateTime DateCreated { get; set; } = DateTime.Today;
+        private DateTime _dateUpdated = DateTime.Today;
 
         public virtual CmbApplicator Applicator { get; set; }
 

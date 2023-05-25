@@ -32,6 +32,7 @@ namespace LabBook_WF_EF.Forms.LabBook
         public DataGridView GetDgvLabBook => DgvLabBook;
         public DataGridView GetDgvViscosity => DgvViscosity;
         public DataGridView GetDgvContrast => DgvContrast;
+        public ToolStripMenuItem GetApplicatorMenu => ApplicatorToolStripMenuItem;
         public Label GetLblNrD => LblNrD;
         public Label GetLblDate => LblDate;
         public TextBox GetTxtTitle => TxtTitle;
@@ -101,11 +102,26 @@ namespace LabBook_WF_EF.Forms.LabBook
             if (e.RowIndex < 0) return;
 
             var grid = (DataGridView)sender;
+            if (grid.Columns.Count == 0 || grid.Rows.Count == 0) return;
 
             if (grid[e.ColumnIndex, e.RowIndex] is DataGridViewButtonCell)
             {
                 long id = (long)grid.Rows[e.RowIndex].Cells["Id"].Value;
-                _service.CellContentClickForButton(id, e);
+                _service.CellContentClickForViscosityButton(id, e);
+            }
+        }
+
+        private void DgvContrast_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var grid = (DataGridView)sender;
+            if (grid.Columns.Count == 0 || grid.Rows.Count == 0) return;
+
+            if (grid[e.ColumnIndex, e.RowIndex] is DataGridViewButtonCell)
+            {
+                long id = (long)grid.Rows[e.RowIndex].Cells["Id"].Value;
+                _service.CellContentClickForContrastButton(id, e);
             }
         }
 
@@ -120,6 +136,12 @@ namespace LabBook_WF_EF.Forms.LabBook
                 _service.DataGridViscosityColumnSizeChanged();
         }
 
+        private void DgvContrast_Resize(object sender, EventArgs e)
+        {
+            if (DgvContrast.Columns.Count > 0)
+                _service.DataGridContrastColumnSizeChanged();
+        }
+
         private void ViscosityViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
@@ -129,6 +151,16 @@ namespace LabBook_WF_EF.Forms.LabBook
             {
                 _service.ViscosityFieldVisibilityItem(value);
             }
+        }
+
+        private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TabControl tab = (TabControl)sender;
+
+            if (tab.TabPages[tab.SelectedIndex].Name.Equals("TabPageContrast"))
+                ApplicatorToolStripMenuItem.Enabled = true;
+            else
+                ApplicatorToolStripMenuItem.Enabled = false;
         }
     }
 }

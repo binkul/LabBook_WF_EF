@@ -12,8 +12,8 @@ namespace LabBook_WF_EF.EntityModels
     {
         private long _id;
         private long _labbookId;
-        public DateTime DateCreated { get; set; }
-        private DateTime _dateUpdate;
+        public DateTime DateCreated { get; set; } = DateTime.Today;
+        private DateTime _dateUpdate = DateTime.Today;
         private double? _pH;
         private string _visType = "brookfield";
         private double? _brook1;
