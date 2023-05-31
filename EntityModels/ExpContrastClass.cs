@@ -35,6 +35,8 @@
         }
 
         public virtual ExpLabBook ExpLabBook { get; set; }
+        public virtual CmbContrastClass CmbContrastClass { get; set; }
+        public virtual CmbContrastYield CmbContrastYield { get; set; }
 
     }
 }

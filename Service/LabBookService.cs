@@ -41,6 +41,7 @@ namespace LabBook_WF_EF.Service
         private IList<ExpContrastClass> _contrastClass;
         private BindingSource _contrastClassBinding;
         private IList<CmbContrastClass> _cmbContrastClasses;
+        private IList<CmbContrastYield> _cmbContrastYields;
         private ViscosityFieldsType _viscosityFields = ViscosityFieldsType.StdBrook;
 
         public LabBookService(LabBookForm form, LabBookContext context, UserDto user)
@@ -71,6 +72,7 @@ namespace LabBook_WF_EF.Service
             _contrastBinding = new BindingSource { DataSource = _contrasts };
 
             _cmbContrastClasses = GetContrastClasses();
+            _cmbContrastYields = GetContrastYields();
 
             #region Prepare Menus
 
@@ -94,6 +96,12 @@ namespace LabBook_WF_EF.Service
             cClass.DisplayMember = "Name";
             cClass.SelectedIndexChanged += CmbClass_SelectedIndexChanged;
 
+            ComboBox yields = _form.GetComboYield;
+            yields.DataSource = _cmbContrastYields;
+            yields.ValueMember = "Id";
+            yields.DisplayMember = "Name";
+            yields.SelectedIndexChanged += Yields_SelectedIndexChanged;
+
             #endregion
 
             #region Prepare others control
@@ -109,7 +117,6 @@ namespace LabBook_WF_EF.Service
 
             LabBookBinding_PositionChanged(null, null);
         }
-
 
         private void PrepareDataGridViewLabBook()
         {
@@ -489,7 +496,8 @@ namespace LabBook_WF_EF.Service
         {
             var list = _context.ExpLabBook
                 .Include(x => x.User)
-                .Include(x => x.ExpContrastClass)
+                .Include(x => x.ExpContrastClass).ThenInclude(y => y.CmbContrastClass)
+                .Include(x => x.ExpContrastClass).ThenInclude(y => y.CmbContrastYield)
                 .OrderBy(x => x.Id)
                 .ToList();
 
@@ -612,6 +620,11 @@ namespace LabBook_WF_EF.Service
 
                 _conRepository.QuickSaveContrast(_contrasts);
                 GetCurrentContrast(currentLabBook.Id);
+
+                if (currentLabBook.ExpContrastClass != null)
+                {
+
+                }
             }
         }
 
@@ -951,6 +964,11 @@ namespace LabBook_WF_EF.Service
         }
        
         private void CmbClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Yields_SelectedIndexChanged(object sender, EventArgs e)
         {
             
         }

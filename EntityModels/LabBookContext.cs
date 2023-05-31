@@ -696,11 +696,24 @@ namespace LabBook_WF_EF.EntityModels
                     .HasColumnName("labbook_id");
 
                 entity.Property(e => e.ClassId)
-                    .HasColumnName("class_id");
+                    .HasColumnName("class_id")
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.YieldId)
                     .HasColumnName("yield_id")
-                    .HasDefaultValueSql("((6))");
+                    .HasDefaultValueSql("((1))");
+
+                entity
+                    .HasOne(d => d.CmbContrastClass)
+                    .WithMany(p => p.ExpContrastClasses)
+                    .HasForeignKey(d => d.ClassId)
+                    .OnDelete(DeleteBehavior.NoAction);
+
+                entity
+                    .HasOne(d => d.CmbContrastYield)
+                    .WithMany(p => p.ExpContrastClasses)
+                    .HasForeignKey(d => d.YieldId)
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<ExpCycle>(entity =>

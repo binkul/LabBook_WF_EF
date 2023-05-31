@@ -41,6 +41,10 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageViscosity = new System.Windows.Forms.TabPage();
             this.DgvViscosity = new System.Windows.Forms.DataGridView();
             this.TabPageContrast = new System.Windows.Forms.TabPage();
+            this.LblContrastYield = new System.Windows.Forms.Label();
+            this.CmbContrastYield = new System.Windows.Forms.ComboBox();
+            this.LblContarstClass = new System.Windows.Forms.Label();
+            this.CmbContrastClass = new System.Windows.Forms.ComboBox();
             this.DgvContrast = new System.Windows.Forms.DataGridView();
             this.BindingNavigatorMain = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
@@ -71,10 +75,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtTitle = new System.Windows.Forms.TextBox();
             this.LblNrD = new System.Windows.Forms.Label();
             this.LblDate = new System.Windows.Forms.Label();
-            this.CmbContrastClass = new System.Windows.Forms.ComboBox();
-            this.LblContarstClass = new System.Windows.Forms.Label();
-            this.CmbContrastYield = new System.Windows.Forms.ComboBox();
-            this.LblContrastYield = new System.Windows.Forms.Label();
             this.TabControlMain.SuspendLayout();
             this.TabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).BeginInit();
@@ -223,6 +223,46 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageContrast.TabIndex = 4;
             this.TabPageContrast.Text = "Krycie";
             // 
+            // LblContrastYield
+            // 
+            this.LblContrastYield.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.LblContrastYield.AutoSize = true;
+            this.LblContrastYield.Location = new System.Drawing.Point(300, 364);
+            this.LblContrastYield.Name = "LblContrastYield";
+            this.LblContrastYield.Size = new System.Drawing.Size(45, 20);
+            this.LblContrastYield.TabIndex = 8;
+            this.LblContrastYield.Text = "przy";
+            // 
+            // CmbContrastYield
+            // 
+            this.CmbContrastYield.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CmbContrastYield.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbContrastYield.FormattingEnabled = true;
+            this.CmbContrastYield.Location = new System.Drawing.Point(351, 361);
+            this.CmbContrastYield.Name = "CmbContrastYield";
+            this.CmbContrastYield.Size = new System.Drawing.Size(160, 28);
+            this.CmbContrastYield.TabIndex = 3;
+            // 
+            // LblContarstClass
+            // 
+            this.LblContarstClass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.LblContarstClass.AutoSize = true;
+            this.LblContarstClass.Location = new System.Drawing.Point(8, 364);
+            this.LblContarstClass.Name = "LblContarstClass";
+            this.LblContarstClass.Size = new System.Drawing.Size(112, 20);
+            this.LblContarstClass.TabIndex = 2;
+            this.LblContarstClass.Text = "Klasa krycia";
+            // 
+            // CmbContrastClass
+            // 
+            this.CmbContrastClass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CmbContrastClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbContrastClass.FormattingEnabled = true;
+            this.CmbContrastClass.Location = new System.Drawing.Point(126, 361);
+            this.CmbContrastClass.Name = "CmbContrastClass";
+            this.CmbContrastClass.Size = new System.Drawing.Size(152, 28);
+            this.CmbContrastClass.TabIndex = 1;
+            // 
             // DgvContrast
             // 
             this.DgvContrast.AllowUserToAddRows = false;
@@ -322,6 +362,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Pozycja";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 27);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -514,42 +555,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblDate.Size = new System.Drawing.Size(131, 20);
             this.LblDate.TabIndex = 7;
             this.LblDate.Text = " DD-MM-YYYY";
-            // 
-            // CmbContrastClass
-            // 
-            this.CmbContrastClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbContrastClass.FormattingEnabled = true;
-            this.CmbContrastClass.Location = new System.Drawing.Point(138, 361);
-            this.CmbContrastClass.Name = "CmbContrastClass";
-            this.CmbContrastClass.Size = new System.Drawing.Size(124, 28);
-            this.CmbContrastClass.TabIndex = 1;
-            // 
-            // LblContarstClass
-            // 
-            this.LblContarstClass.AutoSize = true;
-            this.LblContarstClass.Location = new System.Drawing.Point(8, 364);
-            this.LblContarstClass.Name = "LblContarstClass";
-            this.LblContarstClass.Size = new System.Drawing.Size(112, 20);
-            this.LblContarstClass.TabIndex = 2;
-            this.LblContarstClass.Text = "Klasa krycia";
-            // 
-            // CmbContrastYield
-            // 
-            this.CmbContrastYield.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbContrastYield.FormattingEnabled = true;
-            this.CmbContrastYield.Location = new System.Drawing.Point(350, 361);
-            this.CmbContrastYield.Name = "CmbContrastYield";
-            this.CmbContrastYield.Size = new System.Drawing.Size(129, 28);
-            this.CmbContrastYield.TabIndex = 3;
-            // 
-            // LblContrastYield
-            // 
-            this.LblContrastYield.AutoSize = true;
-            this.LblContrastYield.Location = new System.Drawing.Point(284, 364);
-            this.LblContrastYield.Name = "LblContrastYield";
-            this.LblContrastYield.Size = new System.Drawing.Size(45, 20);
-            this.LblContrastYield.TabIndex = 8;
-            this.LblContrastYield.Text = "przy";
             // 
             // LabBookForm
             // 
