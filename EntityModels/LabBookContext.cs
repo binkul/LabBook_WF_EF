@@ -695,11 +695,11 @@ namespace LabBook_WF_EF.EntityModels
                 entity.Property(e => e.LabBookId)
                     .HasColumnName("labbook_id");
 
-                entity.Property(e => e.Class)
-                    .HasColumnName("class");
+                entity.Property(e => e.ClassId)
+                    .HasColumnName("class_id");
 
-                entity.Property(e => e.Yield)
-                    .HasColumnName("yield")
+                entity.Property(e => e.YieldId)
+                    .HasColumnName("yield_id")
                     .HasDefaultValueSql("((6))");
             });
 
@@ -817,6 +817,13 @@ namespace LabBook_WF_EF.EntityModels
                     .WithMany(p => p.ExpLabBook)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.NoAction);
+
+                entity
+                    .HasOne(d => d.ExpContrastClass)
+                    .WithOne(p => p.ExpLabBook)
+                    .HasForeignKey<ExpContrastClass>(d => d.LabBookId)
+                    .OnDelete(DeleteBehavior.NoAction);
+
             });
 
             modelBuilder.Entity<ExpSpectro>(entity =>

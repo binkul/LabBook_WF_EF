@@ -40,6 +40,7 @@ namespace LabBook_WF_EF.Service
         private BindingSource _contrastBinding;
         private IList<ExpContrastClass> _contrastClass;
         private BindingSource _contrastClassBinding;
+        private IList<CmbContrastClass> _cmbContrastClasses;
         private ViscosityFieldsType _viscosityFields = ViscosityFieldsType.StdBrook;
 
         public LabBookService(LabBookForm form, LabBookContext context, UserDto user)
@@ -69,6 +70,8 @@ namespace LabBook_WF_EF.Service
             _contrasts = new ObservableListSource<ExpContrast>();
             _contrastBinding = new BindingSource { DataSource = _contrasts };
 
+            _cmbContrastClasses = GetContrastClasses();
+
             #region Prepare Menus
 
             PrepareApplicatorMenu();
@@ -80,6 +83,16 @@ namespace LabBook_WF_EF.Service
             PrepareDataGridViewLabBook();
             PrepareDataGridViewViscosity();
             PrepareDataGridViewContrast();
+
+            #endregion
+
+            #region Prepare ComboBoxes
+
+            ComboBox cClass = _form.GetComboClass;
+            cClass.DataSource = _cmbContrastClasses;
+            cClass.ValueMember = "Id";
+            cClass.DisplayMember = "Name";
+            cClass.SelectedIndexChanged += CmbClass_SelectedIndexChanged;
 
             #endregion
 
@@ -96,6 +109,7 @@ namespace LabBook_WF_EF.Service
 
             LabBookBinding_PositionChanged(null, null);
         }
+
 
         private void PrepareDataGridViewLabBook()
         {
@@ -475,6 +489,7 @@ namespace LabBook_WF_EF.Service
         {
             var list = _context.ExpLabBook
                 .Include(x => x.User)
+                .Include(x => x.ExpContrastClass)
                 .OrderBy(x => x.Id)
                 .ToList();
 
@@ -542,7 +557,24 @@ namespace LabBook_WF_EF.Service
         private IList<CmbApplicator> GetApplicators()
         {
             return _context.CmbApplicator
+                .AsNoTracking()
                 .OrderBy(i => i.Number)
+                .ToList();
+        }
+
+        private IList<CmbContrastClass> GetContrastClasses()
+        {
+            return _context.CmbContrastClass
+                .AsNoTracking()
+                .OrderBy(i => i.Id)
+                .ToList();
+        }
+
+        private IList<CmbContrastYield> GetContrastYields()
+        {
+            return _context.CmbContrastYield
+                .AsNoTracking()
+                .OrderBy(i => i.Id)
                 .ToList();
         }
 
@@ -918,6 +950,11 @@ namespace LabBook_WF_EF.Service
             _contrasts.Add(contrast);
         }
        
+        private void CmbClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
         #endregion
 
         #region Save, Update, Delete

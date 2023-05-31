@@ -59,6 +59,8 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.ToolStripSave = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.plikToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dodajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ApplicatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.widokToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lepkosciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.standardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,8 +71,10 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtTitle = new System.Windows.Forms.TextBox();
             this.LblNrD = new System.Windows.Forms.Label();
             this.LblDate = new System.Windows.Forms.Label();
-            this.dodajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ApplicatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CmbContrastClass = new System.Windows.Forms.ComboBox();
+            this.LblContarstClass = new System.Windows.Forms.Label();
+            this.CmbContrastYield = new System.Windows.Forms.ComboBox();
+            this.LblContrastYield = new System.Windows.Forms.Label();
             this.TabControlMain.SuspendLayout();
             this.TabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).BeginInit();
@@ -207,6 +211,10 @@ namespace LabBook_WF_EF.Forms.LabBook
             // TabPageContrast
             // 
             this.TabPageContrast.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageContrast.Controls.Add(this.LblContrastYield);
+            this.TabPageContrast.Controls.Add(this.CmbContrastYield);
+            this.TabPageContrast.Controls.Add(this.LblContarstClass);
+            this.TabPageContrast.Controls.Add(this.CmbContrastClass);
             this.TabPageContrast.Controls.Add(this.DgvContrast);
             this.TabPageContrast.Location = new System.Drawing.Point(4, 29);
             this.TabPageContrast.Name = "TabPageContrast";
@@ -227,7 +235,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.DgvContrast.Name = "DgvContrast";
             this.DgvContrast.RowHeadersWidth = 51;
             this.DgvContrast.RowTemplate.Height = 24;
-            this.DgvContrast.Size = new System.Drawing.Size(1152, 374);
+            this.DgvContrast.Size = new System.Drawing.Size(1152, 325);
             this.DgvContrast.TabIndex = 0;
             this.DgvContrast.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvContrast_CellContentClick);
             this.DgvContrast.Resize += new System.EventHandler(this.DgvContrast_Resize);
@@ -398,6 +406,21 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.plikToolStripMenuItem.Size = new System.Drawing.Size(51, 27);
             this.plikToolStripMenuItem.Text = "Plik";
             // 
+            // dodajToolStripMenuItem
+            // 
+            this.dodajToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ApplicatorToolStripMenuItem});
+            this.dodajToolStripMenuItem.Name = "dodajToolStripMenuItem";
+            this.dodajToolStripMenuItem.Size = new System.Drawing.Size(69, 27);
+            this.dodajToolStripMenuItem.Text = "Dodaj";
+            // 
+            // ApplicatorToolStripMenuItem
+            // 
+            this.ApplicatorToolStripMenuItem.Enabled = false;
+            this.ApplicatorToolStripMenuItem.Name = "ApplicatorToolStripMenuItem";
+            this.ApplicatorToolStripMenuItem.Size = new System.Drawing.Size(163, 28);
+            this.ApplicatorToolStripMenuItem.Text = "Aplikator";
+            // 
             // widokToolStripMenuItem
             // 
             this.widokToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -492,20 +515,41 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblDate.TabIndex = 7;
             this.LblDate.Text = " DD-MM-YYYY";
             // 
-            // dodajToolStripMenuItem
+            // CmbContrastClass
             // 
-            this.dodajToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ApplicatorToolStripMenuItem});
-            this.dodajToolStripMenuItem.Name = "dodajToolStripMenuItem";
-            this.dodajToolStripMenuItem.Size = new System.Drawing.Size(69, 27);
-            this.dodajToolStripMenuItem.Text = "Dodaj";
+            this.CmbContrastClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbContrastClass.FormattingEnabled = true;
+            this.CmbContrastClass.Location = new System.Drawing.Point(138, 361);
+            this.CmbContrastClass.Name = "CmbContrastClass";
+            this.CmbContrastClass.Size = new System.Drawing.Size(124, 28);
+            this.CmbContrastClass.TabIndex = 1;
             // 
-            // ApplicatorToolStripMenuItem
+            // LblContarstClass
             // 
-            this.ApplicatorToolStripMenuItem.Enabled = false;
-            this.ApplicatorToolStripMenuItem.Name = "ApplicatorToolStripMenuItem";
-            this.ApplicatorToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
-            this.ApplicatorToolStripMenuItem.Text = "Aplikator";
+            this.LblContarstClass.AutoSize = true;
+            this.LblContarstClass.Location = new System.Drawing.Point(8, 364);
+            this.LblContarstClass.Name = "LblContarstClass";
+            this.LblContarstClass.Size = new System.Drawing.Size(112, 20);
+            this.LblContarstClass.TabIndex = 2;
+            this.LblContarstClass.Text = "Klasa krycia";
+            // 
+            // CmbContrastYield
+            // 
+            this.CmbContrastYield.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbContrastYield.FormattingEnabled = true;
+            this.CmbContrastYield.Location = new System.Drawing.Point(350, 361);
+            this.CmbContrastYield.Name = "CmbContrastYield";
+            this.CmbContrastYield.Size = new System.Drawing.Size(129, 28);
+            this.CmbContrastYield.TabIndex = 3;
+            // 
+            // LblContrastYield
+            // 
+            this.LblContrastYield.AutoSize = true;
+            this.LblContrastYield.Location = new System.Drawing.Point(284, 364);
+            this.LblContrastYield.Name = "LblContrastYield";
+            this.LblContrastYield.Size = new System.Drawing.Size(45, 20);
+            this.LblContrastYield.TabIndex = 8;
+            this.LblContrastYield.Text = "przy";
             // 
             // LabBookForm
             // 
@@ -535,6 +579,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageViscosity.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DgvViscosity)).EndInit();
             this.TabPageContrast.ResumeLayout(false);
+            this.TabPageContrast.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvContrast)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BindingNavigatorMain)).EndInit();
             this.BindingNavigatorMain.ResumeLayout(false);
@@ -590,5 +635,9 @@ namespace LabBook_WF_EF.Forms.LabBook
         private System.Windows.Forms.DataGridView DgvContrast;
         private System.Windows.Forms.ToolStripMenuItem dodajToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ApplicatorToolStripMenuItem;
+        private System.Windows.Forms.Label LblContrastYield;
+        private System.Windows.Forms.ComboBox CmbContrastYield;
+        private System.Windows.Forms.Label LblContarstClass;
+        private System.Windows.Forms.ComboBox CmbContrastClass;
     }
 }

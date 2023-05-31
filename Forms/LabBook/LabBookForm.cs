@@ -38,6 +38,8 @@ namespace LabBook_WF_EF.Forms.LabBook
         public TextBox GetTxtTitle => TxtTitle;
         public TextBox GetTxtObservation => TxtObservation;
         public TextBox GetTxtRemarks => TxtRemarks;
+        public ComboBox GetComboClass => CmbContrastClass;
+        public ComboBox GetComboYield => CmbContrastYield;
 
 
         #region Form Open/Load/Closing

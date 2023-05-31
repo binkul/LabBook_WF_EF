@@ -4,8 +4,8 @@
     {
         private long _id;
         private long _labbookId;
-        private long _class;
-        private long _yield;
+        private long _classId;
+        private long _yieldId;
 
         public bool Modified { get; set; } = false;
         public bool Added { get; set; } = false;
@@ -22,17 +22,19 @@
             set { _labbookId = value; Modified = true; }
         }
 
-        public long Class
+        public long ClassId
         {
-            get => _class;
-            set { _class = value; Modified = true; }
+            get => _classId;
+            set { _classId = value; Modified = true; }
         }
 
-        public long Yield
+        public long YieldId
         {
-            get => _yield;
-            set { _yield = value; Modified = true; }
+            get => _yieldId;
+            set { _yieldId = value; Modified = true; }
         }
+
+        public virtual ExpLabBook ExpLabBook { get; set; }
 
     }
 }

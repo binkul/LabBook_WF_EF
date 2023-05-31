@@ -26,6 +26,7 @@ namespace LabBook_WF_EF.EntityModels
         public string UserInitial => User.Identifier;
 
         public virtual User User { get; set; }
+        public virtual ExpContrastClass ExpContrastClass { get; set; }
         //public virtual ObservableListSource<ExpViscosity> ExpViscosity { get; set; }
     }
 }
