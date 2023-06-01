@@ -32,6 +32,8 @@ namespace LabBook_WF_EF.Service
         private readonly ExpContrastRepository _conRepository;
         private readonly UserDto _user;
 
+        private bool _blockCombBoxes = false;
+
         private IList<ExpLabBook> _labBook;
         private BindingSource _labBookBinding;
         private IList<ExpViscosity> _viscosities;
@@ -621,11 +623,26 @@ namespace LabBook_WF_EF.Service
                 _conRepository.QuickSaveContrast(_contrasts);
                 GetCurrentContrast(currentLabBook.Id);
 
-                if (currentLabBook.ExpContrastClass != null)
-                {
-
-                }
+                SetComboBoxes(currentLabBook);
             }
+        }
+
+        private void SetComboBoxes(ExpLabBook currentLabBook)
+        {
+            _blockCombBoxes = true;
+
+            if (currentLabBook.ExpContrastClass != null)
+            {
+                _form.GetComboClass.SelectedValue = currentLabBook.ExpContrastClass.CmbContrastClass.Id;
+                _form.GetComboYield.SelectedValue = currentLabBook.ExpContrastClass.CmbContrastYield.Id;
+            }
+            else
+            {
+                _form.GetComboClass.SelectedIndex = 0;
+                _form.GetComboYield.SelectedIndex = 0;
+            }
+
+            _blockCombBoxes = false;
         }
 
         private void GetCurrentViscosity(long labbookId)
@@ -965,7 +982,22 @@ namespace LabBook_WF_EF.Service
        
         private void CmbClass_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            if (_blockCombBoxes) return;
+
+            ExpLabBook currentLabBook = GetCurrentLabBook;
+            if (currentLabBook == null) return;
+
+            ExpContrastClass contrastClass = currentLabBook.ExpContrastClass;
+            if (contrastClass != null)
+            {
+                CmbContrastClass cmbClass = (CmbContrastClass)_form.GetComboClass.SelectedItem;
+                contrastClass.CmbContrastClass = cmbClass;
+                contrastClass.ClassId = cmbClass.Id;
+            }
+            else
+            {
+                AddNewExpContrastClass(currentLabBook);
+            }
         }
 
         private void Yields_SelectedIndexChanged(object sender, EventArgs e)
@@ -975,138 +1007,29 @@ namespace LabBook_WF_EF.Service
 
         #endregion
 
+        #region New Items
+
+        private void AddNewExpContrastClass(ExpLabBook labBook)
+        {
+            ExpContrastClass contrastClass = new ExpContrastClass();
+            CmbContrastClass cmbClass = (CmbContrastClass)_form.GetComboClass.SelectedItem;
+            CmbContrastYield cmbYield = (CmbContrastYield)_form.GetComboYield.SelectedItem;
+
+            contrastClass.CmbContrastClass = cmbClass;
+            contrastClass.ClassId = cmbClass.Id;
+            contrastClass.CmbContrastYield = cmbYield;
+            contrastClass.YieldId = cmbYield.Id;
+            contrastClass.ExpLabBook = labBook;
+            contrastClass.LabBookId = labBook.Id;
+            labBook.ExpContrastClass = contrastClass;
+
+            _context.ExpContrastClass.Add(contrastClass);
+        }
+
+        #endregion
+
         #region Save, Update, Delete
 
-        //private void QuickSaveViscosity()
-        //{
-        //    if (_viscosities == null || _viscosities.Count == 0) return;
-
-        //    _form.GetDgvViscosity.EndEdit();
-
-        //    var modList = _viscosities
-        //        .Where(i => i.Added || i.Modified)
-        //        .ToList();
-
-        //    foreach (ExpViscosity vis in modList)
-        //    {
-        //        vis.DateUpdate = DateTime.Now;
-        //        object[] parameters = new object[]
-        //        {
-        //            new SqlParameter("@id", vis.Id),
-        //            new SqlParameter("@labbook_id", vis.LabBookId),
-        //            new SqlParameter("@date_created", vis.DateCreated),
-        //            new SqlParameter("@date_update", vis.DateUpdate),
-        //            new SqlParameter("@pH", vis.PH ?? (object)DBNull.Value),
-        //            new SqlParameter("@vis_type", vis.VisType ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_1", vis.Brook1 ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_5", vis.Brook5 ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_10", vis.Brook10 ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_20", vis.Brook20 ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_30", vis.Brook30 ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_40", vis.Brook40 ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_50", vis.Brook50 ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_60", vis.Brook60 ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_70", vis.Brook70 ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_80", vis.Brook80 ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_90", vis.Brook90 ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_100", vis.Brook100 ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_comment", vis.BrookComment ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_disc", vis.BrookDisc ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_x_vis", vis.BrookXVis ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_x_rpm", vis.BrookXRpm ?? (object)DBNull.Value),
-        //            new SqlParameter("@brook_x_disc", vis.BrookXDisc ?? (object)DBNull.Value),
-        //            new SqlParameter("@krebs", vis.Krebs ?? (object)DBNull.Value),
-        //            new SqlParameter("@krebs_comment", vis.KrebsComment ?? (object)DBNull.Value),
-        //            new SqlParameter("@ici", vis.Ici ?? (object)DBNull.Value),
-        //            new SqlParameter("@ici_disc", vis.IciDisc ?? (object)DBNull.Value),
-        //            new SqlParameter("@ici_comment", vis.IciDisc ?? (object)DBNull.Value),
-        //            new SqlParameter("@temp", vis.Temp ?? (object)DBNull.Value)
-        //        };
-
-        //        if (vis.Added)
-        //            _context.Database
-        //                .ExecuteSqlRaw(ExpViscosityRepository.SaveViscositySql, parameters);
-        //        else
-        //            _context.Database
-        //                .ExecuteSqlRaw(ExpViscosityRepository.UpdateViscositySQL, parameters);
-        //    }
-        //}
-
-        //private void QuickSaveContrast()
-        //{
-        //    if (_contrasts == null || _contrasts.Count == 0) return;
-
-        //    _form.GetDgvViscosity.EndEdit();
-
-        //    var modList = _contrasts
-        //        .Where(i => i.Added || i.Modified)
-        //        .ToList();
-
-        //    foreach (ExpContrast contrast in modList)
-        //    {
-        //        contrast.DateUpdated = DateTime.Now;
-        //        object[] parameters = new object[]
-        //        {
-        //            new SqlParameter("@id", contrast.Id),
-        //            new SqlParameter("@labbook_id", contrast.LabBookId),
-        //            new SqlParameter("@date_created", contrast.DateCreated),
-        //            new SqlParameter("@date_update", contrast.DateUpdated),
-        //            new SqlParameter("@applicator_id", contrast.ApplicatiorId),
-        //            new SqlParameter("@position", contrast.Position),
-        //            new SqlParameter("@contrast", contrast.Contrast ?? (object)DBNull.Value),
-        //            new SqlParameter("@tw", contrast.Tw ?? (object)DBNull.Value),
-        //            new SqlParameter("@sp", contrast.Sp ?? (object)DBNull.Value),
-        //            new SqlParameter("@comments", contrast.Comments ?? (object)DBNull.Value),
-        //        };
-
-        //        if (contrast.Added)
-        //            _context.Database
-        //                .ExecuteSqlRaw(ExpContrastRepository.SaveContrastSql, parameters);
-        //        else
-        //            _context.Database
-        //                .ExecuteSqlRaw(ExpContrastRepository.UpdateContrastSql, parameters);
-        //    }
-        //}
-
-        //private void QuickSaveViscosityFields(String fieldType, long labbookId)
-        //{
-        //    try
-        //    {
-        //        _context.Database
-        //            .ExecuteSqlRaw("Delete from LabBook.dbo.ExpViscosityFields Where labbook_id={0}", labbookId);
-        //        _context.Database
-        //            .ExecuteSqlRaw("Insert Into LabBook.dbo.ExpViscosityFields(labbook_id, name, user_id) Values({0}, {1}, {2})", labbookId, fieldType, _user.Id);
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        MessageBox.Show("Problem z zapisem do tabeli ExpViscosityFields: '" + ex.Message + "'. Błąd z poziomu LabBookService.QuickSaveViscosityFields.",
-        //            "Błąd Zapisu", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Problem z zapisem do tabeli ExpViscosityFields: '" + ex.Message + "'. Błąd z poziomu LabBookService.QuickSaveViscosityFields.",
-        //            "Błąd połączenia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
-
-        //private void QuickDelete(string query, long id)
-        //{
-        //    try
-        //    {
-        //        _context.Database
-        //            .ExecuteSqlRaw(query, id);
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        MessageBox.Show("Problem z zapisem do tabeli ExpViscosityFields: '" + ex.Message + "'. Błąd z poziomu LabBookService.QuickDelete.",
-        //            "Błąd Zapisu", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Problem z zapisem do tabeli ExpViscosityFields: '" + ex.Message + "'. Błąd z poziomu LabBookService.QuickDelete.",
-        //            "Błąd połączenia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
 
         public void Save()
         {

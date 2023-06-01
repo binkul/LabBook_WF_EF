@@ -8,7 +8,7 @@
         private long _yieldId;
 
         public bool Modified { get; set; } = false;
-        public bool Added { get; set; } = false;
+        public bool Added { get; set; } = true;
 
         public long Id
         {
@@ -35,6 +35,7 @@
         }
 
         public virtual ExpLabBook ExpLabBook { get; set; }
+
         public virtual CmbContrastClass CmbContrastClass { get; set; }
         public virtual CmbContrastYield CmbContrastYield { get; set; }
 

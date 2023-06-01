@@ -362,7 +362,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Pozycja";
             this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 27);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -571,7 +570,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "LabBookForm";
-            this.Text = " DD-MM-YYYY";
+            this.Text = "Dziennik laboratoryjny";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LabBookForm_FormClosing);
             this.Load += new System.EventHandler(this.LabBookForm_Load);
             this.TabControlMain.ResumeLayout(false);
