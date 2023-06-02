@@ -19,6 +19,8 @@ namespace LabBook_WF_EF.Service
     {
         private static readonly string deleteColumn = "Del";
         private static readonly string dataFormFileName = "LabBookForm";
+        private static readonly string contrastSubstrate = "Leneta cz/b";
+
         private static readonly Image noImg = Resources._lock;
         private static readonly Image img = Resources.Ok_icon1;
         private static readonly Image noAccess = noImg.GetThumbnailImage(18, 18, null, System.IntPtr.Zero);
@@ -427,7 +429,7 @@ namespace LabBook_WF_EF.Service
             buttonColumn.DisplayIndex = displayIndex;
             view.Columns.Add(buttonColumn);
 
-            int width = view.Width - (view.RowHeadersWidth + view.Columns["Del"].Width + view.Columns["DateCreated"].Width + view.Columns["Days"].Width);
+            int width = view.Width - (view.RowHeadersWidth + view.Columns["Del"].Width);
             
             view.Columns["DateCreated"].HeaderText = "Data";
             view.Columns["DateCreated"].DisplayIndex = ++displayIndex;
@@ -448,6 +450,12 @@ namespace LabBook_WF_EF.Service
             view.Columns["ApplicatorName"].SortMode = DataGridViewColumnSortMode.NotSortable;
             view.Columns["ApplicatorName"].Width = (int)(width * 0.15);
             view.Columns["ApplicatorName"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            view.Columns["Substrate"].HeaderText = "Podłoże";
+            view.Columns["Substrate"].DisplayIndex = ++displayIndex;
+            view.Columns["Substrate"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["Substrate"].Width = (int)(width * 0.15);
+            view.Columns["Substrate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             view.Columns["Contrast"].HeaderText = "Krycie";
             view.Columns["Contrast"].DisplayIndex = ++displayIndex;
@@ -470,7 +478,7 @@ namespace LabBook_WF_EF.Service
             view.Columns["Comments"].HeaderText = "Uwagi";
             view.Columns["Comments"].DisplayIndex = ++displayIndex;
             view.Columns["Comments"].SortMode = DataGridViewColumnSortMode.NotSortable;
-            view.Columns["Comments"].Width = (int)(width * 0.4);
+            view.Columns["Comments"].Width = (int)(width * 0.25);
             view.Columns["Comments"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
         }
 
@@ -918,11 +926,12 @@ namespace LabBook_WF_EF.Service
 
             view.Columns["DateCreated"].Width = (int)(width * 0.1);
             view.Columns["Days"].Width = (int)(width * 0.08);
-            view.Columns["ApplicatorName"].Width = (int)(width * 0.25);
+            view.Columns["ApplicatorName"].Width = (int)(width * 0.12);
+            view.Columns["Substrate"].Width = (int)(width * 0.12);
             view.Columns["Contrast"].Width = (int)(width * 0.1);
             view.Columns["Tw"].Width = (int)(width * 0.1);
             view.Columns["Sp"].Width = (int)(width * 0.1);
-            view.Columns["Comments"].Width = (int)(width * 0.27);
+            view.Columns["Comments"].Width = (int)(width * 0.28);
         }
 
         public void ViscosityFieldVisibilityItem(int value)
@@ -972,6 +981,7 @@ namespace LabBook_WF_EF.Service
             contrast.LabBookId = GetCurrentLabBook.Id;
             contrast.ApplicatiorId = id;
             contrast.Applicator = cmbApplicator;
+            contrast.Substrate = contrastSubstrate;
             contrast.DateCreated = DateTime.Today;
             contrast.DateUpdated = DateTime.Today;
             contrast.Position = _contrasts.Count > 0 ? _contrasts.Max(i => i.Position) + 1 : 1;
@@ -990,7 +1000,7 @@ namespace LabBook_WF_EF.Service
             ExpContrastClass contrastClass = currentLabBook.ExpContrastClass;
             if (contrastClass != null)
             {
-                CmbContrastClass cmbClass = (CmbContrastClass)_form.GetComboClass.SelectedItem;
+                CmbContrastClass cmbClass = (CmbContrastClass)_form.GetComboClass.SelectedItem ?? _cmbContrastClasses[0];
                 contrastClass.CmbContrastClass = cmbClass;
                 contrastClass.ClassId = cmbClass.Id;
             }
@@ -1002,7 +1012,23 @@ namespace LabBook_WF_EF.Service
 
         private void Yields_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            if (_blockCombBoxes) return;
+
+            ExpLabBook currentLabBook = GetCurrentLabBook;
+            if (currentLabBook == null) return;
+
+            ExpContrastClass contrastClass = currentLabBook.ExpContrastClass;
+            if (contrastClass != null)
+            {
+                CmbContrastYield cmbYield = (CmbContrastYield)_form.GetComboYield.SelectedItem ?? _cmbContrastYields[0];
+                contrastClass.CmbContrastYield = cmbYield;
+                contrastClass.YieldId = cmbYield.Id;
+            }
+            else
+            {
+                AddNewExpContrastClass(currentLabBook);
+            }
+
         }
 
         #endregion
@@ -1012,8 +1038,8 @@ namespace LabBook_WF_EF.Service
         private void AddNewExpContrastClass(ExpLabBook labBook)
         {
             ExpContrastClass contrastClass = new ExpContrastClass();
-            CmbContrastClass cmbClass = (CmbContrastClass)_form.GetComboClass.SelectedItem;
-            CmbContrastYield cmbYield = (CmbContrastYield)_form.GetComboYield.SelectedItem;
+            CmbContrastClass cmbClass = (CmbContrastClass)_form.GetComboClass.SelectedItem ?? _cmbContrastClasses[0];
+            CmbContrastYield cmbYield = (CmbContrastYield)_form.GetComboYield.SelectedItem ?? _cmbContrastYields[0];
 
             contrastClass.CmbContrastClass = cmbClass;
             contrastClass.ClassId = cmbClass.Id;

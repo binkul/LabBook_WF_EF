@@ -75,6 +75,10 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtTitle = new System.Windows.Forms.TextBox();
             this.LblNrD = new System.Windows.Forms.Label();
             this.LblDate = new System.Windows.Forms.Label();
+            this.TabPageGloss = new System.Windows.Forms.TabPage();
+            this.DgvGloss = new System.Windows.Forms.DataGridView();
+            this.LblGloss = new System.Windows.Forms.Label();
+            this.CmbGlossClass = new System.Windows.Forms.ComboBox();
             this.TabControlMain.SuspendLayout();
             this.TabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).BeginInit();
@@ -88,6 +92,8 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.BindingNavigatorMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.TabPageGloss.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvGloss)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -100,6 +106,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabControlMain.Controls.Add(this.TabPageObservation);
             this.TabControlMain.Controls.Add(this.TabPageViscosity);
             this.TabControlMain.Controls.Add(this.TabPageContrast);
+            this.TabControlMain.Controls.Add(this.TabPageGloss);
             this.TabControlMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.TabControlMain.Location = new System.Drawing.Point(0, 131);
             this.TabControlMain.Name = "TabControlMain";
@@ -227,7 +234,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // 
             this.LblContrastYield.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LblContrastYield.AutoSize = true;
-            this.LblContrastYield.Location = new System.Drawing.Point(300, 364);
+            this.LblContrastYield.Location = new System.Drawing.Point(298, 404);
             this.LblContrastYield.Name = "LblContrastYield";
             this.LblContrastYield.Size = new System.Drawing.Size(45, 20);
             this.LblContrastYield.TabIndex = 8;
@@ -238,7 +245,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.CmbContrastYield.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.CmbContrastYield.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CmbContrastYield.FormattingEnabled = true;
-            this.CmbContrastYield.Location = new System.Drawing.Point(351, 361);
+            this.CmbContrastYield.Location = new System.Drawing.Point(349, 401);
             this.CmbContrastYield.Name = "CmbContrastYield";
             this.CmbContrastYield.Size = new System.Drawing.Size(160, 28);
             this.CmbContrastYield.TabIndex = 3;
@@ -247,7 +254,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // 
             this.LblContarstClass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LblContarstClass.AutoSize = true;
-            this.LblContarstClass.Location = new System.Drawing.Point(8, 364);
+            this.LblContarstClass.Location = new System.Drawing.Point(6, 404);
             this.LblContarstClass.Name = "LblContarstClass";
             this.LblContarstClass.Size = new System.Drawing.Size(112, 20);
             this.LblContarstClass.TabIndex = 2;
@@ -258,7 +265,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.CmbContrastClass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.CmbContrastClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CmbContrastClass.FormattingEnabled = true;
-            this.CmbContrastClass.Location = new System.Drawing.Point(126, 361);
+            this.CmbContrastClass.Location = new System.Drawing.Point(124, 401);
             this.CmbContrastClass.Name = "CmbContrastClass";
             this.CmbContrastClass.Size = new System.Drawing.Size(152, 28);
             this.CmbContrastClass.TabIndex = 1;
@@ -275,7 +282,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.DgvContrast.Name = "DgvContrast";
             this.DgvContrast.RowHeadersWidth = 51;
             this.DgvContrast.RowTemplate.Height = 24;
-            this.DgvContrast.Size = new System.Drawing.Size(1152, 325);
+            this.DgvContrast.Size = new System.Drawing.Size(1152, 389);
             this.DgvContrast.TabIndex = 0;
             this.DgvContrast.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvContrast_CellContentClick);
             this.DgvContrast.Resize += new System.EventHandler(this.DgvContrast_Resize);
@@ -555,6 +562,51 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblDate.TabIndex = 7;
             this.LblDate.Text = " DD-MM-YYYY";
             // 
+            // TabPageGloss
+            // 
+            this.TabPageGloss.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageGloss.Controls.Add(this.LblGloss);
+            this.TabPageGloss.Controls.Add(this.CmbGlossClass);
+            this.TabPageGloss.Controls.Add(this.DgvGloss);
+            this.TabPageGloss.Location = new System.Drawing.Point(4, 29);
+            this.TabPageGloss.Name = "TabPageGloss";
+            this.TabPageGloss.Size = new System.Drawing.Size(1155, 435);
+            this.TabPageGloss.TabIndex = 5;
+            this.TabPageGloss.Text = "Połysk";
+            // 
+            // DgvGloss
+            // 
+            this.DgvGloss.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DgvGloss.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvGloss.Location = new System.Drawing.Point(3, 3);
+            this.DgvGloss.Name = "DgvGloss";
+            this.DgvGloss.RowHeadersWidth = 51;
+            this.DgvGloss.RowTemplate.Height = 24;
+            this.DgvGloss.Size = new System.Drawing.Size(822, 394);
+            this.DgvGloss.TabIndex = 0;
+            // 
+            // LblGloss
+            // 
+            this.LblGloss.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.LblGloss.AutoSize = true;
+            this.LblGloss.Location = new System.Drawing.Point(8, 406);
+            this.LblGloss.Name = "LblGloss";
+            this.LblGloss.Size = new System.Drawing.Size(64, 20);
+            this.LblGloss.TabIndex = 4;
+            this.LblGloss.Text = "Połysk";
+            // 
+            // CmbGlossClass
+            // 
+            this.CmbGlossClass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CmbGlossClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbGlossClass.FormattingEnabled = true;
+            this.CmbGlossClass.Location = new System.Drawing.Point(78, 403);
+            this.CmbGlossClass.Name = "CmbGlossClass";
+            this.CmbGlossClass.Size = new System.Drawing.Size(152, 28);
+            this.CmbGlossClass.TabIndex = 3;
+            // 
             // LabBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -592,6 +644,9 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.toolStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.TabPageGloss.ResumeLayout(false);
+            this.TabPageGloss.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvGloss)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -643,5 +698,9 @@ namespace LabBook_WF_EF.Forms.LabBook
         private System.Windows.Forms.ComboBox CmbContrastYield;
         private System.Windows.Forms.Label LblContarstClass;
         private System.Windows.Forms.ComboBox CmbContrastClass;
+        private System.Windows.Forms.TabPage TabPageGloss;
+        private System.Windows.Forms.Label LblGloss;
+        private System.Windows.Forms.ComboBox CmbGlossClass;
+        private System.Windows.Forms.DataGridView DgvGloss;
     }
 }

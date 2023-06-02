@@ -645,6 +645,10 @@ namespace LabBook_WF_EF.EntityModels
                     .HasColumnName("comments")
                     .HasMaxLength(2000);
 
+                entity.Property(e => e.Substrate)
+                    .HasColumnName("substrate")
+                    .HasMaxLength(200);
+
                 entity.Property(e => e.Contrast)
                     .HasColumnName("contrast")
                     .HasColumnType("float");
@@ -687,8 +691,6 @@ namespace LabBook_WF_EF.EntityModels
 
             modelBuilder.Entity<ExpContrastClass>(entity =>
             {
-                entity.Ignore(e => e.Modified);
-                entity.Ignore(e => e.Added);
                 entity.Property(e => e.Id)
                     .HasColumnName("id");
 

@@ -12,6 +12,7 @@ namespace LabBook_WF_EF.EntityModels
         private long _labbookId;
         private long _applicatiorId;
         private int _position;
+        private string _substrate;
         private double? _contrast;
         private double? _tw;
         private double? _sp;
@@ -47,6 +48,12 @@ namespace LabBook_WF_EF.EntityModels
         {
             get => _position;
             set { _position = value; Modified = true; }
+        }
+
+        public string Substrate
+        {
+            get => _substrate;
+            set { _substrate = value; Modified = true; }
         }
 
         public double? Contrast
