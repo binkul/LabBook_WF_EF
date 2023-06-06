@@ -9,5 +9,6 @@ namespace LabBook_WF_EF.EntityModels
         public int Number { get; set; }
 
         public virtual ObservableListSource<ExpContrast> ExpContrasts { get; set; }
+        public virtual ObservableListSource<ExpGloss> ExpGlosses { get; set; }
     }
 }

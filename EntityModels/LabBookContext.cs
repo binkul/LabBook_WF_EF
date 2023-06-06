@@ -46,6 +46,7 @@ namespace LabBook_WF_EF.EntityModels
         public virtual DbSet<ExpContrastClass> ExpContrastClass { get; set; }
         public virtual DbSet<ExpCycle> ExpCycle { get; set; }
         public virtual DbSet<ExpGloss> ExpGloss { get; set; }
+        public virtual DbSet<ExpGlossClass> ExpGlossClass { get; set; }
         public virtual DbSet<ExpLabBook> ExpLabBook { get; set; }
         public virtual DbSet<ExpSpectro> ExpSpectro { get; set; }
         public virtual DbSet<ExpViscosity> ExpViscosity { get; set; }
@@ -637,7 +638,7 @@ namespace LabBook_WF_EF.EntityModels
             {
                 entity.Ignore(e => e.Modified);
                 entity.Ignore(e => e.Added);
-                entity.Ignore(e => e.Added);
+                entity.Ignore(e => e.Days);
                 entity.Ignore(e => e.ApplicatorName);
                 entity.Property(e => e.Id).HasColumnName("id");
 
@@ -739,39 +740,74 @@ namespace LabBook_WF_EF.EntityModels
 
             modelBuilder.Entity<ExpGloss>(entity =>
             {
+                entity.Ignore(e => e.Modified);
+                entity.Ignore(e => e.Added);
+                entity.Ignore(e => e.Days);
+                entity.Ignore(e => e.ApplicatorName);
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Comment)
+                entity.Property(e => e.Comments)
                     .HasColumnName("comment")
                     .HasMaxLength(2000);
+
+                entity.Property(e => e.Substrate)
+                    .HasColumnName("substrate")
+                    .HasMaxLength(200);
 
                 entity.Property(e => e.DateCreated)
                     .HasColumnName("date_created")
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.DateUpdate)
+                entity.Property(e => e.DateUpdated)
                     .HasColumnName("date_update")
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Gloss20)
                     .HasColumnName("gloss_20")
-                    .HasColumnType("decimal(6, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Gloss60)
                     .HasColumnName("gloss_60")
-                    .HasColumnType("decimal(6, 2)");
+                    .HasColumnType("float");
 
                 entity.Property(e => e.Gloss85)
                     .HasColumnName("gloss_85")
-                    .HasColumnType("decimal(6, 2)");
+                    .HasColumnType("float");
 
-                entity.Property(e => e.GlossClass)
-                    .HasColumnName("gloss_class")
+                entity.Property(e => e.ApplicatiorId)
+                    .HasColumnName("applicator_id")
                     .HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.LabbookId).HasColumnName("labbook_id");
+                entity.Property(e => e.Position)
+                    .HasColumnName("position")
+                    .HasDefaultValueSql("((1))");
+
+                entity
+                    .HasOne(d => d.Applicator)
+                    .WithMany(p => p.ExpGlosses)
+                    .HasForeignKey(d => d.ApplicatiorId)
+                    .OnDelete(DeleteBehavior.NoAction);
+            });
+
+            modelBuilder.Entity<ExpGlossClass>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasColumnName("id");
+
+                entity.Property(e => e.LabBookId)
+                    .HasColumnName("labbook_id");
+
+                entity.Property(e => e.ClassId)
+                    .HasColumnName("class_id")
+                    .HasDefaultValueSql("((1))");
+
+                entity
+                    .HasOne(d => d.CmbGlosClass)
+                    .WithMany(p => p.ExpGlossClasses)
+                    .HasForeignKey(d => d.ClassId)
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<ExpLabBook>(entity =>
@@ -835,6 +871,12 @@ namespace LabBook_WF_EF.EntityModels
 
                 entity
                     .HasOne(d => d.ExpContrastClass)
+                    .WithOne(p => p.ExpLabBook)
+                    .HasForeignKey<ExpContrastClass>(d => d.LabBookId)
+                    .OnDelete(DeleteBehavior.NoAction);
+
+                entity
+                    .HasOne(d => d.ExpGlossClass)
                     .WithOne(p => p.ExpLabBook)
                     .HasForeignKey<ExpContrastClass>(d => d.LabBookId)
                     .OnDelete(DeleteBehavior.NoAction);

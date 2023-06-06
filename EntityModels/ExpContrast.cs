@@ -21,8 +21,6 @@ namespace LabBook_WF_EF.EntityModels
         private DateTime _dateUpdated = DateTime.Today;
 
         public virtual CmbApplicator Applicator { get; set; }
-
-
         public bool Modified { get; set; } = false;
         public bool Added { get; set; } = false;
 

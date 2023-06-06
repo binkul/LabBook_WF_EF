@@ -44,8 +44,11 @@ namespace LabBook_WF_EF.Service
         private BindingSource _contrastBinding;
         private IList<ExpContrastClass> _contrastClass;
         private BindingSource _contrastClassBinding;
+        private IList<ExpGloss> _glosses;
+        private BindingSource _glossesBinding;
         private IList<CmbContrastClass> _cmbContrastClasses;
         private IList<CmbContrastYield> _cmbContrastYields;
+        private IList<CmbGlosClass> _cmbGlossClasses;
         private ViscosityFieldsType _viscosityFields = ViscosityFieldsType.StdBrook;
 
         public LabBookService(LabBookForm form, LabBookContext context, UserDto user)
@@ -75,8 +78,8 @@ namespace LabBook_WF_EF.Service
             _contrasts = new ObservableListSource<ExpContrast>();
             _contrastBinding = new BindingSource { DataSource = _contrasts };
 
-            _cmbContrastClasses = GetContrastClasses();
-            _cmbContrastYields = GetContrastYields();
+            _cmbContrastClasses = GetCmbContrastClasses();
+            _cmbContrastYields = GetCmbContrastYields();
 
             #region Prepare Menus
 
@@ -485,7 +488,7 @@ namespace LabBook_WF_EF.Service
         private void PrepareApplicatorMenu()
         {
             ToolStripMenuItem menu = _form.GetApplicatorMenu;
-            var applicators = GetApplicators();
+            var applicators = GetCmbApplicators();
 
             foreach (CmbApplicator applicator in applicators)
             {
@@ -572,7 +575,7 @@ namespace LabBook_WF_EF.Service
             return new ObservableListSource<ExpContrast>(list);
         }
 
-        private IList<CmbApplicator> GetApplicators()
+        private IList<CmbApplicator> GetCmbApplicators()
         {
             return _context.CmbApplicator
                 .AsNoTracking()
@@ -580,7 +583,7 @@ namespace LabBook_WF_EF.Service
                 .ToList();
         }
 
-        private IList<CmbContrastClass> GetContrastClasses()
+        private IList<CmbContrastClass> GetCmbContrastClasses()
         {
             return _context.CmbContrastClass
                 .AsNoTracking()
@@ -588,9 +591,17 @@ namespace LabBook_WF_EF.Service
                 .ToList();
         }
 
-        private IList<CmbContrastYield> GetContrastYields()
+        private IList<CmbContrastYield> GetCmbContrastYields()
         {
             return _context.CmbContrastYield
+                .AsNoTracking()
+                .OrderBy(i => i.Id)
+                .ToList();
+        }
+
+        private IList<CmbGlosClass> GetGlossClasses()
+        {
+            return _context.CmbGlosClass
                 .AsNoTracking()
                 .OrderBy(i => i.Id)
                 .ToList();
@@ -602,7 +613,14 @@ namespace LabBook_WF_EF.Service
                 .Where(i => i.LabBookId == labbookId)
                 .FirstOrDefault();
 
-            if (cClass != null) cClass.Modified = false;
+            return cClass;
+        }
+
+        private ExpGlossClass GetGlossClass(long labbookId)
+        {
+            var cClass = _context.ExpGlossClass
+                .Where(i => i.LabBookId == labbookId)
+                .FirstOrDefault();
 
             return cClass;
         }
