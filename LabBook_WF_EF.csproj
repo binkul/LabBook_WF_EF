@@ -300,6 +300,12 @@
   <ItemGroup>
     <None Include="Resources\Ok-icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\strzałka góra.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\strzałka dol.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

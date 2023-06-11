@@ -878,7 +878,7 @@ namespace LabBook_WF_EF.EntityModels
                 entity
                     .HasOne(d => d.ExpGlossClass)
                     .WithOne(p => p.ExpLabBook)
-                    .HasForeignKey<ExpContrastClass>(d => d.LabBookId)
+                    .HasForeignKey<ExpGlossClass>(d => d.LabBookId)
                     .OnDelete(DeleteBehavior.NoAction);
 
             });
