@@ -38,9 +38,10 @@ namespace LabBook_WF_EF.Forms.LabBook
         public TextBox GetTxtTitle => TxtTitle;
         public TextBox GetTxtObservation => TxtObservation;
         public TextBox GetTxtRemarks => TxtRemarks;
-        public ComboBox GetComboClass => CmbContrastClass;
-        public ComboBox GetComboYield => CmbContrastYield;
-
+        public ComboBox GetComboContrastClass => CmbContrastClass;
+        public ComboBox GetComboContrastYield => CmbContrastYield;
+        public ComboBox GetComboGlossClass => CmbGlossClass;
+        public ComboBox GetComboScrubClass => CmbScrubClass;
 
         #region Form Open/Load/Closing
 
@@ -163,6 +164,11 @@ namespace LabBook_WF_EF.Forms.LabBook
                 ApplicatorToolStripMenuItem.Enabled = true;
             else
                 ApplicatorToolStripMenuItem.Enabled = false;
+        }
+
+        private void TxtSponge_Validating(object sender, CancelEventArgs e)
+        {
+            _service.TxtSponge_Validating(TxtSponge.Text, TxtBrush.Text);
         }
     }
 }

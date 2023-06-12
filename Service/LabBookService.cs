@@ -49,6 +49,7 @@ namespace LabBook_WF_EF.Service
         private IList<CmbContrastClass> _cmbContrastClasses;
         private IList<CmbContrastYield> _cmbContrastYields;
         private IList<CmbGlosClass> _cmbGlossClasses;
+        private IList<CmbScrubClass> _cmbScrubClasses;
         private ViscosityFieldsType _viscosityFields = ViscosityFieldsType.StdBrook;
 
         public LabBookService(LabBookForm form, LabBookContext context, UserDto user)
@@ -80,6 +81,8 @@ namespace LabBook_WF_EF.Service
 
             _cmbContrastClasses = GetCmbContrastClasses();
             _cmbContrastYields = GetCmbContrastYields();
+            _cmbGlossClasses = GetCmbGlossClasses();
+            _cmbScrubClasses = GetCmbScrubClasses();
 
             #region Prepare Menus
 
@@ -97,17 +100,29 @@ namespace LabBook_WF_EF.Service
 
             #region Prepare ComboBoxes
 
-            ComboBox cClass = _form.GetComboClass;
+            ComboBox cClass = _form.GetComboContrastClass;
             cClass.DataSource = _cmbContrastClasses;
             cClass.ValueMember = "Id";
             cClass.DisplayMember = "Name";
             cClass.SelectedIndexChanged += CmbClass_SelectedIndexChanged;
 
-            ComboBox yields = _form.GetComboYield;
+            ComboBox yields = _form.GetComboContrastYield;
             yields.DataSource = _cmbContrastYields;
             yields.ValueMember = "Id";
             yields.DisplayMember = "Name";
             yields.SelectedIndexChanged += Yields_SelectedIndexChanged;
+
+            ComboBox gloss = _form.GetComboGlossClass;
+            gloss.DataSource = _cmbGlossClasses;
+            gloss.ValueMember = "Id";
+            gloss.DisplayMember = "Name";
+            gloss.SelectedIndexChanged += Gloss_SelectedIndexChanged;
+
+            ComboBox scrub = _form.GetComboScrubClass;
+            scrub.DataSource = _cmbScrubClasses;
+            scrub.ValueMember = "Id";
+            scrub.DisplayMember = "Name";
+            scrub.SelectedIndexChanged += Scrub_SelectedIndexChanged;
 
             #endregion
 
@@ -511,6 +526,7 @@ namespace LabBook_WF_EF.Service
                 .Include(x => x.User)
                 .Include(x => x.ExpContrastClass).ThenInclude(y => y.CmbContrastClass)
                 .Include(x => x.ExpContrastClass).ThenInclude(y => y.CmbContrastYield)
+                .Include(x => x.ExpGlossClass).ThenInclude(y => y.CmbGlosClass)
                 .OrderBy(x => x.Id)
                 .ToList();
 
@@ -586,7 +602,6 @@ namespace LabBook_WF_EF.Service
         private IList<CmbContrastClass> GetCmbContrastClasses()
         {
             return _context.CmbContrastClass
-                .AsNoTracking()
                 .OrderBy(i => i.Id)
                 .ToList();
         }
@@ -594,7 +609,20 @@ namespace LabBook_WF_EF.Service
         private IList<CmbContrastYield> GetCmbContrastYields()
         {
             return _context.CmbContrastYield
-                .AsNoTracking()
+                .OrderBy(i => i.Id)
+                .ToList();
+        }
+
+        private IList<CmbGlosClass> GetCmbGlossClasses()
+        {
+            return _context.CmbGlosClass
+                .OrderBy(i => i.Id)
+                .ToList();
+        }
+
+        private IList<CmbScrubClass> GetCmbScrubClasses()
+        {
+            return _context.CmbScrubClass
                 .OrderBy(i => i.Id)
                 .ToList();
         }
@@ -659,13 +687,22 @@ namespace LabBook_WF_EF.Service
 
             if (currentLabBook.ExpContrastClass != null)
             {
-                _form.GetComboClass.SelectedValue = currentLabBook.ExpContrastClass.CmbContrastClass.Id;
-                _form.GetComboYield.SelectedValue = currentLabBook.ExpContrastClass.CmbContrastYield.Id;
+                _form.GetComboContrastClass.SelectedValue = currentLabBook.ExpContrastClass.CmbContrastClass.Id;
+                _form.GetComboContrastYield.SelectedValue = currentLabBook.ExpContrastClass.CmbContrastYield.Id;
             }
             else
             {
-                _form.GetComboClass.SelectedIndex = 0;
-                _form.GetComboYield.SelectedIndex = 0;
+                _form.GetComboContrastClass.SelectedIndex = 0;
+                _form.GetComboContrastYield.SelectedIndex = 0;
+            }
+
+            if (currentLabBook.ExpGlossClass != null)
+            {
+                _form.GetComboGlossClass.SelectedValue = currentLabBook.ExpGlossClass.CmbGlosClass.Id;
+            }
+            else
+            {
+                _form.GetComboGlossClass.SelectedIndex = 0;
             }
 
             _blockCombBoxes = false;
@@ -1018,7 +1055,7 @@ namespace LabBook_WF_EF.Service
             ExpContrastClass contrastClass = currentLabBook.ExpContrastClass;
             if (contrastClass != null)
             {
-                CmbContrastClass cmbClass = (CmbContrastClass)_form.GetComboClass.SelectedItem ?? _cmbContrastClasses[0];
+                CmbContrastClass cmbClass = (CmbContrastClass)_form.GetComboContrastClass.SelectedItem ?? _cmbContrastClasses[0];
                 contrastClass.CmbContrastClass = cmbClass;
                 contrastClass.ClassId = cmbClass.Id;
             }
@@ -1038,7 +1075,7 @@ namespace LabBook_WF_EF.Service
             ExpContrastClass contrastClass = currentLabBook.ExpContrastClass;
             if (contrastClass != null)
             {
-                CmbContrastYield cmbYield = (CmbContrastYield)_form.GetComboYield.SelectedItem ?? _cmbContrastYields[0];
+                CmbContrastYield cmbYield = (CmbContrastYield)_form.GetComboContrastYield.SelectedItem ?? _cmbContrastYields[0];
                 contrastClass.CmbContrastYield = cmbYield;
                 contrastClass.YieldId = cmbYield.Id;
             }
@@ -1046,6 +1083,35 @@ namespace LabBook_WF_EF.Service
             {
                 AddNewExpContrastClass(currentLabBook);
             }
+        }
+
+        private void Gloss_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_blockCombBoxes) return;
+
+            ExpLabBook currentLabBook = GetCurrentLabBook;
+            if (currentLabBook == null) return;
+
+            ExpGlossClass glossClass = currentLabBook.ExpGlossClass;
+            if (glossClass != null)
+            {
+                CmbGlosClass cmbGlosClass = (CmbGlosClass)_form.GetComboGlossClass.SelectedItem ?? _cmbGlossClasses[0];
+                glossClass.CmbGlosClass = cmbGlosClass;
+                glossClass.ClassId = cmbGlosClass.Id;
+            }
+            else
+            {
+                AddNewExpGlossClass(currentLabBook);
+            }
+        }
+
+        private void Scrub_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        public void TxtSponge_Validating(string sponge, string brush)
+        {
 
         }
 
@@ -1056,8 +1122,8 @@ namespace LabBook_WF_EF.Service
         private void AddNewExpContrastClass(ExpLabBook labBook)
         {
             ExpContrastClass contrastClass = new ExpContrastClass();
-            CmbContrastClass cmbClass = (CmbContrastClass)_form.GetComboClass.SelectedItem ?? _cmbContrastClasses[0];
-            CmbContrastYield cmbYield = (CmbContrastYield)_form.GetComboYield.SelectedItem ?? _cmbContrastYields[0];
+            CmbContrastClass cmbClass = (CmbContrastClass)_form.GetComboContrastClass.SelectedItem ?? _cmbContrastClasses[0];
+            CmbContrastYield cmbYield = (CmbContrastYield)_form.GetComboContrastYield.SelectedItem ?? _cmbContrastYields[0];
 
             contrastClass.CmbContrastClass = cmbClass;
             contrastClass.ClassId = cmbClass.Id;
@@ -1070,10 +1136,23 @@ namespace LabBook_WF_EF.Service
             _context.ExpContrastClass.Add(contrastClass);
         }
 
+        private void AddNewExpGlossClass(ExpLabBook labBook)
+        {
+            ExpGlossClass glossClass = new ExpGlossClass();
+            CmbGlosClass cmbGlosClass = (CmbGlosClass)_form.GetComboGlossClass.SelectedItem ?? _cmbGlossClasses[0];
+
+            glossClass.CmbGlosClass = cmbGlosClass;
+            glossClass.ClassId = cmbGlosClass.Id;
+            glossClass.ExpLabBook = labBook;
+            glossClass.LabBookId = labBook.Id;
+            labBook.ExpGlossClass = glossClass;
+
+            _context.ExpGlossClass.Add(glossClass);
+        }
+
         #endregion
 
         #region Save, Update, Delete
-
 
         public void Save()
         {

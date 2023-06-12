@@ -47,8 +47,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageGloss = new System.Windows.Forms.TabPage();
             this.BtnGlossDown = new System.Windows.Forms.Button();
             this.BtnGlossUp = new System.Windows.Forms.Button();
-            this.LblGloss = new System.Windows.Forms.Label();
-            this.CmbGlossClass = new System.Windows.Forms.ComboBox();
             this.DgvGloss = new System.Windows.Forms.DataGridView();
             this.TabPageClassification = new System.Windows.Forms.TabPage();
             this.LblContrastYield = new System.Windows.Forms.Label();
@@ -84,6 +82,14 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtTitle = new System.Windows.Forms.TextBox();
             this.LblNrD = new System.Windows.Forms.Label();
             this.LblDate = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.CmbGlossClass = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.CmbScrubClass = new System.Windows.Forms.ComboBox();
+            this.TxtSponge = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.TxtBrush = new System.Windows.Forms.TextBox();
             this.TabControlMain.SuspendLayout();
             this.TabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).BeginInit();
@@ -279,8 +285,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageGloss.BackColor = System.Drawing.SystemColors.Control;
             this.TabPageGloss.Controls.Add(this.BtnGlossDown);
             this.TabPageGloss.Controls.Add(this.BtnGlossUp);
-            this.TabPageGloss.Controls.Add(this.LblGloss);
-            this.TabPageGloss.Controls.Add(this.CmbGlossClass);
             this.TabPageGloss.Controls.Add(this.DgvGloss);
             this.TabPageGloss.Location = new System.Drawing.Point(4, 29);
             this.TabPageGloss.Name = "TabPageGloss";
@@ -310,26 +314,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.BtnGlossUp.TabIndex = 5;
             this.BtnGlossUp.UseVisualStyleBackColor = true;
             // 
-            // LblGloss
-            // 
-            this.LblGloss.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.LblGloss.AutoSize = true;
-            this.LblGloss.Location = new System.Drawing.Point(8, 406);
-            this.LblGloss.Name = "LblGloss";
-            this.LblGloss.Size = new System.Drawing.Size(64, 20);
-            this.LblGloss.TabIndex = 4;
-            this.LblGloss.Text = "Połysk";
-            // 
-            // CmbGlossClass
-            // 
-            this.CmbGlossClass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.CmbGlossClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbGlossClass.FormattingEnabled = true;
-            this.CmbGlossClass.Location = new System.Drawing.Point(78, 403);
-            this.CmbGlossClass.Name = "CmbGlossClass";
-            this.CmbGlossClass.Size = new System.Drawing.Size(152, 28);
-            this.CmbGlossClass.TabIndex = 3;
-            // 
             // DgvGloss
             // 
             this.DgvGloss.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -340,12 +324,20 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.DgvGloss.Name = "DgvGloss";
             this.DgvGloss.RowHeadersWidth = 51;
             this.DgvGloss.RowTemplate.Height = 24;
-            this.DgvGloss.Size = new System.Drawing.Size(1102, 394);
+            this.DgvGloss.Size = new System.Drawing.Size(1102, 429);
             this.DgvGloss.TabIndex = 0;
             // 
             // TabPageClassification
             // 
             this.TabPageClassification.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageClassification.Controls.Add(this.TxtBrush);
+            this.TabPageClassification.Controls.Add(this.label4);
+            this.TabPageClassification.Controls.Add(this.label3);
+            this.TabPageClassification.Controls.Add(this.TxtSponge);
+            this.TabPageClassification.Controls.Add(this.CmbScrubClass);
+            this.TabPageClassification.Controls.Add(this.label2);
+            this.TabPageClassification.Controls.Add(this.CmbGlossClass);
+            this.TabPageClassification.Controls.Add(this.label1);
             this.TabPageClassification.Controls.Add(this.LblContrastYield);
             this.TabPageClassification.Controls.Add(this.CmbContrastYield);
             this.TabPageClassification.Controls.Add(this.LblContarstClass);
@@ -360,7 +352,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // LblContrastYield
             // 
             this.LblContrastYield.AutoSize = true;
-            this.LblContrastYield.Location = new System.Drawing.Point(315, 22);
+            this.LblContrastYield.Location = new System.Drawing.Point(366, 22);
             this.LblContrastYield.Name = "LblContrastYield";
             this.LblContrastYield.Size = new System.Drawing.Size(45, 20);
             this.LblContrastYield.TabIndex = 12;
@@ -370,7 +362,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // 
             this.CmbContrastYield.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CmbContrastYield.FormattingEnabled = true;
-            this.CmbContrastYield.Location = new System.Drawing.Point(384, 19);
+            this.CmbContrastYield.Location = new System.Drawing.Point(435, 19);
             this.CmbContrastYield.Name = "CmbContrastYield";
             this.CmbContrastYield.Size = new System.Drawing.Size(132, 28);
             this.CmbContrastYield.TabIndex = 11;
@@ -388,7 +380,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // 
             this.CmbContrastClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CmbContrastClass.FormattingEnabled = true;
-            this.CmbContrastClass.Location = new System.Drawing.Point(152, 19);
+            this.CmbContrastClass.Location = new System.Drawing.Point(203, 19);
             this.CmbContrastClass.Name = "CmbContrastClass";
             this.CmbContrastClass.Size = new System.Drawing.Size(131, 28);
             this.CmbContrastClass.TabIndex = 9;
@@ -475,7 +467,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Pozycja";
             this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 27);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -572,7 +563,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // 
             this.ApplicatorToolStripMenuItem.Enabled = false;
             this.ApplicatorToolStripMenuItem.Name = "ApplicatorToolStripMenuItem";
-            this.ApplicatorToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.ApplicatorToolStripMenuItem.Size = new System.Drawing.Size(189, 28);
             this.ApplicatorToolStripMenuItem.Text = "Nowe krycie";
             // 
             // widokToolStripMenuItem
@@ -669,6 +660,76 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblDate.TabIndex = 7;
             this.LblDate.Text = " DD-MM-YYYY";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 71);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(115, 20);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Klasa połysk";
+            // 
+            // CmbGlossClass
+            // 
+            this.CmbGlossClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbGlossClass.FormattingEnabled = true;
+            this.CmbGlossClass.Location = new System.Drawing.Point(203, 68);
+            this.CmbGlossClass.Name = "CmbGlossClass";
+            this.CmbGlossClass.Size = new System.Drawing.Size(159, 28);
+            this.CmbGlossClass.TabIndex = 14;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 124);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(157, 20);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Klasa szorowania";
+            // 
+            // CmbScrubClass
+            // 
+            this.CmbScrubClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbScrubClass.FormattingEnabled = true;
+            this.CmbScrubClass.Location = new System.Drawing.Point(203, 121);
+            this.CmbScrubClass.Name = "CmbScrubClass";
+            this.CmbScrubClass.Size = new System.Drawing.Size(131, 28);
+            this.CmbScrubClass.TabIndex = 16;
+            // 
+            // TxtSponge
+            // 
+            this.TxtSponge.Location = new System.Drawing.Point(502, 121);
+            this.TxtSponge.Name = "TxtSponge";
+            this.TxtSponge.Size = new System.Drawing.Size(176, 27);
+            this.TxtSponge.TabIndex = 17;
+            this.TxtSponge.Validating += new System.ComponentModel.CancelEventHandler(this.TxtSponge_Validating);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(410, 124);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(62, 20);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Gąbka";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(731, 124);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(86, 20);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Szczotka";
+            // 
+            // TxtBrush
+            // 
+            this.TxtBrush.Location = new System.Drawing.Point(847, 121);
+            this.TxtBrush.Name = "TxtBrush";
+            this.TxtBrush.Size = new System.Drawing.Size(176, 27);
+            this.TxtBrush.TabIndex = 20;
+            this.TxtBrush.Validating += new System.ComponentModel.CancelEventHandler(this.TxtSponge_Validating);
+            // 
             // LabBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -699,7 +760,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageContrast.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DgvContrast)).EndInit();
             this.TabPageGloss.ResumeLayout(false);
-            this.TabPageGloss.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvGloss)).EndInit();
             this.TabPageClassification.ResumeLayout(false);
             this.TabPageClassification.PerformLayout();
@@ -758,8 +818,6 @@ namespace LabBook_WF_EF.Forms.LabBook
         private System.Windows.Forms.ToolStripMenuItem dodajToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ApplicatorToolStripMenuItem;
         private System.Windows.Forms.TabPage TabPageGloss;
-        private System.Windows.Forms.Label LblGloss;
-        private System.Windows.Forms.ComboBox CmbGlossClass;
         private System.Windows.Forms.DataGridView DgvGloss;
         private System.Windows.Forms.Button BtnGlossUp;
         private System.Windows.Forms.Button BtnGlossDown;
@@ -770,5 +828,13 @@ namespace LabBook_WF_EF.Forms.LabBook
         private System.Windows.Forms.ComboBox CmbContrastYield;
         private System.Windows.Forms.Label LblContarstClass;
         private System.Windows.Forms.ComboBox CmbContrastClass;
+        private System.Windows.Forms.TextBox TxtBrush;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox TxtSponge;
+        private System.Windows.Forms.ComboBox CmbScrubClass;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox CmbGlossClass;
+        private System.Windows.Forms.Label label1;
     }
 }
