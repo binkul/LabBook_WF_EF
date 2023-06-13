@@ -196,6 +196,7 @@
     <Compile Include="EntityModels\ExpGloss.cs" />
     <Compile Include="EntityModels\ExpGlossClass.cs" />
     <Compile Include="EntityModels\ExpLabBook.cs" />
+    <Compile Include="EntityModels\ExpScrubClass.cs" />
     <Compile Include="EntityModels\ExpSpectro.cs" />
     <Compile Include="EntityModels\ExpViscosity.cs" />
     <Compile Include="EntityModels\ExpViscosityFields.cs" />

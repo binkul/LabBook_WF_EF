@@ -49,6 +49,14 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.BtnGlossUp = new System.Windows.Forms.Button();
             this.DgvGloss = new System.Windows.Forms.DataGridView();
             this.TabPageClassification = new System.Windows.Forms.TabPage();
+            this.TxtBrush = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.TxtSponge = new System.Windows.Forms.TextBox();
+            this.CmbScrubClass = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.CmbGlossClass = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.LblContrastYield = new System.Windows.Forms.Label();
             this.CmbContrastYield = new System.Windows.Forms.ComboBox();
             this.LblContarstClass = new System.Windows.Forms.Label();
@@ -82,14 +90,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtTitle = new System.Windows.Forms.TextBox();
             this.LblNrD = new System.Windows.Forms.Label();
             this.LblDate = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.CmbGlossClass = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.CmbScrubClass = new System.Windows.Forms.ComboBox();
-            this.TxtSponge = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.TxtBrush = new System.Windows.Forms.TextBox();
             this.TabControlMain.SuspendLayout();
             this.TabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).BeginInit();
@@ -175,7 +175,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtRemarks.Multiline = true;
             this.TxtRemarks.Name = "TxtRemarks";
             this.TxtRemarks.Size = new System.Drawing.Size(1149, 429);
-            this.TxtRemarks.TabIndex = 1;
+            this.TxtRemarks.TabIndex = 2;
             // 
             // TabPageObservation
             // 
@@ -198,7 +198,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtObservation.Multiline = true;
             this.TxtObservation.Name = "TxtObservation";
             this.TxtObservation.Size = new System.Drawing.Size(1149, 429);
-            this.TxtObservation.TabIndex = 1;
+            this.TxtObservation.TabIndex = 3;
             // 
             // TabPageViscosity
             // 
@@ -349,6 +349,78 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageClassification.TabIndex = 6;
             this.TabPageClassification.Text = "Klasyfikacja";
             // 
+            // TxtBrush
+            // 
+            this.TxtBrush.Location = new System.Drawing.Point(847, 121);
+            this.TxtBrush.Name = "TxtBrush";
+            this.TxtBrush.Size = new System.Drawing.Size(176, 27);
+            this.TxtBrush.TabIndex = 9;
+            this.TxtBrush.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtTitle_KeyPress);
+            this.TxtBrush.Validating += new System.ComponentModel.CancelEventHandler(this.TxtSponge_Validating);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(731, 124);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(86, 20);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Szczotka";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(410, 124);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(62, 20);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Gąbka";
+            // 
+            // TxtSponge
+            // 
+            this.TxtSponge.Location = new System.Drawing.Point(502, 121);
+            this.TxtSponge.Name = "TxtSponge";
+            this.TxtSponge.Size = new System.Drawing.Size(176, 27);
+            this.TxtSponge.TabIndex = 8;
+            this.TxtSponge.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtTitle_KeyPress);
+            this.TxtSponge.Validating += new System.ComponentModel.CancelEventHandler(this.TxtSponge_Validating);
+            // 
+            // CmbScrubClass
+            // 
+            this.CmbScrubClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbScrubClass.FormattingEnabled = true;
+            this.CmbScrubClass.Location = new System.Drawing.Point(203, 121);
+            this.CmbScrubClass.Name = "CmbScrubClass";
+            this.CmbScrubClass.Size = new System.Drawing.Size(131, 28);
+            this.CmbScrubClass.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 124);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(157, 20);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Klasa szorowania";
+            // 
+            // CmbGlossClass
+            // 
+            this.CmbGlossClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CmbGlossClass.FormattingEnabled = true;
+            this.CmbGlossClass.Location = new System.Drawing.Point(203, 68);
+            this.CmbGlossClass.Name = "CmbGlossClass";
+            this.CmbGlossClass.Size = new System.Drawing.Size(159, 28);
+            this.CmbGlossClass.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 71);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(115, 20);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Klasa połysk";
+            // 
             // LblContrastYield
             // 
             this.LblContrastYield.AutoSize = true;
@@ -365,7 +437,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.CmbContrastYield.Location = new System.Drawing.Point(435, 19);
             this.CmbContrastYield.Name = "CmbContrastYield";
             this.CmbContrastYield.Size = new System.Drawing.Size(132, 28);
-            this.CmbContrastYield.TabIndex = 11;
+            this.CmbContrastYield.TabIndex = 5;
             // 
             // LblContarstClass
             // 
@@ -383,7 +455,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.CmbContrastClass.Location = new System.Drawing.Point(203, 19);
             this.CmbContrastClass.Name = "CmbContrastClass";
             this.CmbContrastClass.Size = new System.Drawing.Size(131, 28);
-            this.CmbContrastClass.TabIndex = 9;
+            this.CmbContrastClass.TabIndex = 4;
             // 
             // BindingNavigatorMain
             // 
@@ -634,7 +706,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtTitle.Location = new System.Drawing.Point(115, 77);
             this.TxtTitle.Name = "TxtTitle";
             this.TxtTitle.Size = new System.Drawing.Size(790, 27);
-            this.TxtTitle.TabIndex = 4;
+            this.TxtTitle.TabIndex = 1;
             this.TxtTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtTitle_KeyPress);
             // 
             // LblNrD
@@ -659,76 +731,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblDate.Size = new System.Drawing.Size(131, 20);
             this.LblDate.TabIndex = 7;
             this.LblDate.Text = " DD-MM-YYYY";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 71);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(115, 20);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Klasa połysk";
-            // 
-            // CmbGlossClass
-            // 
-            this.CmbGlossClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbGlossClass.FormattingEnabled = true;
-            this.CmbGlossClass.Location = new System.Drawing.Point(203, 68);
-            this.CmbGlossClass.Name = "CmbGlossClass";
-            this.CmbGlossClass.Size = new System.Drawing.Size(159, 28);
-            this.CmbGlossClass.TabIndex = 14;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 124);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(157, 20);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Klasa szorowania";
-            // 
-            // CmbScrubClass
-            // 
-            this.CmbScrubClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CmbScrubClass.FormattingEnabled = true;
-            this.CmbScrubClass.Location = new System.Drawing.Point(203, 121);
-            this.CmbScrubClass.Name = "CmbScrubClass";
-            this.CmbScrubClass.Size = new System.Drawing.Size(131, 28);
-            this.CmbScrubClass.TabIndex = 16;
-            // 
-            // TxtSponge
-            // 
-            this.TxtSponge.Location = new System.Drawing.Point(502, 121);
-            this.TxtSponge.Name = "TxtSponge";
-            this.TxtSponge.Size = new System.Drawing.Size(176, 27);
-            this.TxtSponge.TabIndex = 17;
-            this.TxtSponge.Validating += new System.ComponentModel.CancelEventHandler(this.TxtSponge_Validating);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(410, 124);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 20);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "Gąbka";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(731, 124);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 20);
-            this.label4.TabIndex = 19;
-            this.label4.Text = "Szczotka";
-            // 
-            // TxtBrush
-            // 
-            this.TxtBrush.Location = new System.Drawing.Point(847, 121);
-            this.TxtBrush.Name = "TxtBrush";
-            this.TxtBrush.Size = new System.Drawing.Size(176, 27);
-            this.TxtBrush.TabIndex = 20;
-            this.TxtBrush.Validating += new System.ComponentModel.CancelEventHandler(this.TxtSponge_Validating);
             // 
             // LabBookForm
             // 

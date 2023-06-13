@@ -38,6 +38,8 @@ namespace LabBook_WF_EF.Forms.LabBook
         public TextBox GetTxtTitle => TxtTitle;
         public TextBox GetTxtObservation => TxtObservation;
         public TextBox GetTxtRemarks => TxtRemarks;
+        public TextBox GetTxtBrush => TxtBrush;
+        public TextBox GetTxtSponge => TxtSponge;
         public ComboBox GetComboContrastClass => CmbContrastClass;
         public ComboBox GetComboContrastYield => CmbContrastYield;
         public ComboBox GetComboGlossClass => CmbGlossClass;

@@ -527,6 +527,7 @@ namespace LabBook_WF_EF.Service
                 .Include(x => x.ExpContrastClass).ThenInclude(y => y.CmbContrastClass)
                 .Include(x => x.ExpContrastClass).ThenInclude(y => y.CmbContrastYield)
                 .Include(x => x.ExpGlossClass).ThenInclude(y => y.CmbGlosClass)
+                .Include(x => x.ExpScrubClass).ThenInclude(y => y.CmbScrubClass)
                 .OrderBy(x => x.Id)
                 .ToList();
 
@@ -678,6 +679,7 @@ namespace LabBook_WF_EF.Service
                 GetCurrentContrast(currentLabBook.Id);
 
                 SetComboBoxes(currentLabBook);
+                SetTextBoxes(currentLabBook);
             }
         }
 
@@ -703,6 +705,33 @@ namespace LabBook_WF_EF.Service
             else
             {
                 _form.GetComboGlossClass.SelectedIndex = 0;
+            }
+
+            if (currentLabBook.ExpScrubClass != null)
+            {
+                _form.GetComboScrubClass.SelectedValue = currentLabBook.ExpScrubClass.CmbScrubClass.Id;
+            }
+            else
+            {
+                _form.GetComboScrubClass.SelectedIndex = 0;
+            }
+
+            _blockCombBoxes = false;
+        }
+
+        private void SetTextBoxes(ExpLabBook currentLabBook)
+        {
+            _blockCombBoxes = true;
+
+            if (currentLabBook.ExpScrubClass != null)
+            {
+                _form.GetTxtSponge.Text = currentLabBook.ExpScrubClass.ScrubSponge;
+                _form.GetTxtBrush.Text = currentLabBook.ExpScrubClass.ScrubBrush;
+            }
+            else
+            {
+                _form.GetTxtSponge.Text = "";
+                _form.GetTxtBrush.Text = "";
             }
 
             _blockCombBoxes = false;
@@ -1107,12 +1136,41 @@ namespace LabBook_WF_EF.Service
 
         private void Scrub_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_blockCombBoxes) return;
 
+            ExpLabBook currentLabBook = GetCurrentLabBook;
+            if (currentLabBook == null) return;
+
+            ExpScrubClass scrubClass = currentLabBook.ExpScrubClass;
+            if (scrubClass != null)
+            {
+                CmbScrubClass cmbScrubClass = (CmbScrubClass)_form.GetComboScrubClass.SelectedItem ?? _cmbScrubClasses[0];
+                scrubClass.CmbScrubClass = cmbScrubClass;
+                scrubClass.ClassId = cmbScrubClass.Id;
+            }
+            else
+            {
+                AddNewExpScrubClass(currentLabBook, _form.GetTxtSponge.Text, _form.GetTxtBrush.Text);
+            }
         }
 
         public void TxtSponge_Validating(string sponge, string brush)
         {
+            if (_blockCombBoxes) return;
 
+            ExpLabBook currentLabBook = GetCurrentLabBook;
+            if (currentLabBook == null) return;
+
+            ExpScrubClass scrubClass = currentLabBook.ExpScrubClass;
+            if (scrubClass != null)
+            {
+                scrubClass.ScrubSponge = sponge;
+                scrubClass.ScrubBrush = brush;
+            }
+            else
+            {
+                AddNewExpScrubClass(currentLabBook, sponge, brush);
+            }
         }
 
         #endregion
@@ -1148,6 +1206,19 @@ namespace LabBook_WF_EF.Service
             labBook.ExpGlossClass = glossClass;
 
             _context.ExpGlossClass.Add(glossClass);
+        }
+
+        private void AddNewExpScrubClass(ExpLabBook labBook, string sponge, string brush)
+        {
+            ExpScrubClass scrubClass = new ExpScrubClass();
+            CmbScrubClass cmbScrubClass = (CmbScrubClass)_form.GetComboScrubClass.SelectedItem ?? _cmbScrubClasses[0];
+
+            scrubClass.CmbScrubClass = cmbScrubClass;
+            scrubClass.ClassId = cmbScrubClass.Id;
+            scrubClass.ExpLabBook = labBook;
+            scrubClass.LabBookId = labBook.Id;
+
+            _context.ExpScrubClass.Add(scrubClass);
         }
 
         #endregion

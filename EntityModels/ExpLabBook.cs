@@ -28,5 +28,6 @@ namespace LabBook_WF_EF.EntityModels
         public virtual User User { get; set; }
         public virtual ExpContrastClass ExpContrastClass { get; set; }
         public virtual ExpGlossClass ExpGlossClass { get; set; }
+        public virtual ExpScrubClass ExpScrubClass { get; set; }
     }
 }

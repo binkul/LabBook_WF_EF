@@ -48,6 +48,7 @@ namespace LabBook_WF_EF.EntityModels
         public virtual DbSet<ExpGloss> ExpGloss { get; set; }
         public virtual DbSet<ExpGlossClass> ExpGlossClass { get; set; }
         public virtual DbSet<ExpLabBook> ExpLabBook { get; set; }
+        public virtual DbSet<ExpScrubClass> ExpScrubClass { get; set; }
         public virtual DbSet<ExpSpectro> ExpSpectro { get; set; }
         public virtual DbSet<ExpViscosity> ExpViscosity { get; set; }
         public virtual DbSet<ExpViscosityFields> ExpViscosityFields { get; set; }
@@ -879,6 +880,39 @@ namespace LabBook_WF_EF.EntityModels
                     .HasOne(d => d.ExpGlossClass)
                     .WithOne(p => p.ExpLabBook)
                     .HasForeignKey<ExpGlossClass>(d => d.LabBookId)
+                    .OnDelete(DeleteBehavior.NoAction);
+
+                entity
+                    .HasOne(d => d.ExpScrubClass)
+                    .WithOne(p => p.ExpLabBook)
+                    .HasForeignKey<ExpScrubClass>(d => d.LabBookId)
+                    .OnDelete(DeleteBehavior.NoAction);
+            });
+
+            modelBuilder.Entity<ExpScrubClass>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasColumnName("id");
+
+                entity.Property(e => e.LabBookId)
+                    .HasColumnName("labbook_id");
+
+                entity.Property(e => e.ClassId)
+                    .HasColumnName("class_id")
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.ScrubSponge)
+                    .HasColumnName("scrub_sponge")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.ScrubBrush)
+                    .HasColumnName("scrub_brush")
+                    .HasMaxLength(50);
+
+                entity
+                    .HasOne(d => d.CmbScrubClass)
+                    .WithMany(p => p.ExpScrubClasses)
+                    .HasForeignKey(d => d.ClassId)
                     .OnDelete(DeleteBehavior.NoAction);
 
             });
