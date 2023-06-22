@@ -42,6 +42,8 @@ namespace LabBook_WF_EF.Service
         private BindingSource _viscosityBinding;
         private IList<ExpContrast> _contrasts;
         private BindingSource _contrastBinding;
+        private IList<ExpNormResult> _normResults;
+        private BindingSource _normResultBinding;
         private IList<ExpContrastClass> _contrastClass;
         private BindingSource _contrastClassBinding;
         private IList<ExpGloss> _glosses;
@@ -79,6 +81,9 @@ namespace LabBook_WF_EF.Service
             _contrasts = new ObservableListSource<ExpContrast>();
             _contrastBinding = new BindingSource { DataSource = _contrasts };
 
+            _normResults = new ObservableListSource<ExpNormResult>();
+            _normResultBinding = new BindingSource { DataSource = _normResults };
+
             _cmbContrastClasses = GetCmbContrastClasses();
             _cmbContrastYields = GetCmbContrastYields();
             _cmbGlossClasses = GetCmbGlossClasses();
@@ -95,6 +100,7 @@ namespace LabBook_WF_EF.Service
             PrepareDataGridViewLabBook();
             PrepareDataGridViewViscosity();
             PrepareDataGridViewContrast();
+            PrepareDataGridViewNormResults();
 
             #endregion
 
@@ -498,6 +504,11 @@ namespace LabBook_WF_EF.Service
             view.Columns["Comments"].SortMode = DataGridViewColumnSortMode.NotSortable;
             view.Columns["Comments"].Width = (int)(width * 0.25);
             view.Columns["Comments"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+        }
+
+        private void PrepareDataGridViewNormResults()
+        {
+
         }
 
         private void PrepareApplicatorMenu()

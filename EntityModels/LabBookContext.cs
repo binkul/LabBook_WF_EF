@@ -48,6 +48,8 @@ namespace LabBook_WF_EF.EntityModels
         public virtual DbSet<ExpGloss> ExpGloss { get; set; }
         public virtual DbSet<ExpGlossClass> ExpGlossClass { get; set; }
         public virtual DbSet<ExpLabBook> ExpLabBook { get; set; }
+        public virtual DbSet<ExpNormResult> ExpNormResult { get; set; }
+        public virtual DbSet<ExpNormResultTabs> ExpNormResultTabs { get; set; }
         public virtual DbSet<ExpScrubClass> ExpScrubClass { get; set; }
         public virtual DbSet<ExpSpectro> ExpSpectro { get; set; }
         public virtual DbSet<ExpViscosity> ExpViscosity { get; set; }
@@ -747,6 +749,9 @@ namespace LabBook_WF_EF.EntityModels
                 entity.Ignore(e => e.ApplicatorName);
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.LabBookId)
+                    .HasColumnName("labbook_id");
+
                 entity.Property(e => e.Comments)
                     .HasColumnName("comment")
                     .HasMaxLength(2000);
@@ -887,6 +892,93 @@ namespace LabBook_WF_EF.EntityModels
                     .WithOne(p => p.ExpLabBook)
                     .HasForeignKey<ExpScrubClass>(d => d.LabBookId)
                     .OnDelete(DeleteBehavior.NoAction);
+
+                entity
+                    .HasMany<ExpNormResultTabs>(d => d.ExpNormResultTabs)
+                    .WithOne(p => p.ExpLabBook)
+                    .HasForeignKey(p => p.LabBookId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+            });
+
+            modelBuilder.Entity<ExpNormResult>(entity =>
+            {
+                entity.Ignore(e => e.Modified);
+                entity.Ignore(e => e.Added);
+                entity.Ignore(e => e.Days);
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.LabBookId)
+                    .HasColumnName("labbook_id");
+
+                entity.Property(e => e.Position)
+                    .HasColumnName("position");
+
+                entity.Property(e => e.PageNumber)
+                    .HasColumnName("page_nr")
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Norm)
+                    .HasColumnName("norm")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Requirement)
+                    .HasColumnName("requirement")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.ResultByString)
+                    .HasColumnName("result_by_string")
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.ResultByValue)
+                    .HasColumnName("result_by_value")
+                    .HasColumnType("float");
+
+                entity.Property(e => e.Substrate)
+                    .HasColumnName("substrate")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Unit)
+                    .HasColumnName("unit")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Comment)
+                    .HasColumnName("comment")
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.DateCreated)
+                    .HasColumnName("date_created")
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<ExpNormResultTabs>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.LabBookId)
+                    .HasColumnName("labbook_id");
+
+                entity.Property(e => e.PageNumber)
+                    .HasColumnName("page_nr");
+
+                entity.Property(e => e.TabVisibility)
+                    .HasColumnName("visibility")
+                    .HasDefaultValueSql("('false')");
+
+                entity.Property(e => e.TabHeaderName)
+                    .HasColumnName("header_name")
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<ExpScrubClass>(entity =>

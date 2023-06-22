@@ -172,5 +172,15 @@ namespace LabBook_WF_EF.Forms.LabBook
         {
             _service.TxtSponge_Validating(TxtSponge.Text, TxtBrush.Text);
         }
+
+        private void TabPageResult_DoubleClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ResultTabMenuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
