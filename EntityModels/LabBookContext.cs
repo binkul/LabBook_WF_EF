@@ -892,13 +892,6 @@ namespace LabBook_WF_EF.EntityModels
                     .WithOne(p => p.ExpLabBook)
                     .HasForeignKey<ExpScrubClass>(d => d.LabBookId)
                     .OnDelete(DeleteBehavior.NoAction);
-
-                entity
-                    .HasMany<ExpNormResultTabs>(d => d.ExpNormResultTabs)
-                    .WithOne(p => p.ExpLabBook)
-                    .HasForeignKey(p => p.LabBookId)
-                    .OnDelete(DeleteBehavior.Cascade);
-
             });
 
             modelBuilder.Entity<ExpNormResult>(entity =>
@@ -968,6 +961,10 @@ namespace LabBook_WF_EF.EntityModels
 
                 entity.Property(e => e.LabBookId)
                     .HasColumnName("labbook_id");
+
+                entity.Property(e => e.UserId)
+                    .HasColumnName("user_id")
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.PageNumber)
                     .HasColumnName("page_nr");

@@ -556,12 +556,12 @@ namespace LabBook_WF_EF.Service
             return new ObservableListSource<ExpViscosity>(list);
         }
 
-        private ViscosityFieldsType GetViscosityFields(long labbookId)
+        private ViscosityFieldsType GetViscosityFields(long labbookId, long userId)
         {
             var list = _context.ExpViscosityFields
                 .AsNoTracking()
                 .Where(i => i.LabbookId == labbookId)
-                .Where(i => i.UserId == _user.Id)
+                .Where(i => i.UserId == userId)
                 .ToList();
 
             ViscosityFieldsType type = ViscosityFieldsType.StdBrook;
@@ -588,6 +588,15 @@ namespace LabBook_WF_EF.Service
             }
 
             return type;
+        }
+
+        private IList<ExpNormResultTabs> GetNormResultTabs(long labbookId, long userId)
+        {
+            return _context.ExpNormResultTabs
+                .AsNoTracking()
+                .Where(i => i.LabBookId == labbookId)
+                .Where(i => i.UserId == userId)
+                .ToList();
         }
 
         private IList<ExpContrast> GetContrasts(long labbookId)
@@ -684,10 +693,12 @@ namespace LabBook_WF_EF.Service
 
                 _visRepository.QuickSaveViscosity(_viscosities);
                 GetCurrentViscosity(currentLabBook.Id);
-                PrepareCurrentField(currentLabBook.Id);
+                PrepareCurrentField(currentLabBook.Id, currentLabBook.User.Id);
 
                 _conRepository.QuickSaveContrast(_contrasts);
                 GetCurrentContrast(currentLabBook.Id);
+
+                PrepareCurrentNormResultTabs(currentLabBook.Id, currentLabBook.User.Id);
 
                 SetComboBoxes(currentLabBook);
                 SetTextBoxes(currentLabBook);
@@ -759,15 +770,81 @@ namespace LabBook_WF_EF.Service
             }
         }
 
-        private void PrepareCurrentField(long labbookId)
+        private void PrepareCurrentField(long labbookId, long userId)
         {
             if (labbookId == 0) return;
 
-            ViscosityFieldsType tmp = GetViscosityFields(labbookId);
+            ViscosityFieldsType tmp = GetViscosityFields(labbookId, userId);
             if (tmp == _viscosityFields) return;
 
             _viscosityFields = tmp;
             DataGridViscosityColumnSizeChanged();
+        }
+
+        private void PrepareCurrentNormResultTabs(long labbookId, long userId)
+        {
+            if (labbookId == 0) return;
+
+            IList<ExpNormResultTabs> list = GetNormResultTabs(labbookId, userId);
+
+            if (list.Count == 0)
+            {
+                _form.GetTabPageResult1.Text = "Wyniki";
+                HideUnusedTabPages();
+            }
+            else
+            {
+                IList<int> pages = list.Select(i => i.PageNumber).ToList();
+                int tabIndex = _form.GetTabControlMain.TabPages.IndexOf(_form.GetTabPageResult1) + 1;
+
+                if (pages.Contains(1))
+                {
+                    ExpNormResultTabs tab = list.First(i => i.PageNumber == 1);
+                    _form.GetTabPageResult1.Text = tab.TabHeaderName;
+                }
+                else
+                {
+                    _form.GetTabPageResult1.Text = "Wyniki";
+                }
+
+                if (pages.Contains(2))
+                {
+                    ExpNormResultTabs tab = list.First(i => i.PageNumber == 2);
+                    _form.GetTabPageResult2.Text = tab.TabHeaderName;
+                    if (!_form.GetTabControlMain.TabPages.Contains(_form.GetTabPageResult2))
+                    {
+                        _form.GetTabControlMain.TabPages.Insert(tabIndex, _form.GetTabPageResult2);
+                        _form.GetTabPageResult2.Show();
+                    }
+                }
+                else
+                {
+                    if (_form.GetTabControlMain.TabPages.Contains(_form.GetTabPageResult2))
+                    {
+                        _form.GetTabPageResult2.Hide();
+                        _form.GetTabControlMain.TabPages.Remove(_form.GetTabPageResult2);
+                    }
+                }
+
+                if (pages.Contains(3))
+                {
+
+                }
+                else
+                {
+
+                }
+
+                if (pages.Contains(4))
+                {
+
+                }
+                else
+                {
+
+                }
+
+            }
         }
 
         private void HideAllViscosityColumn(DataGridView grid)
@@ -789,6 +866,22 @@ namespace LabBook_WF_EF.Service
                 contrast.Modified = false;
                 _contrasts.Add(contrast);
             }
+        }
+
+        private void HideUnusedTabPages()
+        {
+            _form.GetTabPageResult2.Hide();
+            _form.GetTabPageResult3.Hide();
+            _form.GetTabPageResult4.Hide();
+
+            if (_form.GetTabControlMain.TabPages.Contains(_form.GetTabPageResult2))
+                _form.GetTabControlMain.TabPages.Remove(_form.GetTabPageResult2);
+
+            if (_form.GetTabControlMain.TabPages.Contains(_form.GetTabPageResult3))
+                _form.GetTabControlMain.TabPages.Remove(_form.GetTabPageResult3);
+
+            if (_form.GetTabControlMain.TabPages.Contains(_form.GetTabPageResult4))
+                _form.GetTabControlMain.TabPages.Remove(_form.GetTabPageResult4);
         }
 
         #endregion

@@ -44,6 +44,12 @@ namespace LabBook_WF_EF.Forms.LabBook
         public ComboBox GetComboContrastYield => CmbContrastYield;
         public ComboBox GetComboGlossClass => CmbGlossClass;
         public ComboBox GetComboScrubClass => CmbScrubClass;
+        public TabControl GetTabControlMain => TabControlMain;
+        public TabPage GetTabPageResult1 => TabPageResult1;
+        public TabPage GetTabPageResult2 => TabPageResult2;
+        public TabPage GetTabPageResult3 => TabPageResult3;
+        public TabPage GetTabPageResult4 => TabPageResult4;
+
 
         #region Form Open/Load/Closing
 
@@ -132,7 +138,7 @@ namespace LabBook_WF_EF.Forms.LabBook
 
         private void DgvViscosity_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
         {
-
+            
         }
 
         private void DgvViscosity_Resize(object sender, EventArgs e)
@@ -181,6 +187,24 @@ namespace LabBook_WF_EF.Forms.LabBook
         private void ResultTabMenuToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        //private bool removed = false;
+        private void ToolStripAdd_Click(object sender, EventArgs e)
+        {
+            //if (!removed)
+            //{
+            //    TabPageResult1.Hide();
+            //    TabControlMain.TabPages.Remove(TabPageResult1);
+            //}
+            //else
+            //{
+            //    TabControlMain.TabPages.Insert(7, TabPageResult1);
+            //    TabPageResult1.Show();
+            //    TabControlMain.SelectedTab = TabPageResult1;
+            //}
+
+            //removed = !removed;
         }
     }
 }

@@ -96,6 +96,9 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtTitle = new System.Windows.Forms.TextBox();
             this.LblNrD = new System.Windows.Forms.Label();
             this.LblDate = new System.Windows.Forms.Label();
+            this.TabPageResult2 = new System.Windows.Forms.TabPage();
+            this.TabPageResult3 = new System.Windows.Forms.TabPage();
+            this.TabPageResult4 = new System.Windows.Forms.TabPage();
             this.TabControlMain.SuspendLayout();
             this.TabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).BeginInit();
@@ -127,6 +130,9 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabControlMain.Controls.Add(this.TabPageGloss);
             this.TabControlMain.Controls.Add(this.TabPageClassification);
             this.TabControlMain.Controls.Add(this.TabPageResult1);
+            this.TabControlMain.Controls.Add(this.TabPageResult2);
+            this.TabControlMain.Controls.Add(this.TabPageResult3);
+            this.TabControlMain.Controls.Add(this.TabPageResult4);
             this.TabControlMain.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.TabControlMain.Location = new System.Drawing.Point(0, 131);
             this.TabControlMain.Name = "TabControlMain";
@@ -610,6 +616,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.ToolStripAdd.Name = "ToolStripAdd";
             this.ToolStripAdd.Size = new System.Drawing.Size(29, 24);
             this.ToolStripAdd.Text = "Dodaj nowy";
+            this.ToolStripAdd.Click += new System.EventHandler(this.ToolStripAdd_Click);
             // 
             // ToolStripSave
             // 
@@ -674,7 +681,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.brookKrebsStripMenuItem,
             this.brookIciStripMenuItem});
             this.lepkosciToolStripMenuItem.Name = "lepkosciToolStripMenuItem";
-            this.lepkosciToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.lepkosciToolStripMenuItem.Size = new System.Drawing.Size(159, 28);
             this.lepkosciToolStripMenuItem.Text = "Lepkości";
             // 
             // standardToolStripMenuItem
@@ -725,7 +732,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.zakładka3ToolStripMenuItem,
             this.zakładka4ToolStripMenuItem});
             this.wynikiToolStripMenuItem.Name = "wynikiToolStripMenuItem";
-            this.wynikiToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.wynikiToolStripMenuItem.Size = new System.Drawing.Size(159, 28);
             this.wynikiToolStripMenuItem.Text = "Wyniki";
             // 
             // zakładka1ToolStripMenuItem
@@ -733,7 +740,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.zakładka1ToolStripMenuItem.Checked = true;
             this.zakładka1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.zakładka1ToolStripMenuItem.Name = "zakładka1ToolStripMenuItem";
-            this.zakładka1ToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.zakładka1ToolStripMenuItem.Size = new System.Drawing.Size(178, 28);
             this.zakładka1ToolStripMenuItem.Tag = "1";
             this.zakładka1ToolStripMenuItem.Text = "Zakładka 1";
             this.zakładka1ToolStripMenuItem.Click += new System.EventHandler(this.ResultTabMenuToolStripMenuItem_Click);
@@ -741,7 +748,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // zakładka2ToolStripMenuItem
             // 
             this.zakładka2ToolStripMenuItem.Name = "zakładka2ToolStripMenuItem";
-            this.zakładka2ToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.zakładka2ToolStripMenuItem.Size = new System.Drawing.Size(178, 28);
             this.zakładka2ToolStripMenuItem.Tag = "2";
             this.zakładka2ToolStripMenuItem.Text = "Zakładka 2";
             this.zakładka2ToolStripMenuItem.Click += new System.EventHandler(this.ResultTabMenuToolStripMenuItem_Click);
@@ -749,7 +756,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // zakładka3ToolStripMenuItem
             // 
             this.zakładka3ToolStripMenuItem.Name = "zakładka3ToolStripMenuItem";
-            this.zakładka3ToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.zakładka3ToolStripMenuItem.Size = new System.Drawing.Size(178, 28);
             this.zakładka3ToolStripMenuItem.Tag = "3";
             this.zakładka3ToolStripMenuItem.Text = "Zakładka 3";
             this.zakładka3ToolStripMenuItem.Click += new System.EventHandler(this.ResultTabMenuToolStripMenuItem_Click);
@@ -757,7 +764,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // zakładka4ToolStripMenuItem
             // 
             this.zakładka4ToolStripMenuItem.Name = "zakładka4ToolStripMenuItem";
-            this.zakładka4ToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.zakładka4ToolStripMenuItem.Size = new System.Drawing.Size(178, 28);
             this.zakładka4ToolStripMenuItem.Tag = "4";
             this.zakładka4ToolStripMenuItem.Text = "Zakładka 4";
             this.zakładka4ToolStripMenuItem.Click += new System.EventHandler(this.ResultTabMenuToolStripMenuItem_Click);
@@ -795,6 +802,33 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblDate.Size = new System.Drawing.Size(131, 20);
             this.LblDate.TabIndex = 7;
             this.LblDate.Text = " DD-MM-YYYY";
+            // 
+            // TabPageResult2
+            // 
+            this.TabPageResult2.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageResult2.Location = new System.Drawing.Point(4, 29);
+            this.TabPageResult2.Name = "TabPageResult2";
+            this.TabPageResult2.Size = new System.Drawing.Size(1155, 435);
+            this.TabPageResult2.TabIndex = 8;
+            this.TabPageResult2.Text = "Wyniki 2";
+            // 
+            // TabPageResult3
+            // 
+            this.TabPageResult3.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageResult3.Location = new System.Drawing.Point(4, 29);
+            this.TabPageResult3.Name = "TabPageResult3";
+            this.TabPageResult3.Size = new System.Drawing.Size(1155, 435);
+            this.TabPageResult3.TabIndex = 9;
+            this.TabPageResult3.Text = "Wyniki 3";
+            // 
+            // TabPageResult4
+            // 
+            this.TabPageResult4.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageResult4.Location = new System.Drawing.Point(4, 29);
+            this.TabPageResult4.Name = "TabPageResult4";
+            this.TabPageResult4.Size = new System.Drawing.Size(1155, 435);
+            this.TabPageResult4.TabIndex = 10;
+            this.TabPageResult4.Text = "Wyniki 4";
             // 
             // LabBookForm
             // 
@@ -908,5 +942,8 @@ namespace LabBook_WF_EF.Forms.LabBook
         private System.Windows.Forms.ToolStripMenuItem zakładka2ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zakładka3ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zakładka4ToolStripMenuItem;
+        private System.Windows.Forms.TabPage TabPageResult2;
+        private System.Windows.Forms.TabPage TabPageResult3;
+        private System.Windows.Forms.TabPage TabPageResult4;
     }
 }
