@@ -32,6 +32,7 @@ namespace LabBook_WF_EF.Forms.LabBook
         public DataGridView GetDgvLabBook => DgvLabBook;
         public DataGridView GetDgvViscosity => DgvViscosity;
         public DataGridView GetDgvContrast => DgvContrast;
+        public DataGridView GetDgvNormResultTab1 => DgvNormResultTab1;
         public ToolStripMenuItem GetApplicatorMenu => ApplicatorToolStripMenuItem;
         public Label GetLblNrD => LblNrD;
         public Label GetLblDate => LblDate;

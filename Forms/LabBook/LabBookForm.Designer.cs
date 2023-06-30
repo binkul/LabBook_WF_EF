@@ -62,6 +62,9 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblContarstClass = new System.Windows.Forms.Label();
             this.CmbContrastClass = new System.Windows.Forms.ComboBox();
             this.TabPageResult1 = new System.Windows.Forms.TabPage();
+            this.TabPageResult2 = new System.Windows.Forms.TabPage();
+            this.TabPageResult3 = new System.Windows.Forms.TabPage();
+            this.TabPageResult4 = new System.Windows.Forms.TabPage();
             this.BindingNavigatorMain = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -96,9 +99,9 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtTitle = new System.Windows.Forms.TextBox();
             this.LblNrD = new System.Windows.Forms.Label();
             this.LblDate = new System.Windows.Forms.Label();
-            this.TabPageResult2 = new System.Windows.Forms.TabPage();
-            this.TabPageResult3 = new System.Windows.Forms.TabPage();
-            this.TabPageResult4 = new System.Windows.Forms.TabPage();
+            this.DgvNormResultTab1 = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.TabControlMain.SuspendLayout();
             this.TabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).BeginInit();
@@ -111,10 +114,12 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageGloss.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvGloss)).BeginInit();
             this.TabPageClassification.SuspendLayout();
+            this.TabPageResult1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BindingNavigatorMain)).BeginInit();
             this.BindingNavigatorMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvNormResultTab1)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -474,12 +479,42 @@ namespace LabBook_WF_EF.Forms.LabBook
             // TabPageResult1
             // 
             this.TabPageResult1.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageResult1.Controls.Add(this.button1);
+            this.TabPageResult1.Controls.Add(this.button2);
+            this.TabPageResult1.Controls.Add(this.DgvNormResultTab1);
             this.TabPageResult1.Location = new System.Drawing.Point(4, 29);
             this.TabPageResult1.Name = "TabPageResult1";
             this.TabPageResult1.Size = new System.Drawing.Size(1155, 435);
             this.TabPageResult1.TabIndex = 7;
             this.TabPageResult1.Text = "Wyniki";
             this.TabPageResult1.DoubleClick += new System.EventHandler(this.TabPageResult_DoubleClick);
+            // 
+            // TabPageResult2
+            // 
+            this.TabPageResult2.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageResult2.Location = new System.Drawing.Point(4, 29);
+            this.TabPageResult2.Name = "TabPageResult2";
+            this.TabPageResult2.Size = new System.Drawing.Size(1155, 435);
+            this.TabPageResult2.TabIndex = 8;
+            this.TabPageResult2.Text = "Wyniki 2";
+            // 
+            // TabPageResult3
+            // 
+            this.TabPageResult3.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageResult3.Location = new System.Drawing.Point(4, 29);
+            this.TabPageResult3.Name = "TabPageResult3";
+            this.TabPageResult3.Size = new System.Drawing.Size(1155, 435);
+            this.TabPageResult3.TabIndex = 9;
+            this.TabPageResult3.Text = "Wyniki 3";
+            // 
+            // TabPageResult4
+            // 
+            this.TabPageResult4.BackColor = System.Drawing.SystemColors.Control;
+            this.TabPageResult4.Location = new System.Drawing.Point(4, 29);
+            this.TabPageResult4.Name = "TabPageResult4";
+            this.TabPageResult4.Size = new System.Drawing.Size(1155, 435);
+            this.TabPageResult4.TabIndex = 10;
+            this.TabPageResult4.Text = "Wyniki 4";
             // 
             // BindingNavigatorMain
             // 
@@ -803,32 +838,40 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblDate.TabIndex = 7;
             this.LblDate.Text = " DD-MM-YYYY";
             // 
-            // TabPageResult2
+            // DgvNormResultTab1
             // 
-            this.TabPageResult2.BackColor = System.Drawing.SystemColors.Control;
-            this.TabPageResult2.Location = new System.Drawing.Point(4, 29);
-            this.TabPageResult2.Name = "TabPageResult2";
-            this.TabPageResult2.Size = new System.Drawing.Size(1155, 435);
-            this.TabPageResult2.TabIndex = 8;
-            this.TabPageResult2.Text = "Wyniki 2";
+            this.DgvNormResultTab1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DgvNormResultTab1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvNormResultTab1.Location = new System.Drawing.Point(3, 3);
+            this.DgvNormResultTab1.Name = "DgvNormResultTab1";
+            this.DgvNormResultTab1.RowHeadersWidth = 51;
+            this.DgvNormResultTab1.RowTemplate.Height = 24;
+            this.DgvNormResultTab1.Size = new System.Drawing.Size(1108, 429);
+            this.DgvNormResultTab1.TabIndex = 0;
             // 
-            // TabPageResult3
+            // button1
             // 
-            this.TabPageResult3.BackColor = System.Drawing.SystemColors.Control;
-            this.TabPageResult3.Location = new System.Drawing.Point(4, 29);
-            this.TabPageResult3.Name = "TabPageResult3";
-            this.TabPageResult3.Size = new System.Drawing.Size(1155, 435);
-            this.TabPageResult3.TabIndex = 9;
-            this.TabPageResult3.Text = "Wyniki 3";
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackgroundImage = global::LabBook_WF_EF.Properties.Resources.strzałka_dol;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Location = new System.Drawing.Point(1116, 222);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(36, 39);
+            this.button1.TabIndex = 8;
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // TabPageResult4
+            // button2
             // 
-            this.TabPageResult4.BackColor = System.Drawing.SystemColors.Control;
-            this.TabPageResult4.Location = new System.Drawing.Point(4, 29);
-            this.TabPageResult4.Name = "TabPageResult4";
-            this.TabPageResult4.Size = new System.Drawing.Size(1155, 435);
-            this.TabPageResult4.TabIndex = 10;
-            this.TabPageResult4.Text = "Wyniki 4";
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.BackgroundImage = global::LabBook_WF_EF.Properties.Resources.strzałka_góra;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Location = new System.Drawing.Point(1116, 177);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(36, 39);
+            this.button2.TabIndex = 7;
+            this.button2.UseVisualStyleBackColor = true;
             // 
             // LabBookForm
             // 
@@ -863,6 +906,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             ((System.ComponentModel.ISupportInitialize)(this.DgvGloss)).EndInit();
             this.TabPageClassification.ResumeLayout(false);
             this.TabPageClassification.PerformLayout();
+            this.TabPageResult1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.BindingNavigatorMain)).EndInit();
             this.BindingNavigatorMain.ResumeLayout(false);
             this.BindingNavigatorMain.PerformLayout();
@@ -870,6 +914,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.toolStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvNormResultTab1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -945,5 +990,8 @@ namespace LabBook_WF_EF.Forms.LabBook
         private System.Windows.Forms.TabPage TabPageResult2;
         private System.Windows.Forms.TabPage TabPageResult3;
         private System.Windows.Forms.TabPage TabPageResult4;
+        private System.Windows.Forms.DataGridView DgvNormResultTab1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

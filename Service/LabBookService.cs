@@ -508,7 +508,103 @@ namespace LabBook_WF_EF.Service
 
         private void PrepareDataGridViewNormResults()
         {
+            DataGridView view = _form.GetDgvNormResultTab1;
+            view.DataSource = _normResultBinding;
+            view.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            view.RowsDefaultCellStyle.Font = new Font(view.DefaultCellStyle.Font.Name, 9, FontStyle.Regular);
+            view.ColumnHeadersDefaultCellStyle.Font = new Font(view.DefaultCellStyle.Font.Name, 9, FontStyle.Bold);
+            view.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+            view.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            view.DefaultCellStyle.ForeColor = Color.Black;
+            view.MultiSelect = false;
+            view.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            view.AutoGenerateColumns = false;
 
+            view.Columns["Id"].Visible = false;
+            view.Columns["LabBookId"].Visible = false;
+            view.Columns["DateUpdated"].Visible = false;
+            view.Columns["Position"].Visible = false;
+            view.Columns["PageNumber"].Visible = false;
+            view.Columns["Added"].Visible = false;
+            view.Columns.Remove("Modified");
+
+            int displayIndex = 0;
+
+            DataGridViewButtonColumn buttonColumn = new DataGridViewButtonColumn();
+            buttonColumn.Name = deleteColumn;
+            buttonColumn.HeaderText = "";
+            buttonColumn.Text = "X";
+            buttonColumn.FlatStyle = FlatStyle.Popup;
+            buttonColumn.DefaultCellStyle.ForeColor = Color.Red;
+            buttonColumn.DefaultCellStyle.BackColor = Color.LightGray;
+            buttonColumn.UseColumnTextForButtonValue = true;
+            buttonColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
+            buttonColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            buttonColumn.Resizable = DataGridViewTriState.False;
+            buttonColumn.Width = 45;
+            buttonColumn.DisplayIndex = displayIndex;
+            view.Columns.Add(buttonColumn);
+
+            view.Columns["DateCreated"].HeaderText = "Data";
+            view.Columns["DateCreated"].DisplayIndex = ++displayIndex;
+            view.Columns["DateCreated"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["DateCreated"].Width = 100;
+            view.Columns["DateCreated"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            view.Columns["Days"].HeaderText = "Doba";
+            view.Columns["Days"].ReadOnly = true;
+            view.Columns["Days"].DisplayIndex = ++displayIndex;
+            view.Columns["Days"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["Days"].Width = 80;
+            view.Columns["Days"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            view.Columns["Description"].HeaderText = "Opis";
+            view.Columns["Description"].DisplayIndex = ++displayIndex;
+            view.Columns["Description"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["Description"].Width = 100;
+            view.Columns["Description"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            view.Columns["Norm"].HeaderText = "Norma";
+            view.Columns["Norm"].DisplayIndex = ++displayIndex;
+            view.Columns["Norm"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["Norm"].Width = 100;
+            view.Columns["Norm"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            view.Columns["Requirement"].HeaderText = "Wymogi";
+            view.Columns["Requirement"].DisplayIndex = ++displayIndex;
+            view.Columns["Requirement"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["Requirement"].Width = 100;
+            view.Columns["Requirement"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            view.Columns["ResultByString"].HeaderText = "Wynik opis";
+            view.Columns["ResultByString"].DisplayIndex = ++displayIndex;
+            view.Columns["ResultByString"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["ResultByString"].Width = 100;
+            view.Columns["ResultByString"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            view.Columns["ResultByValue"].HeaderText = "Wynik liczba";
+            view.Columns["ResultByValue"].DisplayIndex = ++displayIndex;
+            view.Columns["ResultByValue"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["ResultByValue"].Width = 100;
+            view.Columns["ResultByValue"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            view.Columns["Substrate"].HeaderText = "Podłoże";
+            view.Columns["Substrate"].DisplayIndex = ++displayIndex;
+            view.Columns["Substrate"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["Substrate"].Width = 100;
+            view.Columns["Substrate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            view.Columns["Unit"].HeaderText = "Jednostka";
+            view.Columns["Unit"].DisplayIndex = ++displayIndex;
+            view.Columns["Unit"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["Unit"].Width = 80;
+            view.Columns["Unit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            view.Columns["Comment"].HeaderText = "Uwagi";
+            view.Columns["Comment"].DisplayIndex = ++displayIndex;
+            view.Columns["Comment"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["Comment"].Width = 200;
+            view.Columns["Comment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
 
         private void PrepareApplicatorMenu()
