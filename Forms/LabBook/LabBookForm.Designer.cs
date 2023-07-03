@@ -62,6 +62,9 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblContarstClass = new System.Windows.Forms.Label();
             this.CmbContrastClass = new System.Windows.Forms.ComboBox();
             this.TabPageResult1 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.DgvNormResultTab1 = new System.Windows.Forms.DataGridView();
             this.TabPageResult2 = new System.Windows.Forms.TabPage();
             this.TabPageResult3 = new System.Windows.Forms.TabPage();
             this.TabPageResult4 = new System.Windows.Forms.TabPage();
@@ -92,16 +95,13 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.brookKrebsStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.brookIciStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wynikiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zakładka1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zakładka2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zakładka3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zakładka4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TabResult1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TabResult2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TabResult3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TabResult4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TxtTitle = new System.Windows.Forms.TextBox();
             this.LblNrD = new System.Windows.Forms.Label();
             this.LblDate = new System.Windows.Forms.Label();
-            this.DgvNormResultTab1 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.TabControlMain.SuspendLayout();
             this.TabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).BeginInit();
@@ -115,11 +115,11 @@ namespace LabBook_WF_EF.Forms.LabBook
             ((System.ComponentModel.ISupportInitialize)(this.DgvGloss)).BeginInit();
             this.TabPageClassification.SuspendLayout();
             this.TabPageResult1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DgvNormResultTab1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BindingNavigatorMain)).BeginInit();
             this.BindingNavigatorMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DgvNormResultTab1)).BeginInit();
             this.SuspendLayout();
             // 
             // TabControlMain
@@ -489,6 +489,41 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageResult1.Text = "Wyniki";
             this.TabPageResult1.DoubleClick += new System.EventHandler(this.TabPageResult_DoubleClick);
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackgroundImage = global::LabBook_WF_EF.Properties.Resources.strzałka_dol;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Location = new System.Drawing.Point(1116, 222);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(36, 39);
+            this.button1.TabIndex = 8;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.BackgroundImage = global::LabBook_WF_EF.Properties.Resources.strzałka_góra;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Location = new System.Drawing.Point(1116, 177);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(36, 39);
+            this.button2.TabIndex = 7;
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // DgvNormResultTab1
+            // 
+            this.DgvNormResultTab1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DgvNormResultTab1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvNormResultTab1.Location = new System.Drawing.Point(3, 3);
+            this.DgvNormResultTab1.Name = "DgvNormResultTab1";
+            this.DgvNormResultTab1.RowHeadersWidth = 51;
+            this.DgvNormResultTab1.RowTemplate.Height = 24;
+            this.DgvNormResultTab1.Size = new System.Drawing.Size(1108, 429);
+            this.DgvNormResultTab1.TabIndex = 0;
+            // 
             // TabPageResult2
             // 
             this.TabPageResult2.BackColor = System.Drawing.SystemColors.Control;
@@ -716,7 +751,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.brookKrebsStripMenuItem,
             this.brookIciStripMenuItem});
             this.lepkosciToolStripMenuItem.Name = "lepkosciToolStripMenuItem";
-            this.lepkosciToolStripMenuItem.Size = new System.Drawing.Size(159, 28);
+            this.lepkosciToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
             this.lepkosciToolStripMenuItem.Text = "Lepkości";
             // 
             // standardToolStripMenuItem
@@ -762,47 +797,45 @@ namespace LabBook_WF_EF.Forms.LabBook
             // wynikiToolStripMenuItem
             // 
             this.wynikiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.zakładka1ToolStripMenuItem,
-            this.zakładka2ToolStripMenuItem,
-            this.zakładka3ToolStripMenuItem,
-            this.zakładka4ToolStripMenuItem});
+            this.TabResult1ToolStripMenuItem,
+            this.TabResult2ToolStripMenuItem,
+            this.TabResult3ToolStripMenuItem,
+            this.TabResult4ToolStripMenuItem});
             this.wynikiToolStripMenuItem.Name = "wynikiToolStripMenuItem";
-            this.wynikiToolStripMenuItem.Size = new System.Drawing.Size(159, 28);
+            this.wynikiToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
             this.wynikiToolStripMenuItem.Text = "Wyniki";
             // 
-            // zakładka1ToolStripMenuItem
+            // TabResult1ToolStripMenuItem
             // 
-            this.zakładka1ToolStripMenuItem.Checked = true;
-            this.zakładka1ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.zakładka1ToolStripMenuItem.Name = "zakładka1ToolStripMenuItem";
-            this.zakładka1ToolStripMenuItem.Size = new System.Drawing.Size(178, 28);
-            this.zakładka1ToolStripMenuItem.Tag = "1";
-            this.zakładka1ToolStripMenuItem.Text = "Zakładka 1";
-            this.zakładka1ToolStripMenuItem.Click += new System.EventHandler(this.ResultTabMenuToolStripMenuItem_Click);
+            this.TabResult1ToolStripMenuItem.Name = "TabResult1ToolStripMenuItem";
+            this.TabResult1ToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.TabResult1ToolStripMenuItem.Tag = "1";
+            this.TabResult1ToolStripMenuItem.Text = "Zakładka 1";
+            this.TabResult1ToolStripMenuItem.Click += new System.EventHandler(this.ResultTabMenuToolStripMenuItem_Click);
             // 
-            // zakładka2ToolStripMenuItem
+            // TabResult2ToolStripMenuItem
             // 
-            this.zakładka2ToolStripMenuItem.Name = "zakładka2ToolStripMenuItem";
-            this.zakładka2ToolStripMenuItem.Size = new System.Drawing.Size(178, 28);
-            this.zakładka2ToolStripMenuItem.Tag = "2";
-            this.zakładka2ToolStripMenuItem.Text = "Zakładka 2";
-            this.zakładka2ToolStripMenuItem.Click += new System.EventHandler(this.ResultTabMenuToolStripMenuItem_Click);
+            this.TabResult2ToolStripMenuItem.Name = "TabResult2ToolStripMenuItem";
+            this.TabResult2ToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.TabResult2ToolStripMenuItem.Tag = "2";
+            this.TabResult2ToolStripMenuItem.Text = "Zakładka 2";
+            this.TabResult2ToolStripMenuItem.Click += new System.EventHandler(this.ResultTabMenuToolStripMenuItem_Click);
             // 
-            // zakładka3ToolStripMenuItem
+            // TabResult3ToolStripMenuItem
             // 
-            this.zakładka3ToolStripMenuItem.Name = "zakładka3ToolStripMenuItem";
-            this.zakładka3ToolStripMenuItem.Size = new System.Drawing.Size(178, 28);
-            this.zakładka3ToolStripMenuItem.Tag = "3";
-            this.zakładka3ToolStripMenuItem.Text = "Zakładka 3";
-            this.zakładka3ToolStripMenuItem.Click += new System.EventHandler(this.ResultTabMenuToolStripMenuItem_Click);
+            this.TabResult3ToolStripMenuItem.Name = "TabResult3ToolStripMenuItem";
+            this.TabResult3ToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.TabResult3ToolStripMenuItem.Tag = "3";
+            this.TabResult3ToolStripMenuItem.Text = "Zakładka 3";
+            this.TabResult3ToolStripMenuItem.Click += new System.EventHandler(this.ResultTabMenuToolStripMenuItem_Click);
             // 
-            // zakładka4ToolStripMenuItem
+            // TabResult4ToolStripMenuItem
             // 
-            this.zakładka4ToolStripMenuItem.Name = "zakładka4ToolStripMenuItem";
-            this.zakładka4ToolStripMenuItem.Size = new System.Drawing.Size(178, 28);
-            this.zakładka4ToolStripMenuItem.Tag = "4";
-            this.zakładka4ToolStripMenuItem.Text = "Zakładka 4";
-            this.zakładka4ToolStripMenuItem.Click += new System.EventHandler(this.ResultTabMenuToolStripMenuItem_Click);
+            this.TabResult4ToolStripMenuItem.Name = "TabResult4ToolStripMenuItem";
+            this.TabResult4ToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.TabResult4ToolStripMenuItem.Tag = "4";
+            this.TabResult4ToolStripMenuItem.Text = "Zakładka 4";
+            this.TabResult4ToolStripMenuItem.Click += new System.EventHandler(this.ResultTabMenuToolStripMenuItem_Click);
             // 
             // TxtTitle
             // 
@@ -838,41 +871,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblDate.TabIndex = 7;
             this.LblDate.Text = " DD-MM-YYYY";
             // 
-            // DgvNormResultTab1
-            // 
-            this.DgvNormResultTab1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DgvNormResultTab1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvNormResultTab1.Location = new System.Drawing.Point(3, 3);
-            this.DgvNormResultTab1.Name = "DgvNormResultTab1";
-            this.DgvNormResultTab1.RowHeadersWidth = 51;
-            this.DgvNormResultTab1.RowTemplate.Height = 24;
-            this.DgvNormResultTab1.Size = new System.Drawing.Size(1108, 429);
-            this.DgvNormResultTab1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackgroundImage = global::LabBook_WF_EF.Properties.Resources.strzałka_dol;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Location = new System.Drawing.Point(1116, 222);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(36, 39);
-            this.button1.TabIndex = 8;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.BackgroundImage = global::LabBook_WF_EF.Properties.Resources.strzałka_góra;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button2.Location = new System.Drawing.Point(1116, 177);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(36, 39);
-            this.button2.TabIndex = 7;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // LabBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -907,6 +905,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageClassification.ResumeLayout(false);
             this.TabPageClassification.PerformLayout();
             this.TabPageResult1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DgvNormResultTab1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BindingNavigatorMain)).EndInit();
             this.BindingNavigatorMain.ResumeLayout(false);
             this.BindingNavigatorMain.PerformLayout();
@@ -914,7 +913,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.toolStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DgvNormResultTab1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -983,10 +981,10 @@ namespace LabBook_WF_EF.Forms.LabBook
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage TabPageResult1;
         private System.Windows.Forms.ToolStripMenuItem wynikiToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem zakładka1ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem zakładka2ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem zakładka3ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem zakładka4ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TabResult1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TabResult2ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TabResult3ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TabResult4ToolStripMenuItem;
         private System.Windows.Forms.TabPage TabPageResult2;
         private System.Windows.Forms.TabPage TabPageResult3;
         private System.Windows.Forms.TabPage TabPageResult4;

@@ -34,6 +34,10 @@ namespace LabBook_WF_EF.Forms.LabBook
         public DataGridView GetDgvContrast => DgvContrast;
         public DataGridView GetDgvNormResultTab1 => DgvNormResultTab1;
         public ToolStripMenuItem GetApplicatorMenu => ApplicatorToolStripMenuItem;
+        public ToolStripMenuItem GetTabResult1Menu => TabResult1ToolStripMenuItem;
+        public ToolStripMenuItem GetTabResult2Menu => TabResult2ToolStripMenuItem;
+        public ToolStripMenuItem GetTabResult3Menu => TabResult3ToolStripMenuItem;
+        public ToolStripMenuItem GetTabResult4Menu => TabResult4ToolStripMenuItem;
         public Label GetLblNrD => LblNrD;
         public Label GetLblDate => LblDate;
         public TextBox GetTxtTitle => TxtTitle;
@@ -187,7 +191,8 @@ namespace LabBook_WF_EF.Forms.LabBook
 
         private void ResultTabMenuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ToolStripMenuItem item = (ToolStripMenuItem)sender;
+            _service.ShowOrHideResultTab(int.Parse(item.Tag.ToString()));
         }
 
         //private bool removed = false;

@@ -15,6 +15,14 @@ using System.Windows.Forms;
 
 namespace LabBook_WF_EF.Service
 {
+    enum Tabs
+    {
+        One=1,
+        Two=2,
+        Three=3,
+        Four=4
+    }
+
     public class LabBookService
     {
         private static readonly string deleteColumn = "Del";
@@ -32,6 +40,7 @@ namespace LabBook_WF_EF.Service
         private readonly SqlConnection _sqlConnection;
         private readonly ExpViscosityRepository _visRepository;
         private readonly ExpContrastRepository _conRepository;
+        private readonly ExpNormResultRepository _normRepository;
         private readonly UserDto _user;
 
         private bool _blockCombBoxes = false;
@@ -62,6 +71,7 @@ namespace LabBook_WF_EF.Service
             _sqlConnection = new SqlConnection(ConfigData.ConnectionStringAdo);
             _visRepository = new ExpViscosityRepository(_context);
             _conRepository = new ExpContrastRepository(_context);
+            _normRepository = new ExpNormResultRepository(_context);
         }
 
         public BindingSource GetLabBookBinding => _labBookBinding;
@@ -890,39 +900,59 @@ namespace LabBook_WF_EF.Service
             }
             else
             {
-                IList<int> pages = list.Select(i => i.PageNumber).ToList();
-                int tabIndex = _form.GetTabControlMain.TabPages.IndexOf(_form.GetTabPageResult1) + 1;
+                IList<int> pageIndexes = list.Select(i => i.PageNumber).ToList();
+                var pages = _form.GetTabControlMain.TabPages;
 
-                if (pages.Contains(1))
+                int pageIndex = (int)Tabs.One;
+                if (pageIndexes.Contains(pageIndex))
                 {
-                    ExpNormResultTabs tab = list.First(i => i.PageNumber == 1);
-                    _form.GetTabPageResult1.Text = tab.TabHeaderName;
-                }
-                else
-                {
-                    _form.GetTabPageResult1.Text = "Wyniki";
-                }
+                    ExpNormResultTabs tab = GetFirstTabByIndex(list, pageIndex);
+                    TabPage page = GetTabPageByIndex(pageIndex);
+                    page.Text = tab.TabHeaderName;
 
-                if (pages.Contains(2))
-                {
-                    ExpNormResultTabs tab = list.First(i => i.PageNumber == 2);
-                    _form.GetTabPageResult2.Text = tab.TabHeaderName;
-                    if (!_form.GetTabControlMain.TabPages.Contains(_form.GetTabPageResult2))
+                    if (!pages.Contains(page) && tab.TabVisibility)
                     {
-                        _form.GetTabControlMain.TabPages.Insert(tabIndex, _form.GetTabPageResult2);
-                        _form.GetTabPageResult2.Show();
+                        ShowTab(pageIndex);
+                    }
+                    else
+                    {
+                        HideOneTab(pageIndex);
                     }
                 }
                 else
                 {
-                    if (_form.GetTabControlMain.TabPages.Contains(_form.GetTabPageResult2))
+                    if (pages.Contains(_form.GetTabPageResult1))
                     {
-                        _form.GetTabPageResult2.Hide();
-                        _form.GetTabControlMain.TabPages.Remove(_form.GetTabPageResult2);
+                        HideOneTab(pageIndex);
                     }
                 }
 
-                if (pages.Contains(3))
+                pageIndex = (int)Tabs.Two;
+                if (pageIndexes.Contains(pageIndex))
+                {
+                    ExpNormResultTabs tab = GetFirstTabByIndex(list, pageIndex);
+                    TabPage page = GetTabPageByIndex(pageIndex);
+                    page.Text = tab.TabHeaderName;
+
+                    if (!pages.Contains(page) && tab.TabVisibility)
+                    {
+                        ShowTab(pageIndex);
+                    }
+                    else
+                    {
+                        HideOneTab(pageIndex);
+                    }
+                }
+                else
+                {
+                    if (pages.Contains(_form.GetTabPageResult2))
+                    {
+                        HideOneTab(pageIndex);
+                    }
+                }
+
+                pageIndex = (int)Tabs.Three;
+                if (pageIndexes.Contains(pageIndex))
                 {
 
                 }
@@ -931,7 +961,8 @@ namespace LabBook_WF_EF.Service
 
                 }
 
-                if (pages.Contains(4))
+                pageIndex = (int)Tabs.Four;
+                if (pageIndexes.Contains(pageIndex))
                 {
 
                 }
@@ -964,6 +995,29 @@ namespace LabBook_WF_EF.Service
             }
         }
 
+        #endregion
+
+        #region TabControl and TabPage operation
+
+        public void ShowOrHideResultTab(int pageIndex)
+        {
+            switch(pageIndex)
+            {
+                case 1:
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+                default:
+
+                    break;
+            }
+        }
+
         private void HideUnusedTabPages()
         {
             _form.GetTabPageResult2.Hide();
@@ -978,6 +1032,81 @@ namespace LabBook_WF_EF.Service
 
             if (_form.GetTabControlMain.TabPages.Contains(_form.GetTabPageResult4))
                 _form.GetTabControlMain.TabPages.Remove(_form.GetTabPageResult4);
+        }
+
+        private void HideOneTab(int pageIndex)
+        {
+            switch(pageIndex)
+            {
+                case 2:
+                    _form.GetTabPageResult2.Hide();
+                    _form.GetTabControlMain.TabPages.Remove(_form.GetTabPageResult2);
+                    _form.GetTabResult2Menu.Checked = false;
+                    break;
+                case 3:
+                    _form.GetTabPageResult3.Hide();
+                    _form.GetTabControlMain.TabPages.Remove(_form.GetTabPageResult3);
+                    _form.GetTabResult3Menu.Checked = false;
+                    break;
+                case 4:
+                    _form.GetTabPageResult4.Hide();
+                    _form.GetTabControlMain.TabPages.Remove(_form.GetTabPageResult4);
+                    _form.GetTabResult4Menu.Checked = false;
+                    break;
+                default:
+                    _form.GetTabPageResult1.Hide();
+                    _form.GetTabControlMain.TabPages.Remove(_form.GetTabPageResult1);
+                    _form.GetTabResult1Menu.Checked = false;
+                    break;
+            }
+        }
+
+        private void ShowTab(int pageIndex)
+        {
+            switch (pageIndex)
+            {
+                case 2:
+                    _form.GetTabControlMain.TabPages.Insert(pageIndex, _form.GetTabPageResult2);
+                    _form.GetTabPageResult2.Show();
+                    _form.GetTabResult2Menu.Checked = true;
+                    break;
+                case 3:
+                    _form.GetTabControlMain.TabPages.Insert(pageIndex, _form.GetTabPageResult3);
+                    _form.GetTabPageResult3.Show();
+                    _form.GetTabResult3Menu.Checked = true;
+                    break;
+                case 4:
+                    _form.GetTabControlMain.TabPages.Insert(pageIndex, _form.GetTabPageResult4);
+                    _form.GetTabPageResult4.Show();
+                    _form.GetTabResult4Menu.Checked = true;
+                    break;
+                default:
+                    _form.GetTabControlMain.TabPages.Insert(pageIndex, _form.GetTabPageResult1);
+                    _form.GetTabPageResult1.Show();
+                    _form.GetTabResult1Menu.Checked = true;
+                    break;
+            }
+        }
+
+        private TabPage GetTabPageByIndex(int pageIndex)
+        {
+            switch (pageIndex)
+            {
+                case 2:
+                    return _form.GetTabPageResult2;
+                case 3:
+                    return _form.GetTabPageResult3;
+                case 4:
+                    return _form.GetTabPageResult4;
+                default:
+                    return _form.GetTabPageResult1;
+            }
+        }
+
+        private ExpNormResultTabs GetFirstTabByIndex(IList<ExpNormResultTabs> list, int pageIndex)
+        {
+            return list
+                .FirstOrDefault(i => i.PageNumber == pageIndex);
         }
 
         #endregion
