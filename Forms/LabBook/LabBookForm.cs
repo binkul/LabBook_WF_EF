@@ -171,22 +171,23 @@ namespace LabBook_WF_EF.Forms.LabBook
 
         private void TabControlMain_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TabControl tab = (TabControl)sender;
+            TabPage page = TabControlMain.SelectedTab;
+            string tag = page.Tag != null ? page.Tag.ToString() : "-1";
 
-            if (tab.TabPages[tab.SelectedIndex].Name.Equals("TabPageContrast"))
+            if (page.Name.Equals("TabPageContrast"))
                 ApplicatorToolStripMenuItem.Enabled = true;
             else
                 ApplicatorToolStripMenuItem.Enabled = false;
+
+            if (tag == "-1")
+                ResultNameToolStripMenuItem.Enabled = false;
+            else
+                ResultNameToolStripMenuItem.Enabled = true;
         }
 
         private void TxtSponge_Validating(object sender, CancelEventArgs e)
         {
             _service.TxtSponge_Validating(TxtSponge.Text, TxtBrush.Text);
-        }
-
-        private void TabPageResult_DoubleClick(object sender, EventArgs e)
-        {
-
         }
 
         private void ResultTabMenuToolStripMenuItem_Click(object sender, EventArgs e)
@@ -195,22 +196,21 @@ namespace LabBook_WF_EF.Forms.LabBook
             _service.ShowOrHideResultTab(int.Parse(item.Tag.ToString()));
         }
 
-        //private bool removed = false;
+        private void ResultNameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TabPage page = TabControlMain.SelectedTab;
+            string tag = page.Tag != null ? page.Tag.ToString() : "-1";
+
+            if (tag == "-1")
+                return;
+            else
+                _service.ChangeTabPageName(int.Parse(tag));
+        }
+
         private void ToolStripAdd_Click(object sender, EventArgs e)
         {
-            //if (!removed)
-            //{
-            //    TabPageResult1.Hide();
-            //    TabControlMain.TabPages.Remove(TabPageResult1);
-            //}
-            //else
-            //{
-            //    TabControlMain.TabPages.Insert(7, TabPageResult1);
-            //    TabPageResult1.Show();
-            //    TabControlMain.SelectedTab = TabPageResult1;
-            //}
 
-            //removed = !removed;
         }
+
     }
 }

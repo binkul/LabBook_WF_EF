@@ -179,6 +179,9 @@ namespace LabBook_WF_EF.Service
             view.Columns.Remove("Observation");
             view.Columns.Remove("Remarks");
             view.Columns.Remove("Created");
+            view.Columns.Remove("ExpContrastClass");
+            view.Columns.Remove("ExpGlossClass");
+            view.Columns.Remove("ExpScrubClass");
 
             view.Columns["Id"].HeaderText = "Nr D";
             view.Columns["Id"].ReadOnly = true;
@@ -780,6 +783,16 @@ namespace LabBook_WF_EF.Service
             return cClass;
         }
 
+        private ExpNormResultTabs GetNormResultTabByTabIndex(long labbookId, long userId, int pageIndex)
+        {
+            return _context.ExpNormResultTabs
+                .AsNoTracking()
+                .Where(i => i.LabBookId == labbookId)
+                .Where(i => i.UserId == userId)
+                .Where(i => i.PageNumber == pageIndex)
+                .FirstOrDefault();
+        }
+
         #endregion
 
         #region Current
@@ -891,16 +904,15 @@ namespace LabBook_WF_EF.Service
         {
             if (labbookId == 0) return;
 
-            IList<ExpNormResultTabs> expNormresultTabList = GetNormResultTabs(labbookId, userId);
+            IList<ExpNormResultTabs> expNormResultTabList = GetNormResultTabs(labbookId, userId);
 
-            if (expNormresultTabList.Count == 0)
+            if (expNormResultTabList.Count == 0)
             {
-                _form.GetTabPageResult1.Text = "Wyniki";
-                HideUnusedTabPages();
+                HideAllNormTabs();
             }
             else
             {
-                IList<int> pageNumbers = expNormresultTabList.Select(i => i.PageNumber).ToList();
+                IList<int> pageNumbers = expNormResultTabList.Select(i => i.PageNumber).ToList();
                 var tabPages = _form.GetTabControlMain.TabPages;
 
                 foreach(TabPages enumPage in Enum.GetValues(typeof(TabPages)))
@@ -908,7 +920,7 @@ namespace LabBook_WF_EF.Service
                     TabPage tabPage = GetTabPageByTab(enumPage);
                     if (pageNumbers.Contains((int)enumPage))
                     {
-                        ExpNormResultTabs expNormResultTab = GetFirstTabByIndex(expNormresultTabList, enumPage);
+                        ExpNormResultTabs expNormResultTab = GetFirstTabByIndex(expNormResultTabList, enumPage);
 
                         if (expNormResultTab.TabVisibility)
                         {
@@ -958,57 +970,25 @@ namespace LabBook_WF_EF.Service
             ExpLabBook currentLabBook = GetCurrentLabBook;
             if (currentLabBook == null) return;
 
-            ExpNormResultTabs expNormResultTabs = _context.ExpNormResultTabs
-                                                     .AsNoTracking()
-                                                     .Where(i => i.LabBookId == currentLabBook.Id)
-                                                     .Where(i => i.UserId == currentLabBook.User.Id)
-                                                     .Where(i => i.PageNumber == pageIndex)
-                                                     .FirstOrDefault();
+            ExpNormResultTabs expNormResultTabs = GetNormResultTabByTabIndex(currentLabBook.Id, currentLabBook.UserId, pageIndex) 
+                ?? new ExpNormResultTabs(currentLabBook.Id, currentLabBook.UserId, pageIndex, false, "Wyniki " + pageIndex);
+            
+            expNormResultTabs.TabVisibility = !expNormResultTabs.TabVisibility;
 
-            switch (pageIndex)
-            {
-                case 1:
-                    if (expNormResultTabs == null)
-                    {
-                        expNormResultTabs = new ExpNormResultTabs()
-                        {
-                            PageNumber = 1,
-                            LabBookId = currentLabBook.Id,
-                            UserId = currentLabBook.User.Id,
-                            TabVisibility = false,
-                            TabHeaderName = "Wyniki"
-                        };
-                    }
+            if (expNormResultTabs.TabVisibility)
+                ShowOneTab((TabPages)pageIndex);
+            else
+                HideOneTab((TabPages)pageIndex);
 
-                    expNormResultTabs.TabVisibility = !expNormResultTabs.TabVisibility;
-
-                    if (expNormResultTabs.TabVisibility)
-                    {
-                        ShowOneTab(TabPages.One);
-                    }
-                    else
-                    {
-                        HideOneTab(TabPages.One);
-                    }
-
-                    // delete
-                    // save
-
-                    break;
-                case 2:
-
-                    break;
-                case 3:
-
-                    break;
-                default:
-
-                    break;
-            }
+            if (expNormResultTabs.Id > 0)
+                _normRepository.UpdateQuick(expNormResultTabs);
+            else
+                _normRepository.SaveQuick(expNormResultTabs);
         }
 
-        private void HideUnusedTabPages()
+        private void HideAllNormTabs()
         {
+            HideOneTab(TabPages.One);
             HideOneTab(TabPages.Two);
             HideOneTab(TabPages.Three);
             HideOneTab(TabPages.Four);
@@ -1048,7 +1028,7 @@ namespace LabBook_WF_EF.Service
         private void ShowOneTab(TabPages tab)
         {
             TabPage tabPage;
-            int index = _form.GetTabControlMain.TabPages.Count - 1;
+            int index = _form.GetTabControlMain.TabPages.Count;
 
             switch (tab)
             {
@@ -1093,25 +1073,15 @@ namespace LabBook_WF_EF.Service
             }
         }
 
-        private TabPage GetTabPageByIndex(int index)
-        {
-            switch (index)
-            {
-                case 2:
-                    return _form.GetTabPageResult2;
-                case 3:
-                    return _form.GetTabPageResult3;
-                case 4:
-                    return _form.GetTabPageResult4;
-                default:
-                    return _form.GetTabPageResult1;
-            }
-        }
-
         private ExpNormResultTabs GetFirstTabByIndex(IList<ExpNormResultTabs> list, TabPages tab)
         {
             return list
                 .FirstOrDefault(i => i.PageNumber == (int)tab);
+        }
+
+        public void ChangeTabPageName(int pageIndex)
+        {
+
         }
 
         #endregion

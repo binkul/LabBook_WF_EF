@@ -9,5 +9,16 @@ namespace LabBook_WF_EF.EntityModels
         public int PageNumber { get; set; }
         public bool TabVisibility { get; set; } = false;
         public string TabHeaderName { get; set; }
+
+        public ExpNormResultTabs() { }
+
+        public ExpNormResultTabs(long labBookId, long userId, int pageNumber, bool tabVisibility, string tabHeaderName)
+        {
+            LabBookId = labBookId;
+            UserId = userId;
+            PageNumber = pageNumber;
+            TabVisibility = tabVisibility;
+            TabHeaderName = tabHeaderName;
+        }
     }
 }
