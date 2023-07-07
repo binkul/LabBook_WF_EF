@@ -163,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commons\CommonFunctions.cs" />
+    <Compile Include="Commons\DialogBox.cs" />
     <Compile Include="Commons\ObservableListSource.cs" />
     <Compile Include="Commons\State.cs" />
     <Compile Include="ConfigData.cs" />

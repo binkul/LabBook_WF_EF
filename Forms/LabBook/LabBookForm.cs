@@ -180,9 +180,15 @@ namespace LabBook_WF_EF.Forms.LabBook
                 ApplicatorToolStripMenuItem.Enabled = false;
 
             if (tag == "-1")
+            {
                 ResultNameToolStripMenuItem.Enabled = false;
+                NormToolStripMenuItem.Enabled = false;
+            }
             else
+            {
                 ResultNameToolStripMenuItem.Enabled = true;
+                NormToolStripMenuItem.Enabled = true;
+            }
         }
 
         private void TxtSponge_Validating(object sender, CancelEventArgs e)
@@ -207,9 +213,16 @@ namespace LabBook_WF_EF.Forms.LabBook
                 _service.ChangeTabPageName(int.Parse(tag));
         }
 
+        private void NormTestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem menu = (ToolStripMenuItem)sender;
+            string type = menu.Tag != null ? menu.Tag.ToString() : "Pusty";
+            _service.InsertNormResultTest(type);
+        }
+
         private void ToolStripAdd_Click(object sender, EventArgs e)
         {
-
+            
         }
 
     }

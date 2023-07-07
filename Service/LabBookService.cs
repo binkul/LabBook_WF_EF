@@ -23,6 +23,31 @@ namespace LabBook_WF_EF.Service
         Four=4
     }
 
+    enum NormTests
+    {
+        Empty,
+        Anti_Flash,
+        Clemens,
+        Cone_plate,
+        Drying_time,
+        Solids,
+        Condensation_chamber,
+        Salt_chamber,
+        UV_chamber,
+        Hiding,
+        Visual_aspect,
+        Vapour_permeablitiy,
+        Stains,
+        Gloss,
+        Adhession,
+        Hiding_power,
+        Flow_limit,
+        Scrubing,
+        Yelowness_40,
+        Yelowness_100,
+        Flexibility
+    }
+
     public class LabBookService
     {
         private static readonly string deleteColumn = "Del";
@@ -920,7 +945,7 @@ namespace LabBook_WF_EF.Service
                     TabPage tabPage = GetTabPageByTab(enumPage);
                     if (pageNumbers.Contains((int)enumPage))
                     {
-                        ExpNormResultTabs expNormResultTab = GetFirstTabByIndex(expNormResultTabList, enumPage);
+                        ExpNormResultTabs expNormResultTab = expNormResultTabList.FirstOrDefault(i => i.PageNumber == (int)enumPage);
 
                         if (expNormResultTab.TabVisibility)
                         {
@@ -967,23 +992,17 @@ namespace LabBook_WF_EF.Service
 
         public void ShowOrHideResultTab(int pageIndex)
         {
-            ExpLabBook currentLabBook = GetCurrentLabBook;
-            if (currentLabBook == null) return;
+            ExpNormResultTabs tab = GetFirstOrNewNormResultTab(pageIndex);
+            if (tab == null) return;
 
-            ExpNormResultTabs expNormResultTabs = GetNormResultTabByTabIndex(currentLabBook.Id, currentLabBook.UserId, pageIndex) 
-                ?? new ExpNormResultTabs(currentLabBook.Id, currentLabBook.UserId, pageIndex, false, "Wyniki " + pageIndex);
-            
-            expNormResultTabs.TabVisibility = !expNormResultTabs.TabVisibility;
+            tab.TabVisibility = !tab.TabVisibility;
 
-            if (expNormResultTabs.TabVisibility)
+            if (tab.TabVisibility)
                 ShowOneTab((TabPages)pageIndex);
             else
                 HideOneTab((TabPages)pageIndex);
 
-            if (expNormResultTabs.Id > 0)
-                _normRepository.UpdateQuick(expNormResultTabs);
-            else
-                _normRepository.SaveQuick(expNormResultTabs);
+            SaveTabPageSettings(tab);
         }
 
         private void HideAllNormTabs()
@@ -1073,15 +1092,106 @@ namespace LabBook_WF_EF.Service
             }
         }
 
-        private ExpNormResultTabs GetFirstTabByIndex(IList<ExpNormResultTabs> list, TabPages tab)
+        private ExpNormResultTabs GetFirstOrNewNormResultTab(int pageIndex)
         {
-            return list
-                .FirstOrDefault(i => i.PageNumber == (int)tab);
+            ExpLabBook currentLabBook = GetCurrentLabBook;
+            if (currentLabBook == null) return null;
+
+            return GetNormResultTabByTabIndex(currentLabBook.Id, currentLabBook.UserId, pageIndex)
+                ?? new ExpNormResultTabs(currentLabBook.Id, currentLabBook.UserId, pageIndex, false, "Wyniki " + pageIndex);
         }
 
         public void ChangeTabPageName(int pageIndex)
         {
+            var name = "";
+            if (DialogBox.InputBox("Zmiana nazwy", "Podaj nową nazwę dla zakładki", ref name) != DialogResult.OK) return;
 
+            if (string.IsNullOrEmpty(name)) return;
+
+            ExpNormResultTabs tab = GetFirstOrNewNormResultTab(pageIndex);
+            if (tab == null) return;
+
+            tab.TabHeaderName = name;
+            _form.GetTabControlMain.SelectedTab.Text = name;
+
+            SaveTabPageSettings(tab);
+        }
+
+        public void InsertNormResultTest(string normTest)
+        {
+            NormTests testType = NormTests.Empty;
+            if (Enum.IsDefined(typeof(NormTests), normTest))
+            {
+                testType = (NormTests)Enum.Parse(typeof(NormTests), normTest);
+            }
+
+            switch(testType)
+            {
+                case NormTests.Adhession:
+
+                    break;
+                case NormTests.Anti_Flash:
+
+                    break;
+                case NormTests.Clemens:
+
+                    break;
+                case NormTests.Condensation_chamber:
+
+                    break;
+                case NormTests.Cone_plate:
+
+                    break;
+                case NormTests.Drying_time:
+
+                    break;
+                case NormTests.Flexibility:
+
+                    break;
+                case NormTests.Flow_limit:
+
+                    break;
+                case NormTests.Gloss:
+
+                    break;
+                case NormTests.Hiding:
+
+                    break;
+                case NormTests.Hiding_power:
+
+                    break;
+                case NormTests.Salt_chamber:
+
+                    break;
+                case NormTests.Scrubing:
+
+                    break;
+                case NormTests.Solids:
+
+                    break;
+                case NormTests.Stains:
+
+                    break;
+                case NormTests.UV_chamber:
+
+                    break;
+                case NormTests.Vapour_permeablitiy:
+
+                    break;
+                case NormTests.Visual_aspect:
+
+                    break;
+                case NormTests.Yelowness_100:
+
+                    break;
+                case NormTests.Yelowness_40:
+
+                    break;
+                default:
+
+                    break;
+
+            }
         }
 
         #endregion
@@ -1559,6 +1669,14 @@ namespace LabBook_WF_EF.Service
             }
 
             _context.SaveChanges();
+        }
+
+        private void SaveTabPageSettings(ExpNormResultTabs tab)
+        {
+            if (tab.Id > 0)
+                _normRepository.UpdateQuick(tab);
+            else
+                _normRepository.SaveQuick(tab);
         }
 
         #endregion
