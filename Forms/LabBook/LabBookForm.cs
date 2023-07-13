@@ -158,6 +158,12 @@ namespace LabBook_WF_EF.Forms.LabBook
                 _service.DataGridContrastColumnSizeChanged();
         }
 
+        private void DgvNormResultTab1_Resize(object sender, EventArgs e)
+        {
+            if (DgvContrast.Columns.Count > 0)
+                _service.DataGridResultsColumnSizeChanged((DataGridView)sender);
+        }
+
         private void ViscosityViewToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem item = (ToolStripMenuItem)sender;
@@ -217,7 +223,27 @@ namespace LabBook_WF_EF.Forms.LabBook
         {
             ToolStripMenuItem menu = (ToolStripMenuItem)sender;
             string type = menu.Tag != null ? menu.Tag.ToString() : "Pusty";
-            _service.InsertNormResultTest(type);
+
+            TabPage page = TabControlMain.SelectedTab;
+            string pageName = page.Name;
+            int index;
+            switch (pageName)
+            {
+                case "TabPageResult2":
+                    index = 2;
+                    break;
+                case "TabPageResult3":
+                    index = 3;
+                    break;
+                case "TabPageResult4":
+                    index = 4;
+                    break;
+                default:
+                    index = 1;
+                    break;
+            }
+
+            _service.InsertNormResultTest(type, index);
         }
 
         private void ToolStripAdd_Click(object sender, EventArgs e)

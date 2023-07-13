@@ -558,6 +558,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.DgvNormResultTab1.Size = new System.Drawing.Size(1108, 429);
             this.DgvNormResultTab1.TabIndex = 0;
             this.DgvNormResultTab1.Tag = "";
+            this.DgvNormResultTab1.Resize += new System.EventHandler(this.DgvNormResultTab1_Resize);
             // 
             // TabPageResult2
             // 
@@ -786,7 +787,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             // 
             this.ApplicatorToolStripMenuItem.Enabled = false;
             this.ApplicatorToolStripMenuItem.Name = "ApplicatorToolStripMenuItem";
-            this.ApplicatorToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.ApplicatorToolStripMenuItem.Size = new System.Drawing.Size(189, 28);
             this.ApplicatorToolStripMenuItem.Text = "Nowe krycie";
             // 
             // NormToolStripMenuItem
@@ -815,7 +816,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.zginanieISOToolStripMenuItem});
             this.NormToolStripMenuItem.Enabled = false;
             this.NormToolStripMenuItem.Name = "NormToolStripMenuItem";
-            this.NormToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.NormToolStripMenuItem.Size = new System.Drawing.Size(189, 28);
             this.NormToolStripMenuItem.Text = "Normy";
             // 
             // pustyToolStripMenuItem

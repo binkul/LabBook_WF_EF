@@ -632,7 +632,7 @@ namespace LabBook_WF_EF.Service
             view.Columns["Substrate"].Width = 100;
             view.Columns["Substrate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            view.Columns["Unit"].HeaderText = "Jednostka";
+            view.Columns["Unit"].HeaderText = "Jedn.";
             view.Columns["Unit"].DisplayIndex = ++displayIndex;
             view.Columns["Unit"].SortMode = DataGridViewColumnSortMode.NotSortable;
             view.Columns["Unit"].Width = 80;
@@ -1117,30 +1117,48 @@ namespace LabBook_WF_EF.Service
             SaveTabPageSettings(tab);
         }
 
-        public void InsertNormResultTest(string normTest)
+        public void InsertNormResultTest(string normTest, int pageNumber)
         {
+            int position = _normResults.Count;
+            ExpLabBook currentLabBook = GetCurrentLabBook;
+            if (currentLabBook == null) return;
+
             NormTests testType = NormTests.Empty;
             if (Enum.IsDefined(typeof(NormTests), normTest))
             {
                 testType = (NormTests)Enum.Parse(typeof(NormTests), normTest);
             }
 
+            ExpNormResult expNormResult = new ExpNormResult(currentLabBook.Id, position, pageNumber, "", "", "", "");
+            string description = "";
+            string norm = "";
+            string requirement = "";
+            string unit = "";
             switch(testType)
             {
                 case NormTests.Adhession:
-
+                    description = "Przyczepność";
+                    norm = "ISO 2409";
+                    unit = "klasa";
                     break;
                 case NormTests.Anti_Flash:
-
+                    description = "Flash korozja";
+                    norm = "Wewnętrzna";
+                    unit = "Jest/Brak";
                     break;
                 case NormTests.Clemens:
-
+                    description = "Odporność na zarysowanie";
+                    norm = "ISO 1518-1";
                     break;
                 case NormTests.Condensation_chamber:
-
+                    description = "Komora kondensacyjna";
+                    norm = "ISO 6270";
+                    unit = "Ocena ISO 4628-2 do 5 i 2409";
                     break;
                 case NormTests.Cone_plate:
-
+                    description = "Lepkość ICI";
+                    norm = "ISO 2884-1";
+                    unit = "Puazy";
                     break;
                 case NormTests.Drying_time:
 
@@ -1188,10 +1206,13 @@ namespace LabBook_WF_EF.Service
 
                     break;
                 default:
-
                     break;
-
             }
+
+            expNormResult.Description = description;
+            expNormResult.Norm = norm;
+            expNormResult.Requirement = requirement;
+            expNormResult.Unit = unit;
         }
 
         #endregion
@@ -1430,6 +1451,22 @@ namespace LabBook_WF_EF.Service
             view.Columns["Tw"].Width = (int)(width * 0.1);
             view.Columns["Sp"].Width = (int)(width * 0.1);
             view.Columns["Comments"].Width = (int)(width * 0.28);
+        }
+
+        public void DataGridResultsColumnSizeChanged(DataGridView dataGridView)
+        {
+            int width = dataGridView.Width - (dataGridView.RowHeadersWidth + dataGridView.Columns["Del"].Width);
+
+            dataGridView.Columns["DateCreated"].Width = (int)(width * 0.07);
+            dataGridView.Columns["Days"].Width = (int)(width * 0.05);
+            dataGridView.Columns["Description"].Width = (int)(width * 0.1);
+            dataGridView.Columns["Norm"].Width = (int)(width * 0.1);
+            dataGridView.Columns["Requirement"].Width = (int)(width * 0.1);
+            dataGridView.Columns["ResultByString"].Width = (int)(width * 0.1);
+            dataGridView.Columns["ResultByValue"].Width = (int)(width * 0.1);
+            dataGridView.Columns["Substrate"].Width = (int)(width * 0.1);
+            dataGridView.Columns["Unit"].Width = (int)(width * 0.04);
+            dataGridView.Columns["Comment"].Width = (int)(width * 0.24);
         }
 
         public void ViscosityFieldVisibilityItem(int value)
