@@ -924,13 +924,9 @@ namespace LabBook_WF_EF.EntityModels
                     .HasColumnName("requirement")
                     .HasMaxLength(100);
 
-                entity.Property(e => e.ResultByString)
-                    .HasColumnName("result_by_string")
+                entity.Property(e => e.Result)
+                    .HasColumnName("result")
                     .HasMaxLength(500);
-
-                entity.Property(e => e.ResultByValue)
-                    .HasColumnName("result_by_value")
-                    .HasColumnType("float");
 
                 entity.Property(e => e.Substrate)
                     .HasColumnName("substrate")

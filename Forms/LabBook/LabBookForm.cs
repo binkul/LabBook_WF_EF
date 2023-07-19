@@ -89,11 +89,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             _service.Save();
         }
 
-        private void DgvLabBook_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
-        {
-            _service.IconInCellPainting(e);
-        }
-
         private void TxtTitle_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)13)
@@ -106,6 +101,12 @@ namespace LabBook_WF_EF.Forms.LabBook
             {
                 base.OnKeyPress(e);
             }
+        }
+
+
+        private void DgvLabBook_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            _service.IconInCellPainting(e);
         }
 
         private void DgvViscosity_DefaultValuesNeeded(object sender, DataGridViewRowEventArgs e)
@@ -141,11 +142,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             }
         }
 
-        private void DgvViscosity_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
-        {
-            
-        }
-
         private void DgvViscosity_Resize(object sender, EventArgs e)
         {
             if (DgvViscosity.Columns.Count > 0)
@@ -158,11 +154,20 @@ namespace LabBook_WF_EF.Forms.LabBook
                 _service.DataGridContrastColumnSizeChanged();
         }
 
-        private void DgvNormResultTab1_Resize(object sender, EventArgs e)
+        private void DgvNormResultTab_Resize(object sender, EventArgs e)
         {
-            if (DgvContrast.Columns.Count > 0)
-                _service.DataGridResultsColumnSizeChanged((DataGridView)sender);
+            var dgv = (DataGridView)sender;
+            if (dgv.Columns.Count > 0)
+                _service.DataGridResultsColumnSizeChanged(dgv);
         }
+
+        private void DgvNormResultTab_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            var dgv = (DataGridView)sender;
+            if (dgv.Columns.Count > 0)
+                _service.DataGridNormResultHideRows(dgv);
+        }
+
 
         private void ViscosityViewToolStripMenuItem_Click(object sender, EventArgs e)
         {

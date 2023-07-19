@@ -600,7 +600,7 @@ namespace LabBook_WF_EF.Service
             view.Columns["Description"].DisplayIndex = ++displayIndex;
             view.Columns["Description"].SortMode = DataGridViewColumnSortMode.NotSortable;
             view.Columns["Description"].Width = 100;
-            view.Columns["Description"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            view.Columns["Description"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             view.Columns["Norm"].HeaderText = "Norma";
             view.Columns["Norm"].DisplayIndex = ++displayIndex;
@@ -612,19 +612,13 @@ namespace LabBook_WF_EF.Service
             view.Columns["Requirement"].DisplayIndex = ++displayIndex;
             view.Columns["Requirement"].SortMode = DataGridViewColumnSortMode.NotSortable;
             view.Columns["Requirement"].Width = 100;
-            view.Columns["Requirement"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            view.Columns["Requirement"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
-            view.Columns["ResultByString"].HeaderText = "Wynik opis";
-            view.Columns["ResultByString"].DisplayIndex = ++displayIndex;
-            view.Columns["ResultByString"].SortMode = DataGridViewColumnSortMode.NotSortable;
-            view.Columns["ResultByString"].Width = 100;
-            view.Columns["ResultByString"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            view.Columns["ResultByValue"].HeaderText = "Wynik liczba";
-            view.Columns["ResultByValue"].DisplayIndex = ++displayIndex;
-            view.Columns["ResultByValue"].SortMode = DataGridViewColumnSortMode.NotSortable;
-            view.Columns["ResultByValue"].Width = 100;
-            view.Columns["ResultByValue"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            view.Columns["Result"].HeaderText = "Wynik";
+            view.Columns["Result"].DisplayIndex = ++displayIndex;
+            view.Columns["Result"].SortMode = DataGridViewColumnSortMode.NotSortable;
+            view.Columns["Result"].Width = 100;
+            view.Columns["Result"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             view.Columns["Substrate"].HeaderText = "Podłoże";
             view.Columns["Substrate"].DisplayIndex = ++displayIndex;
@@ -642,7 +636,7 @@ namespace LabBook_WF_EF.Service
             view.Columns["Comment"].DisplayIndex = ++displayIndex;
             view.Columns["Comment"].SortMode = DataGridViewColumnSortMode.NotSortable;
             view.Columns["Comment"].Width = 200;
-            view.Columns["Comment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            view.Columns["Comment"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
         }
 
         private void PrepareApplicatorMenu()
@@ -685,7 +679,7 @@ namespace LabBook_WF_EF.Service
                 .Where(i => i.LabBookId == labbookId)
                 .ToList();
 
-            list.ForEach(i => i.Modified = false);
+            //list.ForEach(i => i.Modified = false);
 
             return new ObservableListSource<ExpViscosity>(list);
         }
@@ -724,15 +718,6 @@ namespace LabBook_WF_EF.Service
             return type;
         }
 
-        private IList<ExpNormResultTabs> GetNormResultTabs(long labbookId, long userId)
-        {
-            return _context.ExpNormResultTabs
-                .AsNoTracking()
-                .Where(i => i.LabBookId == labbookId)
-                .Where(i => i.UserId == userId)
-                .ToList();
-        }
-
         private IList<ExpContrast> GetContrasts(long labbookId)
         {
             var list = _context.ExpContrast
@@ -741,9 +726,21 @@ namespace LabBook_WF_EF.Service
                 .OrderBy(i => i.Position)
                 .ToList();
 
-            list.ForEach(i => i.Modified = false);
+            //list.ForEach(i => i.Modified = false);
 
             return new ObservableListSource<ExpContrast>(list);
+        }
+
+        private IList<ExpNormResult> GetNormResults(long labbookId)
+        {
+            var list = _context.ExpNormResult
+                .Where(i => i.LabBookId == labbookId)
+                .OrderBy(i => i.Position)
+                .ToList();
+
+            //list.ForEach(i => i.Modified = false);
+
+            return new ObservableListSource<ExpNormResult>(list);
         }
 
         private IList<CmbApplicator> GetCmbApplicators()
@@ -808,6 +805,15 @@ namespace LabBook_WF_EF.Service
             return cClass;
         }
 
+        private IList<ExpNormResultTabs> GetNormResultTabs(long labbookId, long userId)
+        {
+            return _context.ExpNormResultTabs
+                .AsNoTracking()
+                .Where(i => i.LabBookId == labbookId)
+                .Where(i => i.UserId == userId)
+                .ToList();
+        }
+
         private ExpNormResultTabs GetNormResultTabByTabIndex(long labbookId, long userId, int pageIndex)
         {
             return _context.ExpNormResultTabs
@@ -842,6 +848,8 @@ namespace LabBook_WF_EF.Service
                 _conRepository.QuickSaveContrast(_contrasts);
                 GetCurrentContrast(currentLabBook.Id);
 
+                _normRepository.QuickSaveResult(_normResults);
+                GetCurrentNormResult(currentLabBook.Id);
                 PrepareCurrentNormResultTabs(currentLabBook.Id, currentLabBook.User.Id);
 
                 SetComboBoxes(currentLabBook);
@@ -983,6 +991,17 @@ namespace LabBook_WF_EF.Service
             {
                 contrast.Modified = false;
                 _contrasts.Add(contrast);
+            }
+        }
+
+        private void GetCurrentNormResult(long labbookId)
+        {
+            IList<ExpNormResult> tmpList = GetNormResults(labbookId);
+            _normResults.Clear();
+            foreach (ExpNormResult result in tmpList)
+            {
+                result.Modified = false;
+                _normResults.Add(result);
             }
         }
 
@@ -1161,49 +1180,71 @@ namespace LabBook_WF_EF.Service
                     unit = "Puazy";
                     break;
                 case NormTests.Drying_time:
-
+                    description = "Czas schnięcia";
+                    norm = "ISO 9117";
+                    unit = "Godzina";
                     break;
                 case NormTests.Flexibility:
-
+                    description = "Zginanie";
+                    norm = "ISO 6860";
+                    unit = "Średnica sforznia";
                     break;
                 case NormTests.Flow_limit:
-
+                    description = "Spływnośc grzebień";
+                    norm = "ISO 2431";
                     break;
                 case NormTests.Gloss:
-
+                    description = "Połysk";
+                    norm = "ISO 2813";
+                    unit = "Stopień";
                     break;
                 case NormTests.Hiding:
-
+                    description = "Krycie";
+                    norm = "ISO 2814";
+                    unit = "%";
                     break;
                 case NormTests.Hiding_power:
-
+                    description = "Wydajność przy 98% krycia";
+                    norm = "ISO 6504-1";
+                    unit = "l/m2";
                     break;
                 case NormTests.Salt_chamber:
-
+                    description = "odpornośc w komorze solnej";
+                    norm = "ISO 9227";
                     break;
                 case NormTests.Scrubing:
-
+                    description = "Szorowanie";
+                    norm = "ISO 11998";
+                    unit = "ubytek um";
                     break;
                 case NormTests.Solids:
-
+                    description = "Części stałe";
+                    norm = "ISO 3251";
+                    unit = "%";
                     break;
                 case NormTests.Stains:
-
+                    description = "Plamoodporność";
+                    norm = "ISO 2812-2";
                     break;
                 case NormTests.UV_chamber:
-
+                    description = "Komora UV";
                     break;
                 case NormTests.Vapour_permeablitiy:
-
+                    description = "Paroprzepuszczalność";
+                    norm = "ISO 7783-2";
+                    unit = "g/(m2*h)";
                     break;
                 case NormTests.Visual_aspect:
-
+                    description = "Wygląd w opakowaniu";
+                    norm = "ISO 1513";
                     break;
                 case NormTests.Yelowness_100:
-
+                    description = "Żółknięcie 100oC na stali";
+                    unit = "DE i DY";
                     break;
                 case NormTests.Yelowness_40:
-
+                    description = "Żółkniecie 40oC na Leneta";
+                    unit = "DE i DY";
                     break;
                 default:
                     break;
@@ -1213,6 +1254,10 @@ namespace LabBook_WF_EF.Service
             expNormResult.Norm = norm;
             expNormResult.Requirement = requirement;
             expNormResult.Unit = unit;
+            expNormResult.Modified = false;
+            expNormResult.Added = true;
+
+            _normResults.Add(expNormResult);
         }
 
         #endregion
@@ -1459,14 +1504,35 @@ namespace LabBook_WF_EF.Service
 
             dataGridView.Columns["DateCreated"].Width = (int)(width * 0.07);
             dataGridView.Columns["Days"].Width = (int)(width * 0.05);
-            dataGridView.Columns["Description"].Width = (int)(width * 0.1);
+            dataGridView.Columns["Description"].Width = (int)(width * 0.15);
             dataGridView.Columns["Norm"].Width = (int)(width * 0.1);
             dataGridView.Columns["Requirement"].Width = (int)(width * 0.1);
-            dataGridView.Columns["ResultByString"].Width = (int)(width * 0.1);
-            dataGridView.Columns["ResultByValue"].Width = (int)(width * 0.1);
+            dataGridView.Columns["Result"].Width = (int)(width * 0.15);
             dataGridView.Columns["Substrate"].Width = (int)(width * 0.1);
             dataGridView.Columns["Unit"].Width = (int)(width * 0.04);
             dataGridView.Columns["Comment"].Width = (int)(width * 0.24);
+        }
+
+        public void DataGridNormResultHideRows(DataGridView dataGridView)
+        {
+            //var tag = dataGridView.Tag;
+            //string tabIndex;
+            //if (tag == null)
+            //    return;
+            //else
+            //    tabIndex = tag.ToString();
+
+            string tabIndex = dataGridView.Tag.ToString();
+            if (string.IsNullOrEmpty(tabIndex)) return;
+
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                string cellIndex = row.Cells["PageNumber"].Value.ToString();
+                if (!cellIndex.Equals(tabIndex))
+                {
+                    row.Visible = false;
+                }
+            }
         }
 
         public void ViscosityFieldVisibilityItem(int value)
@@ -1711,9 +1777,9 @@ namespace LabBook_WF_EF.Service
         private void SaveTabPageSettings(ExpNormResultTabs tab)
         {
             if (tab.Id > 0)
-                _normRepository.UpdateQuick(tab);
+                _normRepository.QuickUpdateTabsData(tab);
             else
-                _normRepository.SaveQuick(tab);
+                _normRepository.QuickSaveTabsData(tab);
         }
 
         #endregion

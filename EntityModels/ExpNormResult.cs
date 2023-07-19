@@ -11,8 +11,7 @@ namespace LabBook_WF_EF.EntityModels
         private string _description;
         private string _norm;
         private string _requirement;
-        private string _resultByString;
-        private double? _resultByValue;
+        private string _result;
         private string _substrate;
         private string _unit;
         private string _comment;
@@ -85,16 +84,10 @@ namespace LabBook_WF_EF.EntityModels
             set { _requirement = value; Modified = true; }
         }
 
-        public string ResultByString
+        public string Result
         {
-            get => _resultByString;
-            set { _resultByString = value; Modified = true; }
-        }
-
-        public double? ResultByValue
-        {
-            get => _resultByValue;
-            set { _resultByValue = value; Modified = true; }
+            get => _result;
+            set { _result = value; Modified = true; }
         }
 
         public string Substrate

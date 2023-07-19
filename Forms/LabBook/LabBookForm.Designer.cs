@@ -272,7 +272,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.DgvViscosity.TabIndex = 0;
             this.DgvViscosity.Tag = "-1";
             this.DgvViscosity.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvViscosity_CellContentClick);
-            this.DgvViscosity.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.DgvViscosity_ColumnWidthChanged);
             this.DgvViscosity.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.DgvViscosity_DefaultValuesNeeded);
             this.DgvViscosity.Resize += new System.EventHandler(this.DgvViscosity_Resize);
             // 
@@ -558,7 +557,8 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.DgvNormResultTab1.Size = new System.Drawing.Size(1108, 429);
             this.DgvNormResultTab1.TabIndex = 0;
             this.DgvNormResultTab1.Tag = "";
-            this.DgvNormResultTab1.Resize += new System.EventHandler(this.DgvNormResultTab1_Resize);
+            this.DgvNormResultTab1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DgvNormResultTab_DataBindingComplete);
+            this.DgvNormResultTab1.Resize += new System.EventHandler(this.DgvNormResultTab_Resize);
             // 
             // TabPageResult2
             // 
@@ -960,7 +960,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.szorowanieISO11898ToolStripMenuItem.Name = "szorowanieISO11898ToolStripMenuItem";
             this.szorowanieISO11898ToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
             this.szorowanieISO11898ToolStripMenuItem.Tag = "Scrubing";
-            this.szorowanieISO11898ToolStripMenuItem.Text = "Szorowanie ISO 11898";
+            this.szorowanieISO11898ToolStripMenuItem.Text = "Szorowanie ISO 11998";
             this.szorowanieISO11898ToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
             // 
             // żółknięcie40oCISO2814ToolStripMenuItem
