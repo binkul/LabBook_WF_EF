@@ -932,10 +932,6 @@ namespace LabBook_WF_EF.EntityModels
                     .HasColumnName("substrate")
                     .HasMaxLength(100);
 
-                entity.Property(e => e.Unit)
-                    .HasColumnName("unit")
-                    .HasMaxLength(50);
-
                 entity.Property(e => e.Comment)
                     .HasColumnName("comment")
                     .HasMaxLength(500);

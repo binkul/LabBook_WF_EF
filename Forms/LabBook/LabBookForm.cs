@@ -114,31 +114,33 @@ namespace LabBook_WF_EF.Forms.LabBook
             _service.DefaultvaluesNeededForVoscosity(e);
         }
 
-        private void DgvViscosity_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DgvDeleteButton_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
             var grid = (DataGridView)sender;
             if (grid.Columns.Count == 0 || grid.Rows.Count == 0) return;
+            if (grid.Rows[e.RowIndex].IsNewRow) return;
 
             if (grid[e.ColumnIndex, e.RowIndex] is DataGridViewButtonCell)
             {
                 long id = (long)grid.Rows[e.RowIndex].Cells["Id"].Value;
-                _service.CellContentClickForViscosityButton(id, e);
-            }
-        }
 
-        private void DgvContrast_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-
-            var grid = (DataGridView)sender;
-            if (grid.Columns.Count == 0 || grid.Rows.Count == 0) return;
-
-            if (grid[e.ColumnIndex, e.RowIndex] is DataGridViewButtonCell)
-            {
-                long id = (long)grid.Rows[e.RowIndex].Cells["Id"].Value;
-                _service.CellContentClickForContrastButton(id, e);
+                string tag = grid.Name;
+                switch (tag)
+                {
+                    case "DgvViscosity":
+                        _service.CellContentClickForViscosityButton(id, e);
+                        break;
+                    case "DgvContrast":
+                        _service.CellContentClickForContrastButton(id, e);
+                        break;
+                    case "DgvNormResultTab1":
+                        _service.CellContentClickForNormButton(id, e);
+                        break;
+                    default:
+                        break;                    
+                }
             }
         }
 
@@ -166,6 +168,16 @@ namespace LabBook_WF_EF.Forms.LabBook
             var dgv = (DataGridView)sender;
             if (dgv.Columns.Count > 0)
                 _service.DataGridNormResultHideRows(dgv);
+        }
+
+        private void DgvDeleteButton_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            DataGridView dgv = (DataGridView)sender;
+            if ((e.ColumnIndex == DgvViscosity.Columns["Del"].Index) && e.Value != null)
+            {
+                DataGridViewCell cell = DgvViscosity.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                cell.ToolTipText = "Usuń";
+            }
         }
 
 

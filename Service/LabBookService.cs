@@ -277,6 +277,7 @@ namespace LabBook_WF_EF.Service
             buttonColumn.Resizable = DataGridViewTriState.False;
             buttonColumn.Width = 45;
             buttonColumn.DisplayIndex = displayIndex;
+            buttonColumn.ToolTipText = "Usuń";
             view.Columns.Add(buttonColumn);
 
             view.Columns["DateCreated"].HeaderText = "Data";
@@ -489,6 +490,7 @@ namespace LabBook_WF_EF.Service
             buttonColumn.Resizable = DataGridViewTriState.False;
             buttonColumn.Width = 45;
             buttonColumn.DisplayIndex = displayIndex;
+            buttonColumn.ToolTipText = "Usuń";
             view.Columns.Add(buttonColumn);
 
             int width = view.Width - (view.RowHeadersWidth + view.Columns["Del"].Width);
@@ -581,6 +583,7 @@ namespace LabBook_WF_EF.Service
             buttonColumn.Resizable = DataGridViewTriState.False;
             buttonColumn.Width = 45;
             buttonColumn.DisplayIndex = displayIndex;
+            buttonColumn.ToolTipText = "Usuń";
             view.Columns.Add(buttonColumn);
 
             view.Columns["DateCreated"].HeaderText = "Data";
@@ -625,12 +628,6 @@ namespace LabBook_WF_EF.Service
             view.Columns["Substrate"].SortMode = DataGridViewColumnSortMode.NotSortable;
             view.Columns["Substrate"].Width = 100;
             view.Columns["Substrate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-            view.Columns["Unit"].HeaderText = "Jedn.";
-            view.Columns["Unit"].DisplayIndex = ++displayIndex;
-            view.Columns["Unit"].SortMode = DataGridViewColumnSortMode.NotSortable;
-            view.Columns["Unit"].Width = 80;
-            view.Columns["Unit"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             view.Columns["Comment"].HeaderText = "Uwagi";
             view.Columns["Comment"].DisplayIndex = ++displayIndex;
@@ -1148,22 +1145,19 @@ namespace LabBook_WF_EF.Service
                 testType = (NormTests)Enum.Parse(typeof(NormTests), normTest);
             }
 
-            ExpNormResult expNormResult = new ExpNormResult(currentLabBook.Id, position, pageNumber, "", "", "", "");
+            ExpNormResult expNormResult = new ExpNormResult(currentLabBook.Id, position, pageNumber, "", "", "");
             string description = "";
             string norm = "";
             string requirement = "";
-            string unit = "";
             switch(testType)
             {
                 case NormTests.Adhession:
                     description = "Przyczepność";
                     norm = "ISO 2409";
-                    unit = "klasa";
                     break;
                 case NormTests.Anti_Flash:
                     description = "Flash korozja";
                     norm = "Wewnętrzna";
-                    unit = "Jest/Brak";
                     break;
                 case NormTests.Clemens:
                     description = "Odporność na zarysowanie";
@@ -1172,22 +1166,18 @@ namespace LabBook_WF_EF.Service
                 case NormTests.Condensation_chamber:
                     description = "Komora kondensacyjna";
                     norm = "ISO 6270";
-                    unit = "Ocena ISO 4628-2 do 5 i 2409";
                     break;
                 case NormTests.Cone_plate:
                     description = "Lepkość ICI";
                     norm = "ISO 2884-1";
-                    unit = "Puazy";
                     break;
                 case NormTests.Drying_time:
                     description = "Czas schnięcia";
                     norm = "ISO 9117";
-                    unit = "Godzina";
                     break;
                 case NormTests.Flexibility:
                     description = "Zginanie";
                     norm = "ISO 6860";
-                    unit = "Średnica sforznia";
                     break;
                 case NormTests.Flow_limit:
                     description = "Spływnośc grzebień";
@@ -1196,17 +1186,14 @@ namespace LabBook_WF_EF.Service
                 case NormTests.Gloss:
                     description = "Połysk";
                     norm = "ISO 2813";
-                    unit = "Stopień";
                     break;
                 case NormTests.Hiding:
                     description = "Krycie";
                     norm = "ISO 2814";
-                    unit = "%";
                     break;
                 case NormTests.Hiding_power:
                     description = "Wydajność przy 98% krycia";
                     norm = "ISO 6504-1";
-                    unit = "l/m2";
                     break;
                 case NormTests.Salt_chamber:
                     description = "odpornośc w komorze solnej";
@@ -1215,12 +1202,10 @@ namespace LabBook_WF_EF.Service
                 case NormTests.Scrubing:
                     description = "Szorowanie";
                     norm = "ISO 11998";
-                    unit = "ubytek um";
                     break;
                 case NormTests.Solids:
                     description = "Części stałe";
                     norm = "ISO 3251";
-                    unit = "%";
                     break;
                 case NormTests.Stains:
                     description = "Plamoodporność";
@@ -1232,7 +1217,6 @@ namespace LabBook_WF_EF.Service
                 case NormTests.Vapour_permeablitiy:
                     description = "Paroprzepuszczalność";
                     norm = "ISO 7783-2";
-                    unit = "g/(m2*h)";
                     break;
                 case NormTests.Visual_aspect:
                     description = "Wygląd w opakowaniu";
@@ -1240,11 +1224,9 @@ namespace LabBook_WF_EF.Service
                     break;
                 case NormTests.Yelowness_100:
                     description = "Żółknięcie 100oC na stali";
-                    unit = "DE i DY";
                     break;
                 case NormTests.Yelowness_40:
                     description = "Żółkniecie 40oC na Leneta";
-                    unit = "DE i DY";
                     break;
                 default:
                     break;
@@ -1253,7 +1235,6 @@ namespace LabBook_WF_EF.Service
             expNormResult.Description = description;
             expNormResult.Norm = norm;
             expNormResult.Requirement = requirement;
-            expNormResult.Unit = unit;
             expNormResult.Modified = false;
             expNormResult.Added = true;
 
@@ -1292,8 +1273,6 @@ namespace LabBook_WF_EF.Service
 
         public void CellContentClickForViscosityButton(long id, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= _viscosities.Count) return;
-
             if (id > 0)
             {
                 var entity = _viscosities.Where(i => i.Id == id).FirstOrDefault();
@@ -1303,26 +1282,12 @@ namespace LabBook_WF_EF.Service
                 }
 
                 _visRepository.DeleteViscosityById(id);
-
-                //QuickDelete("Delete From LabBook.dbo.ExpViscosity Where id={0}", id);
-
-                // Optional:
-                //var entity = _viscosities.Where(i => i.Id == id).FirstOrDefault();
-                //_context.ExpViscosity.Remove(entity);
-                //_context.SaveChanges();
-                // End optional
-
-                _viscosities.RemoveAt(e.RowIndex);
             }
-            else
-            {
-                _viscosities.RemoveAt(e.RowIndex);
-            }
+            _viscosities.RemoveAt(e.RowIndex);
         }
 
         public void CellContentClickForContrastButton(long id, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= _contrasts.Count) return;
             if (id > 0)
             {
                 var entity = _contrasts.Where(i => i.Id == id).FirstOrDefault();
@@ -1331,20 +1296,24 @@ namespace LabBook_WF_EF.Service
                     _context.Entry(entity).State = EntityState.Detached;
                 }
 
-                _conRepository.DeleteViscosityById(id);
-
-                // Optional:
-                //var entity = _contrasts.Where(i => i.Id == id).FirstOrDefault();
-                //_context.ExpContrast.Remove(entity);
-                //_context.SaveChanges();
-                // End optional
-
-                _contrasts.RemoveAt(e.RowIndex);
+                _conRepository.QuickDeleteById(id);
             }
-            else
+            _contrasts.RemoveAt(e.RowIndex);
+        }
+
+        public void CellContentClickForNormButton(long id, DataGridViewCellEventArgs e)
+        {
+            if (id > 0)
             {
-                _contrasts.RemoveAt(e.RowIndex);
+                var entity = _normResults.Where(i => i.Id == id).FirstOrDefault();
+                if (entity != null)
+                {
+                    _context.Entry(entity).State = EntityState.Detached;
+                }
+
+                _normRepository.QuickDeleteById(id);
             }
+            _normResults.RemoveAt(e.RowIndex);
         }
 
         public void DataGridViscosityColumnSizeChanged()
@@ -1507,28 +1476,20 @@ namespace LabBook_WF_EF.Service
             dataGridView.Columns["Description"].Width = (int)(width * 0.15);
             dataGridView.Columns["Norm"].Width = (int)(width * 0.1);
             dataGridView.Columns["Requirement"].Width = (int)(width * 0.1);
-            dataGridView.Columns["Result"].Width = (int)(width * 0.15);
+            dataGridView.Columns["Result"].Width = (int)(width * 0.19);
             dataGridView.Columns["Substrate"].Width = (int)(width * 0.1);
-            dataGridView.Columns["Unit"].Width = (int)(width * 0.04);
             dataGridView.Columns["Comment"].Width = (int)(width * 0.24);
         }
 
         public void DataGridNormResultHideRows(DataGridView dataGridView)
         {
-            //var tag = dataGridView.Tag;
-            //string tabIndex;
-            //if (tag == null)
-            //    return;
-            //else
-            //    tabIndex = tag.ToString();
-
-            string tabIndex = dataGridView.Tag.ToString();
-            if (string.IsNullOrEmpty(tabIndex)) return;
+            string tagIndex = dataGridView.Tag.ToString();
+            if (string.IsNullOrEmpty(tagIndex)) return;
 
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
                 string cellIndex = row.Cells["PageNumber"].Value.ToString();
-                if (!cellIndex.Equals(tabIndex))
+                if (!cellIndex.Equals(tagIndex))
                 {
                     row.Visible = false;
                 }

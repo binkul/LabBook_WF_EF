@@ -15,11 +15,13 @@ namespace LabBook_WF_EF.Repository
         private static readonly string _updateTabs = "Update LabBook.dbo.ExpNormResultTabs Set labbook_id=@labbook_id, user_id=@user_id, page_nr=@page_nr, " +
             "visibility=@visibility, header_name=@header_name Where id=@id";
         private static readonly string _save = "Insert Into LabBook.dbo.ExpNormResult(labbook_id, position, page_nr, description, " +
-            "norm, requirement, result, substrate, unit, comment, date_created, date_updated) Values(@labbook_id, @position, @page_nr, " +
-            "@description, @norm, @requirement, @result, @substrate, @unit, @comment, @date_created, @date_updated)";
+            "norm, requirement, result, substrate, comment, date_created, date_updated) Values(@labbook_id, @position, @page_nr, " +
+            "@description, @norm, @requirement, @result, @substrate, @comment, @date_created, @date_updated)";
         private static readonly string _update = "Update LabBook.dbo.ExpNormResult Set labbook_id=@labbook_id, position=@position, " +
             "page_nr=@page_nr, description=@description, norm=@norm, requirement=@requirement, result=@result, substrate=@substrate, " +
-            "unit=@unit, comment=@comment, date_created=@date_created, date_updated=@date_updated Where id=@id";
+            "comment=@comment, date_created=@date_created, date_updated=@date_updated Where id=@id";
+        private static readonly string _deleteById = "Delete From LabBook.dbo.ExpNormResult Where id={0}";
+
         private readonly LabBookContext _context;
 
         public ExpNormResultRepository(LabBookContext context)
@@ -86,18 +88,24 @@ namespace LabBook_WF_EF.Repository
                     new SqlParameter("@requirement", result.Requirement ?? (object)DBNull.Value),
                     new SqlParameter("@result", result.Result ?? (object)DBNull.Value),
                     new SqlParameter("@substrate", result.Substrate ?? (object)DBNull.Value),
-                    new SqlParameter("@unit", result.Unit ?? (object)DBNull.Value),
                     new SqlParameter("@comment", result.Comment ?? (object)DBNull.Value)
                 };
 
                 try
                 {
                     if (result.Added)
+                    {
                         _context.Database
                             .ExecuteSqlRaw(_save, parameters);
+                        long id = GetLastSavedId(result);
+                        result.Id = id > 0 ? id : 0;
+                    }
                     else
                         _context.Database
                             .ExecuteSqlRaw(_update, parameters);
+
+                    result.Modified = false;
+                    result.Added = false;
                 }
                 catch (SqlException ex)
                 {
@@ -113,5 +121,35 @@ namespace LabBook_WF_EF.Repository
             }
         }
 
+        public void QuickDeleteById(long id)
+        {
+            try
+            {
+                _context.Database
+                    .ExecuteSqlRaw(_deleteById, id);
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Problem z usuwanie z tabeli ExpNormResult: '" + ex.Message + "'. Błąd z poziomu DeleteNorm.",
+                    "Błąd Zapisu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Problem z usuwanie z tabeli ExpNormResult: '" + ex.Message + "'. Błąd z poziomu DeleteNorm.",
+                    "Błąd połączenia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private long GetLastSavedId(ExpNormResult expNormResult)
+        {
+            return _context.ExpNormResult
+                .Where(i => i.LabBookId == expNormResult.LabBookId)
+                .Where(i => i.DateCreated == expNormResult.DateCreated)
+                .Where(i => i.DateUpdated == expNormResult.DateUpdated)
+                .Where(i => i.Position == expNormResult.Position)
+                .Where(i => i.PageNumber == expNormResult.PageNumber)
+                .Select(i => i.Id)
+                .FirstOrDefault();
+        }
     }
 }

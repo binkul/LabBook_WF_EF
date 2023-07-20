@@ -25,7 +25,7 @@ namespace LabBook_WF_EF.Repository
             _context = context;
         }
 
-        public void DeleteViscosityById(long id)
+        public void QuickDeleteById(long id)
         {
             try
             {

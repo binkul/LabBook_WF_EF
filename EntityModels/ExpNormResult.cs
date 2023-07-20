@@ -13,7 +13,6 @@ namespace LabBook_WF_EF.EntityModels
         private string _requirement;
         private string _result;
         private string _substrate;
-        private string _unit;
         private string _comment;
 
         public DateTime DateCreated { get; set; } = DateTime.Today;
@@ -25,7 +24,7 @@ namespace LabBook_WF_EF.EntityModels
         public ExpNormResult() { }
 
         public ExpNormResult(long labbookId, int position, int pageNumber, string description, string norm, 
-            string requirement, string unit)
+            string requirement)
         {
             _labbookId = labbookId;
             _position = position;
@@ -33,7 +32,6 @@ namespace LabBook_WF_EF.EntityModels
             _description = description;
             _norm = norm;
             _requirement = requirement;
-            _unit = unit;
         }
 
         public long Id
@@ -94,12 +92,6 @@ namespace LabBook_WF_EF.EntityModels
         {
             get => _substrate;
             set { _substrate = value; Modified = true; }
-        }
-
-        public string Unit
-        {
-            get => _unit;
-            set { _unit = value; Modified = true; }
         }
 
         public string Comment

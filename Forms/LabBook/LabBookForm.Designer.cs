@@ -231,6 +231,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageObservation.Name = "TabPageObservation";
             this.TabPageObservation.Size = new System.Drawing.Size(1155, 435);
             this.TabPageObservation.TabIndex = 3;
+            this.TabPageObservation.Tag = "-1";
             this.TabPageObservation.Text = "Obserwacje";
             // 
             // TxtObservation
@@ -256,6 +257,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageViscosity.Padding = new System.Windows.Forms.Padding(3);
             this.TabPageViscosity.Size = new System.Drawing.Size(1155, 435);
             this.TabPageViscosity.TabIndex = 1;
+            this.TabPageViscosity.Tag = "-1";
             this.TabPageViscosity.Text = "Lepkość";
             // 
             // DgvViscosity
@@ -270,8 +272,9 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.DgvViscosity.RowTemplate.Height = 24;
             this.DgvViscosity.Size = new System.Drawing.Size(1152, 423);
             this.DgvViscosity.TabIndex = 0;
-            this.DgvViscosity.Tag = "-1";
-            this.DgvViscosity.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvViscosity_CellContentClick);
+            this.DgvViscosity.Tag = "";
+            this.DgvViscosity.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvDeleteButton_CellContentClick);
+            this.DgvViscosity.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DgvDeleteButton_CellFormatting);
             this.DgvViscosity.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.DgvViscosity_DefaultValuesNeeded);
             this.DgvViscosity.Resize += new System.EventHandler(this.DgvViscosity_Resize);
             // 
@@ -286,6 +289,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageContrast.Padding = new System.Windows.Forms.Padding(3);
             this.TabPageContrast.Size = new System.Drawing.Size(1155, 435);
             this.TabPageContrast.TabIndex = 4;
+            this.TabPageContrast.Tag = "-1";
             this.TabPageContrast.Text = "Krycie";
             // 
             // BtnContrastDown
@@ -324,8 +328,9 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.DgvContrast.RowTemplate.Height = 24;
             this.DgvContrast.Size = new System.Drawing.Size(1106, 423);
             this.DgvContrast.TabIndex = 0;
-            this.DgvContrast.Tag = "-1";
-            this.DgvContrast.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvContrast_CellContentClick);
+            this.DgvContrast.Tag = "";
+            this.DgvContrast.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvDeleteButton_CellContentClick);
+            this.DgvContrast.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DgvDeleteButton_CellFormatting);
             this.DgvContrast.Resize += new System.EventHandler(this.DgvContrast_Resize);
             // 
             // TabPageGloss
@@ -338,6 +343,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TabPageGloss.Name = "TabPageGloss";
             this.TabPageGloss.Size = new System.Drawing.Size(1155, 435);
             this.TabPageGloss.TabIndex = 5;
+            this.TabPageGloss.Tag = "-1";
             this.TabPageGloss.Text = "Połysk";
             // 
             // BtnGlossDown
@@ -374,7 +380,9 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.DgvGloss.RowTemplate.Height = 24;
             this.DgvGloss.Size = new System.Drawing.Size(1102, 429);
             this.DgvGloss.TabIndex = 0;
-            this.DgvGloss.Tag = "-1";
+            this.DgvGloss.Tag = "";
+            this.DgvGloss.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvDeleteButton_CellContentClick);
+            this.DgvGloss.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DgvDeleteButton_CellFormatting);
             // 
             // TabPageClassification
             // 
@@ -556,7 +564,9 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.DgvNormResultTab1.RowTemplate.Height = 24;
             this.DgvNormResultTab1.Size = new System.Drawing.Size(1108, 429);
             this.DgvNormResultTab1.TabIndex = 0;
-            this.DgvNormResultTab1.Tag = "";
+            this.DgvNormResultTab1.Tag = "1";
+            this.DgvNormResultTab1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvDeleteButton_CellContentClick);
+            this.DgvNormResultTab1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DgvDeleteButton_CellFormatting);
             this.DgvNormResultTab1.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DgvNormResultTab_DataBindingComplete);
             this.DgvNormResultTab1.Resize += new System.EventHandler(this.DgvNormResultTab_Resize);
             // 
