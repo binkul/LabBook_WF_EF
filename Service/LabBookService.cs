@@ -65,6 +65,7 @@ namespace LabBook_WF_EF.Service
         private readonly SqlConnection _sqlConnection;
         private readonly ExpViscosityRepository _visRepository;
         private readonly ExpContrastRepository _conRepository;
+        private readonly NormResultService _normService;
         private readonly ExpNormResultRepository _normRepository;
         private readonly UserDto _user;
 
@@ -97,6 +98,7 @@ namespace LabBook_WF_EF.Service
             _visRepository = new ExpViscosityRepository(_context);
             _conRepository = new ExpContrastRepository(_context);
             _normRepository = new ExpNormResultRepository(_context);
+            _normService = new NormResultService();
         }
 
         public BindingSource GetLabBookBinding => _labBookBinding;
@@ -1018,7 +1020,7 @@ namespace LabBook_WF_EF.Service
             else
                 HideOneTab((TabPages)pageIndex);
 
-            SaveTabPageSettings(tab);
+            SaveTabPageSettings(pageIndex, tab.TabHeaderName);
         }
 
         private void HideAllNormTabs()
@@ -1114,7 +1116,14 @@ namespace LabBook_WF_EF.Service
             if (currentLabBook == null) return null;
 
             return GetNormResultTabByTabIndex(currentLabBook.Id, currentLabBook.UserId, pageIndex)
-                ?? new ExpNormResultTabs(currentLabBook.Id, currentLabBook.UserId, pageIndex, false, "Wyniki " + pageIndex);
+                ?? new ExpNormResultTabs(currentLabBook.Id, currentLabBook.UserId, pageIndex, true, "Wyniki " + pageIndex);
+        }
+
+        private void SetNewTabName(string name)
+        {
+            var tag = _form.GetTabControlMain.SelectedTab.Tag;
+            if (tag != null && !tag.ToString().Equals("-1"))
+                _form.GetTabControlMain.SelectedTab.Text = name;
         }
 
         public void ChangeTabPageName(int pageIndex)
@@ -1124,121 +1133,27 @@ namespace LabBook_WF_EF.Service
 
             if (string.IsNullOrEmpty(name)) return;
 
-            ExpNormResultTabs tab = GetFirstOrNewNormResultTab(pageIndex);
-            if (tab == null) return;
-
-            tab.TabHeaderName = name;
-            _form.GetTabControlMain.SelectedTab.Text = name;
-
-            SaveTabPageSettings(tab);
+            SaveTabPageSettings(pageIndex, name);
         }
 
         public void InsertNormResultTest(string normTest, int pageNumber)
         {
-            int position = _normResults.Count;
+            int position = _normResults.Count + 1;
             ExpLabBook currentLabBook = GetCurrentLabBook;
             if (currentLabBook == null) return;
 
-            NormTests testType = NormTests.Empty;
-            if (Enum.IsDefined(typeof(NormTests), normTest))
+            NormDto normDto = _normService.GetNormResult(currentLabBook.Id, position, pageNumber, normTest);
+
+            if (!string.IsNullOrEmpty(normDto.TabName))
             {
-                testType = (NormTests)Enum.Parse(typeof(NormTests), normTest);
+                SaveTabPageSettings(pageNumber, normDto.TabName);
             }
 
-            ExpNormResult expNormResult = new ExpNormResult(currentLabBook.Id, position, pageNumber, "", "", "");
-            string description = "";
-            string norm = "";
-            string requirement = "";
-            switch(testType)
+
+            foreach (ExpNormResult expNormResult in normDto.NormList)
             {
-                case NormTests.Adhession:
-                    description = "Przyczepność";
-                    norm = "ISO 2409";
-                    break;
-                case NormTests.Anti_Flash:
-                    description = "Flash korozja";
-                    norm = "Wewnętrzna";
-                    break;
-                case NormTests.Clemens:
-                    description = "Odporność na zarysowanie";
-                    norm = "ISO 1518-1";
-                    break;
-                case NormTests.Condensation_chamber:
-                    description = "Komora kondensacyjna";
-                    norm = "ISO 6270";
-                    break;
-                case NormTests.Cone_plate:
-                    description = "Lepkość ICI";
-                    norm = "ISO 2884-1";
-                    break;
-                case NormTests.Drying_time:
-                    description = "Czas schnięcia";
-                    norm = "ISO 9117";
-                    break;
-                case NormTests.Flexibility:
-                    description = "Zginanie";
-                    norm = "ISO 6860";
-                    break;
-                case NormTests.Flow_limit:
-                    description = "Spływnośc grzebień";
-                    norm = "ISO 2431";
-                    break;
-                case NormTests.Gloss:
-                    description = "Połysk";
-                    norm = "ISO 2813";
-                    break;
-                case NormTests.Hiding:
-                    description = "Krycie";
-                    norm = "ISO 2814";
-                    break;
-                case NormTests.Hiding_power:
-                    description = "Wydajność przy 98% krycia";
-                    norm = "ISO 6504-1";
-                    break;
-                case NormTests.Salt_chamber:
-                    description = "odpornośc w komorze solnej";
-                    norm = "ISO 9227";
-                    break;
-                case NormTests.Scrubing:
-                    description = "Szorowanie";
-                    norm = "ISO 11998";
-                    break;
-                case NormTests.Solids:
-                    description = "Części stałe";
-                    norm = "ISO 3251";
-                    break;
-                case NormTests.Stains:
-                    description = "Plamoodporność";
-                    norm = "ISO 2812-2";
-                    break;
-                case NormTests.UV_chamber:
-                    description = "Komora UV";
-                    break;
-                case NormTests.Vapour_permeablitiy:
-                    description = "Paroprzepuszczalność";
-                    norm = "ISO 7783-2";
-                    break;
-                case NormTests.Visual_aspect:
-                    description = "Wygląd w opakowaniu";
-                    norm = "ISO 1513";
-                    break;
-                case NormTests.Yelowness_100:
-                    description = "Żółknięcie 100oC na stali";
-                    break;
-                case NormTests.Yelowness_40:
-                    description = "Żółkniecie 40oC na Leneta";
-                    break;
-                default:
-                    break;
+                _normResults.Add(expNormResult);
             }
-
-            expNormResult.Description = description;
-            expNormResult.Norm = norm;
-            expNormResult.Requirement = requirement;
-            expNormResult.Modified = false;
-            expNormResult.Added = true;
-
-            _normResults.Add(expNormResult);
         }
 
         #endregion
@@ -1735,8 +1650,14 @@ namespace LabBook_WF_EF.Service
             _context.SaveChanges();
         }
 
-        private void SaveTabPageSettings(ExpNormResultTabs tab)
+        private void SaveTabPageSettings(int pageIndex, string name)
         {
+            ExpNormResultTabs tab = GetFirstOrNewNormResultTab(pageIndex);
+            if (tab == null) return;
+
+            tab.TabHeaderName = name;
+            SetNewTabName(name);
+
             if (tab.Id > 0)
                 _normRepository.QuickUpdateTabsData(tab);
             else

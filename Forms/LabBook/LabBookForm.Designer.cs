@@ -221,7 +221,7 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtRemarks.Name = "TxtRemarks";
             this.TxtRemarks.Size = new System.Drawing.Size(1149, 429);
             this.TxtRemarks.TabIndex = 2;
-            this.TxtRemarks.Tag = "";
+            this.TxtRemarks.Tag = "-1";
             // 
             // TabPageObservation
             // 

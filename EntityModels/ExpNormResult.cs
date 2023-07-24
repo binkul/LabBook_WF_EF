@@ -23,15 +23,15 @@ namespace LabBook_WF_EF.EntityModels
 
         public ExpNormResult() { }
 
-        public ExpNormResult(long labbookId, int position, int pageNumber, string description, string norm, 
-            string requirement)
+        public ExpNormResult(long labbookId, int position, int pageNumber, string description, string norm, string substrate)
         {
             _labbookId = labbookId;
             _position = position;
             _pageNumber = pageNumber;
             _description = description;
             _norm = norm;
-            _requirement = requirement;
+            _substrate = substrate;
+            Added = true;
         }
 
         public long Id

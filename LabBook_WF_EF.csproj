@@ -167,6 +167,7 @@
     <Compile Include="Commons\ObservableListSource.cs" />
     <Compile Include="Commons\State.cs" />
     <Compile Include="ConfigData.cs" />
+    <Compile Include="Dto\NormDto.cs" />
     <Compile Include="Dto\UserDto.cs" />
     <Compile Include="EntityModels\CmbApplicator.cs" />
     <Compile Include="EntityModels\CmbClpDataSheets.cs" />
@@ -247,6 +248,7 @@
     <Compile Include="Repository\ExpViscosityRepository.cs" />
     <Compile Include="Security\Encrypt.cs" />
     <Compile Include="Service\LabBookService.cs" />
+    <Compile Include="Service\NormResultService.cs" />
     <Compile Include="Service\ViscosityFieldsType.cs" />
     <EmbeddedResource Include="Forms\LabBook\LabBookForm.resx">
       <DependentUpon>LabBookForm.cs</DependentUpon>
