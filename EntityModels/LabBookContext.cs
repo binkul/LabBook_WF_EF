@@ -30,6 +30,7 @@ namespace LabBook_WF_EF.EntityModels
         public virtual DbSet<CmbCurrency> CmbCurrency { get; set; }
         public virtual DbSet<CmbGlosClass> CmbGlosClass { get; set; }
         public virtual DbSet<CmbMaterialFunction> CmbMaterialFunction { get; set; }
+        public virtual DbSet<CmbNorm> CmbNorm { get; set; }
         public virtual DbSet<CmbPaintPrice> CmbPaintPrice { get; set; }
         public virtual DbSet<CmbPaintType> CmbPaintType { get; set; }
         public virtual DbSet<CmbScrubClass> CmbScrubClass { get; set; }
@@ -267,6 +268,30 @@ namespace LabBook_WF_EF.EntityModels
                     .IsRequired()
                     .HasColumnName("name")
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<CmbNorm>(entity =>
+            {
+                entity.ToTable("CmbNorm");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Norm)
+                    .HasColumnName("norm")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Type)
+                    .HasColumnName("type")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.DateCreated)
+                    .HasColumnName("date_created")
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
             });
 
             modelBuilder.Entity<CmbPaintPrice>(entity =>

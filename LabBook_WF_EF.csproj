@@ -180,6 +180,7 @@
     <Compile Include="EntityModels\CmbCurrency.cs" />
     <Compile Include="EntityModels\CmbGlosClass.cs" />
     <Compile Include="EntityModels\CmbMaterialFunction.cs" />
+    <Compile Include="EntityModels\CmbNorm.cs" />
     <Compile Include="EntityModels\CmbPaintPrice.cs" />
     <Compile Include="EntityModels\CmbPaintType.cs" />
     <Compile Include="EntityModels\CmbScrubClass.cs" />

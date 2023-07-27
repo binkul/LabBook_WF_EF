@@ -129,6 +129,7 @@ namespace LabBook_WF_EF.Service
             #region Prepare Menus
 
             PrepareApplicatorMenu();
+            PrepareNormResultmenu();
 
             #endregion
 
@@ -654,6 +655,21 @@ namespace LabBook_WF_EF.Service
             }
         }
 
+        private void PrepareNormResultmenu()
+        {
+            ToolStripMenuItem menu = _form.GetNormMenu;
+            var norms = GetNorms();
+            foreach (CmbNorm norm in norms)
+            {
+                ToolStripMenuItem newNorm = new ToolStripMenuItem();
+                newNorm.Name = "NormToolStripItem_" + norm.Id;
+                newNorm.Text = norm.Description;
+                newNorm.Tag = norm.Id;
+                newNorm.Click += AddNormFromMenu_Click;
+                menu.DropDownItems.Add(newNorm);
+            }
+        }
+
         #endregion
 
         #region Load Data from Database
@@ -783,6 +799,15 @@ namespace LabBook_WF_EF.Service
             return _context.CmbGlosClass
                 .AsNoTracking()
                 .OrderBy(i => i.Id)
+                .ToList();
+        }
+
+        private IList<CmbNorm> GetNorms()
+        {
+            return _context.CmbNorm
+                .AsNoTracking()
+                .Where(i => !i.Description.Equals("Pusty"))
+                .OrderBy(i => i.Description)
                 .ToList();
         }
 
@@ -1467,6 +1492,10 @@ namespace LabBook_WF_EF.Service
             _contrasts.Add(contrast);
         }
        
+        private void AddNormFromMenu_Click(object sender, EventArgs e)
+        {
+
+        }
         private void CmbClass_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_blockCombBoxes) return;
