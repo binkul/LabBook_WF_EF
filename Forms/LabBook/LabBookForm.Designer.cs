@@ -90,27 +90,6 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.AddToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ApplicatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.NormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pustyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.antiFlashRustTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clemensISO15181ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lepkośćConeplateISO28841ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.czasSchnięciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.częściStałeISO3251ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.komoraKondensacyjnaISO9227ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.komoraSolnaISO9227ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.komoraUVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.krycieISO2814ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ocenaWizualnaISOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.przepuszczalnośćParyISOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.plamyISO28122ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.połyskISO2813ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.przyczepnośćISO2409ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.siłaKrycia98ISO65041ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.spływnośćISOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.szorowanieISO11898ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.żółknięcie40oCISO2814ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.żółknięcie100oCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zginanieISOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lepkosciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.standardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -797,205 +776,15 @@ namespace LabBook_WF_EF.Forms.LabBook
             // 
             this.ApplicatorToolStripMenuItem.Enabled = false;
             this.ApplicatorToolStripMenuItem.Name = "ApplicatorToolStripMenuItem";
-            this.ApplicatorToolStripMenuItem.Size = new System.Drawing.Size(189, 28);
+            this.ApplicatorToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
             this.ApplicatorToolStripMenuItem.Text = "Nowe krycie";
             // 
             // NormToolStripMenuItem
             // 
-            this.NormToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pustyToolStripMenuItem,
-            this.antiFlashRustTestToolStripMenuItem,
-            this.clemensISO15181ToolStripMenuItem,
-            this.lepkośćConeplateISO28841ToolStripMenuItem,
-            this.czasSchnięciaToolStripMenuItem,
-            this.częściStałeISO3251ToolStripMenuItem,
-            this.komoraKondensacyjnaISO9227ToolStripMenuItem,
-            this.komoraSolnaISO9227ToolStripMenuItem,
-            this.komoraUVToolStripMenuItem,
-            this.krycieISO2814ToolStripMenuItem,
-            this.ocenaWizualnaISOToolStripMenuItem,
-            this.przepuszczalnośćParyISOToolStripMenuItem,
-            this.plamyISO28122ToolStripMenuItem,
-            this.połyskISO2813ToolStripMenuItem,
-            this.przyczepnośćISO2409ToolStripMenuItem,
-            this.siłaKrycia98ISO65041ToolStripMenuItem,
-            this.spływnośćISOToolStripMenuItem,
-            this.szorowanieISO11898ToolStripMenuItem,
-            this.żółknięcie40oCISO2814ToolStripMenuItem,
-            this.żółknięcie100oCToolStripMenuItem,
-            this.zginanieISOToolStripMenuItem});
             this.NormToolStripMenuItem.Enabled = false;
             this.NormToolStripMenuItem.Name = "NormToolStripMenuItem";
-            this.NormToolStripMenuItem.Size = new System.Drawing.Size(189, 28);
+            this.NormToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
             this.NormToolStripMenuItem.Text = "Normy";
-            // 
-            // pustyToolStripMenuItem
-            // 
-            this.pustyToolStripMenuItem.Name = "pustyToolStripMenuItem";
-            this.pustyToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.pustyToolStripMenuItem.Tag = "Empty";
-            this.pustyToolStripMenuItem.Text = "Pusty";
-            this.pustyToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // antiFlashRustTestToolStripMenuItem
-            // 
-            this.antiFlashRustTestToolStripMenuItem.Name = "antiFlashRustTestToolStripMenuItem";
-            this.antiFlashRustTestToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.antiFlashRustTestToolStripMenuItem.Tag = "Anti_Flash";
-            this.antiFlashRustTestToolStripMenuItem.Text = "Anti Flash rust test";
-            this.antiFlashRustTestToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // clemensISO15181ToolStripMenuItem
-            // 
-            this.clemensISO15181ToolStripMenuItem.Name = "clemensISO15181ToolStripMenuItem";
-            this.clemensISO15181ToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.clemensISO15181ToolStripMenuItem.Tag = "Clemens";
-            this.clemensISO15181ToolStripMenuItem.Text = "Clemens ISO 1518-1";
-            this.clemensISO15181ToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // lepkośćConeplateISO28841ToolStripMenuItem
-            // 
-            this.lepkośćConeplateISO28841ToolStripMenuItem.Name = "lepkośćConeplateISO28841ToolStripMenuItem";
-            this.lepkośćConeplateISO28841ToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.lepkośćConeplateISO28841ToolStripMenuItem.Tag = "Cone_plate";
-            this.lepkośćConeplateISO28841ToolStripMenuItem.Text = "Cone-plate ISO 2884-1";
-            this.lepkośćConeplateISO28841ToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // czasSchnięciaToolStripMenuItem
-            // 
-            this.czasSchnięciaToolStripMenuItem.Name = "czasSchnięciaToolStripMenuItem";
-            this.czasSchnięciaToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.czasSchnięciaToolStripMenuItem.Tag = "Drying_time";
-            this.czasSchnięciaToolStripMenuItem.Text = "Czas schnięcia ISO 9117";
-            this.czasSchnięciaToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // częściStałeISO3251ToolStripMenuItem
-            // 
-            this.częściStałeISO3251ToolStripMenuItem.Name = "częściStałeISO3251ToolStripMenuItem";
-            this.częściStałeISO3251ToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.częściStałeISO3251ToolStripMenuItem.Tag = "Solids";
-            this.częściStałeISO3251ToolStripMenuItem.Text = "Części stałe ISO 3251";
-            this.częściStałeISO3251ToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // komoraKondensacyjnaISO9227ToolStripMenuItem
-            // 
-            this.komoraKondensacyjnaISO9227ToolStripMenuItem.Name = "komoraKondensacyjnaISO9227ToolStripMenuItem";
-            this.komoraKondensacyjnaISO9227ToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.komoraKondensacyjnaISO9227ToolStripMenuItem.Tag = "Condensation_chamber";
-            this.komoraKondensacyjnaISO9227ToolStripMenuItem.Text = "Komora kondensacyjna ISO 9227";
-            this.komoraKondensacyjnaISO9227ToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // komoraSolnaISO9227ToolStripMenuItem
-            // 
-            this.komoraSolnaISO9227ToolStripMenuItem.Name = "komoraSolnaISO9227ToolStripMenuItem";
-            this.komoraSolnaISO9227ToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.komoraSolnaISO9227ToolStripMenuItem.Tag = "Salt_chamber";
-            this.komoraSolnaISO9227ToolStripMenuItem.Text = "Komora solna ISO 9227";
-            this.komoraSolnaISO9227ToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // komoraUVToolStripMenuItem
-            // 
-            this.komoraUVToolStripMenuItem.Name = "komoraUVToolStripMenuItem";
-            this.komoraUVToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.komoraUVToolStripMenuItem.Tag = "UV_chamber";
-            this.komoraUVToolStripMenuItem.Text = "Komora UV";
-            this.komoraUVToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // krycieISO2814ToolStripMenuItem
-            // 
-            this.krycieISO2814ToolStripMenuItem.Name = "krycieISO2814ToolStripMenuItem";
-            this.krycieISO2814ToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.krycieISO2814ToolStripMenuItem.Tag = "Hiding";
-            this.krycieISO2814ToolStripMenuItem.Text = "Krycie ISO 2814";
-            this.krycieISO2814ToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // ocenaWizualnaISOToolStripMenuItem
-            // 
-            this.ocenaWizualnaISOToolStripMenuItem.Name = "ocenaWizualnaISOToolStripMenuItem";
-            this.ocenaWizualnaISOToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.ocenaWizualnaISOToolStripMenuItem.Tag = "Visual_aspect";
-            this.ocenaWizualnaISOToolStripMenuItem.Text = "Ocena wizualna ISO 1513";
-            this.ocenaWizualnaISOToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // przepuszczalnośćParyISOToolStripMenuItem
-            // 
-            this.przepuszczalnośćParyISOToolStripMenuItem.Name = "przepuszczalnośćParyISOToolStripMenuItem";
-            this.przepuszczalnośćParyISOToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.przepuszczalnośćParyISOToolStripMenuItem.Tag = "Vapour_permeablitiy";
-            this.przepuszczalnośćParyISOToolStripMenuItem.Text = "Paroprzepuszczalność ISO 7783-2 ";
-            this.przepuszczalnośćParyISOToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // plamyISO28122ToolStripMenuItem
-            // 
-            this.plamyISO28122ToolStripMenuItem.Name = "plamyISO28122ToolStripMenuItem";
-            this.plamyISO28122ToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.plamyISO28122ToolStripMenuItem.Tag = "Stains";
-            this.plamyISO28122ToolStripMenuItem.Text = "Plamy ISO 2812-2";
-            this.plamyISO28122ToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // połyskISO2813ToolStripMenuItem
-            // 
-            this.połyskISO2813ToolStripMenuItem.Name = "połyskISO2813ToolStripMenuItem";
-            this.połyskISO2813ToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.połyskISO2813ToolStripMenuItem.Tag = "Gloss";
-            this.połyskISO2813ToolStripMenuItem.Text = "Połysk ISO 2813";
-            this.połyskISO2813ToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // przyczepnośćISO2409ToolStripMenuItem
-            // 
-            this.przyczepnośćISO2409ToolStripMenuItem.Name = "przyczepnośćISO2409ToolStripMenuItem";
-            this.przyczepnośćISO2409ToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.przyczepnośćISO2409ToolStripMenuItem.Tag = "Adhession";
-            this.przyczepnośćISO2409ToolStripMenuItem.Text = "Przyczepność ISO 2409";
-            this.przyczepnośćISO2409ToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // siłaKrycia98ISO65041ToolStripMenuItem
-            // 
-            this.siłaKrycia98ISO65041ToolStripMenuItem.Name = "siłaKrycia98ISO65041ToolStripMenuItem";
-            this.siłaKrycia98ISO65041ToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.siłaKrycia98ISO65041ToolStripMenuItem.Tag = "Hiding_power";
-            this.siłaKrycia98ISO65041ToolStripMenuItem.Text = "Siła krycia 98% ISO 6504-1";
-            this.siłaKrycia98ISO65041ToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // spływnośćISOToolStripMenuItem
-            // 
-            this.spływnośćISOToolStripMenuItem.Name = "spływnośćISOToolStripMenuItem";
-            this.spływnośćISOToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.spływnośćISOToolStripMenuItem.Tag = "Flow_limit";
-            this.spływnośćISOToolStripMenuItem.Text = "Spływność ISO 2431";
-            this.spływnośćISOToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // szorowanieISO11898ToolStripMenuItem
-            // 
-            this.szorowanieISO11898ToolStripMenuItem.Name = "szorowanieISO11898ToolStripMenuItem";
-            this.szorowanieISO11898ToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.szorowanieISO11898ToolStripMenuItem.Tag = "Scrubing";
-            this.szorowanieISO11898ToolStripMenuItem.Text = "Szorowanie ISO 11998";
-            this.szorowanieISO11898ToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // żółknięcie40oCISO2814ToolStripMenuItem
-            // 
-            this.żółknięcie40oCISO2814ToolStripMenuItem.Name = "żółknięcie40oCISO2814ToolStripMenuItem";
-            this.żółknięcie40oCISO2814ToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.żółknięcie40oCISO2814ToolStripMenuItem.Tag = "Yelowness_40";
-            this.żółknięcie40oCISO2814ToolStripMenuItem.Text = "Żółknięcie 40oC";
-            this.żółknięcie40oCISO2814ToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // żółknięcie100oCToolStripMenuItem
-            // 
-            this.żółknięcie100oCToolStripMenuItem.Name = "żółknięcie100oCToolStripMenuItem";
-            this.żółknięcie100oCToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.żółknięcie100oCToolStripMenuItem.Tag = "Yelowness_100";
-            this.żółknięcie100oCToolStripMenuItem.Text = "Żółknięcie 100oC";
-            this.żółknięcie100oCToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
-            // 
-            // zginanieISOToolStripMenuItem
-            // 
-            this.zginanieISOToolStripMenuItem.Name = "zginanieISOToolStripMenuItem";
-            this.zginanieISOToolStripMenuItem.Size = new System.Drawing.Size(355, 28);
-            this.zginanieISOToolStripMenuItem.Tag = "Flexibility";
-            this.zginanieISOToolStripMenuItem.Text = "Zginanie ISO 6860";
-            this.zginanieISOToolStripMenuItem.Click += new System.EventHandler(this.NormTestToolStripMenuItem_Click);
             // 
             // ViewToolStripMenuItem
             // 
@@ -1258,26 +1047,5 @@ namespace LabBook_WF_EF.Forms.LabBook
         private System.Windows.Forms.ToolStripMenuItem EditToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ResultNameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem NormToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pustyToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem antiFlashRustTestToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem clemensISO15181ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem lepkośćConeplateISO28841ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem czasSchnięciaToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem częściStałeISO3251ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem komoraKondensacyjnaISO9227ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem komoraSolnaISO9227ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem komoraUVToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem krycieISO2814ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ocenaWizualnaISOToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem przepuszczalnośćParyISOToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem plamyISO28122ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem połyskISO2813ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem przyczepnośćISO2409ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem siłaKrycia98ISO65041ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem spływnośćISOToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem szorowanieISO11898ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem żółknięcie40oCISO2814ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem żółknięcie100oCToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem zginanieISOToolStripMenuItem;
     }
 }

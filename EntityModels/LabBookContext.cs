@@ -31,6 +31,7 @@ namespace LabBook_WF_EF.EntityModels
         public virtual DbSet<CmbGlosClass> CmbGlosClass { get; set; }
         public virtual DbSet<CmbMaterialFunction> CmbMaterialFunction { get; set; }
         public virtual DbSet<CmbNorm> CmbNorm { get; set; }
+        public virtual DbSet<CmbNormDetail> CmbNormDetail { get; set; }
         public virtual DbSet<CmbPaintPrice> CmbPaintPrice { get; set; }
         public virtual DbSet<CmbPaintType> CmbPaintType { get; set; }
         public virtual DbSet<CmbScrubClass> CmbScrubClass { get; set; }
@@ -292,6 +293,35 @@ namespace LabBook_WF_EF.EntityModels
                     .HasColumnName("date_created")
                     .HasColumnType("date")
                     .HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<CmbNormDetail>(entity =>
+            {
+                entity.ToTable("CmbNormDetail");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.NormId)
+                    .HasColumnName("norm_id");
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("substrate")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.DateCreated)
+                    .HasColumnName("date_created")
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity
+                    .HasOne(d => d.CmbNorm)
+                    .WithMany(p => p.CmbNormDetails)
+                    .HasForeignKey(d => d.NormId)
+                    .OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<CmbPaintPrice>(entity =>

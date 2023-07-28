@@ -659,15 +659,32 @@ namespace LabBook_WF_EF.Service
         {
             ToolStripMenuItem menu = _form.GetNormMenu;
             var norms = GetNorms();
+
+            long idEmpty = norms
+                .Where(i => i.Description.Equals("Pusty"))
+                .Select(i => i.Id)
+                .FirstOrDefault();
+            AddNewNormMenuItem(idEmpty, "Pusty", menu);
+
             foreach (CmbNorm norm in norms)
             {
-                ToolStripMenuItem newNorm = new ToolStripMenuItem();
-                newNorm.Name = "NormToolStripItem_" + norm.Id;
-                newNorm.Text = norm.Description;
-                newNorm.Tag = norm.Id;
-                newNorm.Click += AddNormFromMenu_Click;
-                menu.DropDownItems.Add(newNorm);
+                if (norm.Description.Equals("Pusty"))
+                    continue;
+
+                AddNewNormMenuItem(norm.Id, norm.Description, menu);
             }
+        }
+
+        private void AddNewNormMenuItem(long id, string name, ToolStripMenuItem menu)
+        {
+            ToolStripMenuItem newItem = new ToolStripMenuItem
+            {
+                Name = "NormToolStripItem_" + id,
+                Text = name,
+                Tag = id
+            };
+            newItem.Click += AddNormFromMenu_Click;
+            menu.DropDownItems.Add(newItem);
         }
 
         #endregion
@@ -806,8 +823,8 @@ namespace LabBook_WF_EF.Service
         {
             return _context.CmbNorm
                 .AsNoTracking()
-                .Where(i => !i.Description.Equals("Pusty"))
                 .OrderBy(i => i.Description)
+                .Include(i => i.CmbNormDetails.OrderBy(p => p.Id))
                 .ToList();
         }
 
