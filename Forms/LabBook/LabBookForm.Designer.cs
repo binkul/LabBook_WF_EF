@@ -105,6 +105,10 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.TxtTitle = new System.Windows.Forms.TextBox();
             this.LblNrD = new System.Windows.Forms.Label();
             this.LblDate = new System.Windows.Forms.Label();
+            this.CorrosionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SurfaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DefaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CompositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TabControlMain.SuspendLayout();
             this.TabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLabBook)).BeginInit();
@@ -781,6 +785,11 @@ namespace LabBook_WF_EF.Forms.LabBook
             // 
             // NormToolStripMenuItem
             // 
+            this.NormToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DefaultToolStripMenuItem,
+            this.CorrosionToolStripMenuItem,
+            this.SurfaceToolStripMenuItem,
+            this.CompositionToolStripMenuItem});
             this.NormToolStripMenuItem.Enabled = false;
             this.NormToolStripMenuItem.Name = "NormToolStripMenuItem";
             this.NormToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
@@ -924,6 +933,30 @@ namespace LabBook_WF_EF.Forms.LabBook
             this.LblDate.TabIndex = 7;
             this.LblDate.Text = " DD-MM-YYYY";
             // 
+            // CorrosionToolStripMenuItem
+            // 
+            this.CorrosionToolStripMenuItem.Name = "CorrosionToolStripMenuItem";
+            this.CorrosionToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.CorrosionToolStripMenuItem.Text = "Korozja";
+            // 
+            // SurfaceToolStripMenuItem
+            // 
+            this.SurfaceToolStripMenuItem.Name = "SurfaceToolStripMenuItem";
+            this.SurfaceToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.SurfaceToolStripMenuItem.Text = "Powłoka";
+            // 
+            // DefaultToolStripMenuItem
+            // 
+            this.DefaultToolStripMenuItem.Name = "DefaultToolStripMenuItem";
+            this.DefaultToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.DefaultToolStripMenuItem.Text = "Fizykochemia";
+            // 
+            // CompositionToolStripMenuItem
+            // 
+            this.CompositionToolStripMenuItem.Name = "CompositionToolStripMenuItem";
+            this.CompositionToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.CompositionToolStripMenuItem.Text = "Skład";
+            // 
             // LabBookForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1047,5 +1080,9 @@ namespace LabBook_WF_EF.Forms.LabBook
         private System.Windows.Forms.ToolStripMenuItem EditToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ResultNameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem NormToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CorrosionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SurfaceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DefaultToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CompositionToolStripMenuItem;
     }
 }

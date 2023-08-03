@@ -664,18 +664,34 @@ namespace LabBook_WF_EF.Service
                 .Where(i => i.Description.Equals("Pusty"))
                 .Select(i => i.Id)
                 .FirstOrDefault();
-            AddNewNormMenuItem(idEmpty, "Pusty", menu);
+            AddNewNormMenuItem(idEmpty, "-- Pusty --", menu, true);
 
             foreach (CmbNorm norm in norms)
             {
                 if (norm.Description.Equals("Pusty"))
                     continue;
+                
+                switch(norm.Type)
+                {
+                    case "Korozja":
+                        menu = _form.GetCorrosionMenu;
+                        break;
+                    case "Powłoka":
+                        menu = _form.GetSurfaceMenu;
+                        break;
+                    case "Skład":
+                        menu = _form.GetCompositionMenu;
+                        break;
+                    default:
+                        menu = _form.GetDefaultMenu;
+                        break;
+                }
 
-                AddNewNormMenuItem(norm.Id, norm.Description, menu);
+                AddNewNormMenuItem(norm.Id, norm.Description, menu, false);
             }
         }
 
-        private void AddNewNormMenuItem(long id, string name, ToolStripMenuItem menu)
+        private void AddNewNormMenuItem(long id, string name, ToolStripMenuItem menu, bool isFirst)
         {
             ToolStripMenuItem newItem = new ToolStripMenuItem
             {
@@ -684,7 +700,11 @@ namespace LabBook_WF_EF.Service
                 Tag = id
             };
             newItem.Click += AddNormFromMenu_Click;
-            menu.DropDownItems.Add(newItem);
+
+            if (isFirst)
+                menu.DropDownItems.Insert(0, newItem);
+            else
+                menu.DropDownItems.Add(newItem);
         }
 
         #endregion
@@ -824,7 +844,7 @@ namespace LabBook_WF_EF.Service
             return _context.CmbNorm
                 .AsNoTracking()
                 .OrderBy(i => i.Description)
-                .Include(i => i.CmbNormDetails.OrderBy(p => p.Id))
+                .Include(i => i.CmbNormDetails)
                 .ToList();
         }
 

@@ -29,6 +29,10 @@ namespace LabBook_WF_EF.Forms.LabBook
         public DataGridView GetDgvNormResultTab1 => DgvNormResultTab1;
         public ToolStripMenuItem GetApplicatorMenu => ApplicatorToolStripMenuItem;
         public ToolStripMenuItem GetNormMenu => NormToolStripMenuItem;
+        public ToolStripMenuItem GetCorrosionMenu => CorrosionToolStripMenuItem;
+        public ToolStripMenuItem GetDefaultMenu => DefaultToolStripMenuItem;
+        public ToolStripMenuItem GetSurfaceMenu => SurfaceToolStripMenuItem;
+        public ToolStripMenuItem GetCompositionMenu => CompositionToolStripMenuItem;
         public ToolStripMenuItem GetTabResult1Menu => TabResult1ToolStripMenuItem;
         public ToolStripMenuItem GetTabResult2Menu => TabResult2ToolStripMenuItem;
         public ToolStripMenuItem GetTabResult3Menu => TabResult3ToolStripMenuItem;

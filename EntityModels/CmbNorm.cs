@@ -1,5 +1,5 @@
-﻿using LabBook_WF_EF.Commons;
-using System;
+﻿using System;
+using System.Collections.Generic;
 
 namespace LabBook_WF_EF.EntityModels
 {
@@ -11,7 +11,6 @@ namespace LabBook_WF_EF.EntityModels
         public string Description { get; set; }
         public DateTime DateCreated { get; set; }
 
-        public virtual ObservableListSource<CmbNormDetail> CmbNormDetails { get; set; }
-
+        public virtual IList<CmbNormDetail> CmbNormDetails { get; set; }
     }
 }
